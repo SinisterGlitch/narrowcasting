@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>{% block title %}Manage Application{% endblock %}</title>
-    {% include 'stylesheets.html.twig' %}
-    {% include 'javascript.html.twig' %}
+    <link rel="stylesheet" href="{{ asset('bundles/managecasting/css/style.css') }}"/>
 </head>
 <body>
 {% block body %}{% endblock %}
