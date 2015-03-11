@@ -1,0 +1,55 @@
+{% extends "::base.html.twig" %}
+{% block title %}ManagecastingBundle:Screen:index{% endblock %}
+{% block content_title %}Screen details{% endblock %}
+{% block body %}
+    <div class="large-12 columns content-box" style="padding-top:10px; text-align: right">
+        <a class="button secondary small" style="margin-bottom: 10px" href="{{ path('manage_casting_screen_list') }}">
+            <i class="fi-arrow-left large"></i> Back
+        </a>
+        <a class="button secondary small" style="margin-bottom: 10px" href="{{ path('manage_casting_screen_edit', { 'id': screen.id }) }}">
+            <i class="fi-page-edit large"></i> Edit
+        </a>
+        <a class="button secondary small" style="margin-bottom: 10px" href="{{  path('manage_casting_screen_new') }}">
+            <i class="fi-page-add large"></i> New
+        </a>
+        <a class="button secondary small" style="margin-bottom: 10px" href="{{ path('manage_casting_screen_delete', { 'id': screen.id }) }}">
+            <i class="fi-page-remove large"></i> Delete
+        </a>
+    </div>
+    <div class="large-12 columns content-box" style="margin-top:20px">
+        <div data-alert="" class="alert-box secondary">
+            <strong>{{ screen.name }}</strong>
+            <br/>
+            {{ screen.description }}
+            <br/>
+            <br/>
+            <div class="row collapse prefix-radius">
+                <div class="small-3 columns">
+                    <span class="prefix">public url </span>
+                </div>
+                <div class="small-9 columns">
+                    <div class="div_input"></div>
+                    <input type="text" value="http://localhost:10088/app_dev.php/webservice/screen/{{ screen.id }}/key/{{ public_key }}">
+                </div>
+            </div>
+        </div>
+        <table cellspacing="0" id="dataTable" class="display">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for playlist in playlists %}
+                <tr onclick="location.href='{{ path('manage_casting_playlist_detail', {'id': playlist.id}) }}';">
+                    <td>{{ playlist.id }}</td>
+                    <td>{{ playlist.name }}</td>
+                    <td>{{ playlist.description }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

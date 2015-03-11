@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Manage Application{% endblock %}</title>
+    {% include 'stylesheets.html.twig' %}
+    {% include 'javascript.html.twig' %}
+</head>
+<body>
+    {% if (is_granted('ROLE_USER')) %}
+    {% include 'navigation.html.twig' %}
+    <div class="row">
+        <div class="large-12 columns alert-box" style="margin-bottom:0px; font-size:1.0rem;">
+            {% block content_title %}{% endblock %}
+        </div>
+    {% endif %}
+        {% block body %}{% endblock %}
+    {% if(is_granted('ROLE_USER')) %}
+        <div class="large-12 columns" style="padding-top:5px; padding-bottom:5px; text-align: right">
+            <small>Application Developed by Germain Riahi</small>
+        </div>
+    {% endif %}
+    </div>
+</body>
+</html>

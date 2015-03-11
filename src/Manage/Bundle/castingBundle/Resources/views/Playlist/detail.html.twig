@@ -1,0 +1,44 @@
+{% extends "::base.html.twig" %}
+{% block title %}ManagecastingBundle:Playlist:index{% endblock %}
+{% block content_title %}Playlist details{% endblock %}
+{% block body %}
+    <div class="large-12 columns content-box" style="padding-top:10px; text-align: right">
+        <a class="button secondary small" style="margin-bottom: 10px" href="{{ path('manage_casting_playlist_list') }}">
+            <i class="fi-arrow-left large"></i> Back
+        </a>
+        <a class="button secondary small" style="margin-bottom: 10px" href="{{ path('manage_casting_playlist_edit', { 'id': playlist.id }) }}">
+            <i class="fi-page-edit large"></i> Edit
+        </a>
+        <a class="button secondary small" style="margin-bottom: 10px" href="{{  path('manage_casting_playlist_new') }}">
+            <i class="fi-page-add large"></i> New
+        </a>
+        <a class="button secondary small" style="margin-bottom: 10px" href="{{ path('manage_casting_playlist_delete', { 'id': playlist.id }) }}">
+            <i class="fi-page-remove large"></i> Delete
+        </a>
+    </div>
+    <div class="large-12 columns content-box" style="margin-top:20px">
+        <div data-alert="" class="alert-box secondary">
+            <strong>{{ playlist.name }}</strong>
+            <br/>
+            {{ playlist.description }}
+        </div>
+        <table cellspacing="0" id="dataTable" class="display">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for slide in slides %}
+                <tr onclick="location.href='{{ path('manage_casting_slide_detail', {'id': slide.id}) }}';">
+                    <td>{{ slide.id }}</td>
+                    <td>{{ slide.name }}</td>
+                    <td>{{ slide.description }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

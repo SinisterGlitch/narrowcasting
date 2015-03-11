@@ -1,0 +1,58 @@
+{% block form_row %}
+    <div class="row">
+        <div class="large-6 columns" style="width:100%;">
+            <div class="row collapse prefix-radius">
+                <div class="small-3 columns">
+                    <span class="prefix">{{ name }}</span>
+                </div>
+                <div class="small-9 columns">
+                    {{ form_widget(form) }}
+                </div>
+                {{ form_errors(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block form_start -%}
+    {% set method = method|upper %}
+    {%- if method in ["GET", "POST"] -%}
+        {% set form_method = method %}
+    {%- else -%}
+        {% set form_method = "POST" %}
+    {%- endif -%}
+    <form style="text-align: right" name="{{ name }}" method="{{ form_method|lower }}" action="{{ action }}"{% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}{% if multipart %} enctype="multipart/form-data"{% endif %}>
+
+    {% set message = 0 %}
+    {% if app.session.flashbag.has('success') %}
+        {% set flashbag = app.session.flashbag.get('success') %}
+        {% set message = flashbag[0] %}
+        {% set status = 'success' %}
+    {% endif %}
+    {% if app.session.flashbag.has('error') %}
+        {% set flashbag = app.session.flashbag.get('error') %}
+        {% set message = flashbag[0] %}
+        {% set status = 'alert' %}
+    {% endif %}
+
+    {% if message %}
+        <div data-alert="" class="alert-box {{ status }} radius" style="text-align: center">
+        {% set flashbag = app.session.flashbag.get('success') %}
+            <div id="flash">{{ message }}</div>
+        </div>
+    {% endif %}
+
+
+    {%- if form_method != method -%}
+    <input type="hidden" name="_method" value="{{ method }}"/>
+{%- endif -%}
+{%- endblock form_start %}
+
+{% block _manage_bundle_castingbundle_slide_file_widget -%}
+    {% if form.vars.data %}
+        <a style="width:100%" class="th" href="/{{ form.vars.data }}">
+            <img src="/{{ form.vars.data }}">
+        </a>
+        {% endif %}
+    {{ block('form_widget_simple') }}
+{% endblock %}

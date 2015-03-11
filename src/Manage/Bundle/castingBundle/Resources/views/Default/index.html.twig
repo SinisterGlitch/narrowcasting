@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title %}Homepage{% endblock %}
+{% block content_title %}Homepage{% endblock %}
+{% block body %}
+    <div class="large-12 columns content-box">
+        <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-5">
+            <li>
+                <a href="{{ path('manage_casting_store_index') }}" class="button expand radius" style="padding-top:30px;padding-bottom:30px">
+                    <i class="fi-home" style="font-size: 70px"></i> <br/>Stores
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('manage_casting_screen_index') }}" class="button expand radius custom-button" style="padding-top:30px;padding-bottom:30px">
+                    <i class="fi-projection-screen" style="font-size: 70px"></i> <br/>Screens
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('manage_casting_playlist_index') }}" class="button expand radius custom-button" style="padding-top:30px;padding-bottom:30px">
+                    <i class="fi-list" style="font-size: 70px"></i> <br/>Playlists
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('manage_casting_slide_index') }}" class="button expand radius custom-button"  style="padding-top:30px;padding-bottom:30px">
+                    <i class="fi-comments" style="font-size: 70px"></i> <br/>Slides
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('fos_user_profile_show') }}" class="button expand radius secondary" style="padding-top:30px;padding-bottom:30px">
+                    <i class="fi-torso" style="font-size: 70px"></i> <br/>Account
+                </a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

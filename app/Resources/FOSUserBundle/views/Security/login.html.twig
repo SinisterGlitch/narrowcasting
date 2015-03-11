@@ -1,0 +1,47 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <div class="login-box">
+        <div class="row">
+            <div class="large-12 columns">
+                <form action="{{ path("fos_user_security_check") }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                    {% if error %}
+                        <div data-alert class="alert-box info radius">
+                            <a href="#" class="close">&times;</a>
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
+                    <div class="row collapse prefix-radius">
+                        <div class="small-3 columns">
+                            <span class="prefix">{{ 'security.login.username'|trans }}</span>
+                        </div>
+                        <div class="small-9 columns">
+                            <input type="text" placeholder="..." id="username" name="_username" value="{{ last_username }}" required="required" />
+                        </div>
+                    </div>
+                    <div class="row collapse prefix-radius">
+                        <div class="small-3 columns">
+                            <span class="prefix">{{ 'security.login.password'|trans }}</span>
+                        </div>
+                        <div class="small-9 columns">
+                            <input type="password" placeholder="..." id="password" name="_password" required="required" />
+                        </div>
+                    </div>
+                    <div class="row" style="text-align: right">
+                        <div class="large-12 large-centered columns">
+                            <input type="submit" class="button custom-button small info radius" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans|upper }}" />
+                        </div>
+                    </div>
+                    <div class="row" style="text-align: right">
+                        <div class="large-12 large-centered columns">
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock fos_user_content %}

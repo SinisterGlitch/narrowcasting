@@ -1,0 +1,14 @@
+<script type="text/javascript" src="{{ asset('foundation/js/vendor/jquery.js') }}"></script>
+<script type="text/javascript" src="{{ asset('foundation/js/foundation/foundation.js') }}"></script>
+<script type="text/javascript" src="{{ asset('foundation/js/foundation/foundation.topbar.js') }}"></script>
+<script type="text/javascript" src="{{ asset('foundation/js/foundation/foundation.accordion.js') }}"></script>
+<script type="text/javascript" src="{{ asset('foundation/js/foundation/dataTables.foundation.js') }}"></script>
+<script type="text/javascript" src="{{ asset('foundation/js/foundation/jquery.tables.foundation.js') }}"></script>
+<script type="text/javascript" src="{{ asset('foundation/js/foundation/foundation.clearing.js') }}"></script>
+<script>
+    $( document ).ready(function() {
+        $(document).foundation();
+        $('#dataTable').dataTable();
+    });
+</script>
+{% block javascripts %}{% endblock %}

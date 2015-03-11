@@ -1,0 +1,11 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <div class="login-box">
+        <div class="row">
+            <div class="large-12 columns">
+                {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+            </div>
+        </div>
+    </div>
+{% endblock fos_user_content %}

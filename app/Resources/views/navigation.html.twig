@@ -1,0 +1,75 @@
+<nav class="top-bar" data-topbar="" role="navigation">
+    <ul class="title-area">
+        <li class="name"><h1><a href="#">BestCasting</a></h1></li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+        <ul class="right">
+            <li class="divider"></li>
+            <li class="has-dropdown not-click"><a href="#">Navigation</a>
+                <ul class="dropdown">
+                    <li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
+
+                    <li class="has-dropdown not-click"><a href="#">Stores</a>
+                        <ul class="dropdown">
+                            <li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
+                            <li class="parent-link hide-for-large-up"></li>
+                            <li><label>Stores</label></li>
+                            <li><a href="{{ path('manage_casting_screen_new') }}">New Store</a></li>
+                            <li><a href="{{ path('manage_casting_store_list') }}">Overview</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown not-click"><a href="#">Screens</a>
+                        <ul class="dropdown">
+                            <li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
+                            <li class="parent-link hide-for-large-up"></li>
+                            <li><label>Screens</label></li>
+                            <li><a href="{{ path('manage_casting_screen_new') }}">New Screen</a></li>
+                            <li><a href="{{ path('manage_casting_screen_list') }}">Overview</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown not-click"><a href="#">Playlists</a>
+                        <ul class="dropdown">
+                            <li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
+                            <li class="parent-link hide-for-large-up"></li>
+                            <li><label>Playlists</label></li>
+                            <li><a href="{{ path('manage_casting_playlist_new') }}">New Playlist</a></li>
+                            <li><a href="{{ path('manage_casting_playlist_list') }}">Overview</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown not-click"><a href="#">Slides</a>
+                        <ul class="dropdown">
+                            <li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
+                            <li class="parent-link hide-for-large-up"></li>
+                            <li><label>Slides</label></li>
+                            <li><a href="{{ path('manage_casting_slide_new') }}">New Slide</a></li>
+                            <li><a href="{{ path('manage_casting_slide_list') }}">Overview</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown not-click"><a href="#">Account</a>
+                        <ul class="dropdown">
+                            <li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
+                            <li class="parent-link hide-for-large-up"></li>
+                            <li><label>Account</label></li>
+                            <li><a href="{{ path('fos_user_profile_show') }}">Overview</a></li>
+                            <li><a href="{{ path('fos_user_profile_edit') }}">Preference</a></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li class="has-form show-for-large-up">
+                <div>
+                    <li>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                        {% else %}
+                            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                        {% endif %}
+                    </li>
+                </div>
+            </li>
+        </ul>
+    </section>
+</nav>

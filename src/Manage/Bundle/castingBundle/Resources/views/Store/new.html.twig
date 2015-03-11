@@ -1,0 +1,19 @@
+{% extends "::base.html.twig" %}
+{% block title %}ManagecastingBundle:Store:index{% endblock %}
+{% block content_title %}New Store{% endblock %}
+{% form_theme form 'ManagecastingBundle:Form:fields.html.twig' %}
+{% block body %}
+<div class="large-12 columns content-box" style="padding-top:10px; text-align: right">
+    <a class="button secondary small" style="margin-bottom: 10px" href="{{ path('manage_casting_default_index') }}">
+        <i class="fi-arrow-left large"></i> Back
+    </a>
+    <a class="button secondary small" style="margin-bottom: 10px" href="#">
+        <i class="fi-page-add large"></i> New
+    </a>
+</div>
+<div class="large-12 columns content-box" style="margin-top:20px">
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+</div>
+{% endblock %}
