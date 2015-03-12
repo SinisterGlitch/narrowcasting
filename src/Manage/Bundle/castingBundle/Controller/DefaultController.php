@@ -21,7 +21,6 @@ class DefaultController extends Controller
     /**
      * @Route("/")
      * @Template()
-     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction()
     {
