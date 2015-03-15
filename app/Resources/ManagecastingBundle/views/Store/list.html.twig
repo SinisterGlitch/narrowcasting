@@ -1,0 +1,13 @@
+{% extends 'ManagecastingBundle::layout.html.twig' %}
+
+{% block content %}
+    <table>
+        {% for store in stores %}
+            <tr onclick="location.href='{{ path('manage_casting_store_detail', {'id': store.id}) }}';">
+                <td>{{ store.id }}</td>
+                <td>{{ store.name }}</td>
+                <td>{{ store.description }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
