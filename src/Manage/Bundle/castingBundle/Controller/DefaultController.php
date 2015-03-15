@@ -20,6 +20,7 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/")
+     * @Security("has_role('ROLE_USER')")
      * @Template()
      */
     public function indexAction()
@@ -94,17 +95,5 @@ class DefaultController extends Controller
         }
 
         return false;
-    }
-
-    /**
-     * Git commit /merge test
-     *
-     * @return string
-     */
-    private function SomeGitFunction ()
-    {
-        $var1 = 'has more details';
-
-        return 'rebase success';
     }
 }
