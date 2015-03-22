@@ -1,0 +1,9 @@
+{% extends 'ManagecastingBundle::layout.html.twig' %}
+{% block title %}Stores{% endblock %}
+{% block content %}
+    {% include '@Managecasting/Store/navigation.html.twig' %}
+    <h2 class="sub-header">New store</h2>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}
