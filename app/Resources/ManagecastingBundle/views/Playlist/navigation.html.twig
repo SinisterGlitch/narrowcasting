@@ -1,0 +1,10 @@
+<div class="row placeholders">
+    <ul class="nav nav-pills">
+        <li role="presentation" class="active"><a href="{{ path('manage_casting_playlist_index') }}">Overview</a></li>
+        <li role="presentation"><a href="{{ path('manage_casting_playlist_new') }}">New playlist</a></li>
+
+        {% if app.request.attributes.get('_route') == 'manage_casting_playlist_detail' %}
+            <li role="presentation"><a href="{{ path('manage_casting_playlist_delete', {'id': playlist.id}) }}">Delete playlist</a></li>
+        {% endif %}
+    </ul>
+</div>

@@ -1,0 +1,29 @@
+{% extends 'ManagecastingBundle::layout.html.twig' %}
+
+{% block content %}
+
+    <table>
+        <tr>
+            <td>id</td>
+            <td>: {{ store.id }}</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>: {{ store.name }}</td>
+        </tr>
+        <tr>
+            <td>description</td>
+            <td>: {{ store.description }}</td>
+        </tr>
+    </table>
+
+    <table>
+        {% for screen in screens %}
+            <tr onclick="location.href='{{ path('manage_casting_screen_detail', {'id': screen.id}) }}';">
+                <td>{{ screen.id }}</td>
+                <td>{{ screen.name }}</td>
+                <td>{{ screen.description }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

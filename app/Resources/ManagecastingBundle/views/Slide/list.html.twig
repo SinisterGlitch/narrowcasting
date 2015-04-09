@@ -1,8 +1,8 @@
 {% extends 'layout.html.twig' %}
-{% block title %}Store list{% endblock %}
+{% block title %}Slide list{% endblock %}
 
 {% block content %}
-    {% include '@Managecasting/Store/navigation.html.twig' %}
+    {% include '@Managecasting/slide/navigation.html.twig' %}
     <h2 class="sub-header">Overview</h2>
 
         <table id="table" class="table table-striped" cellspacing="0" width="90%">
@@ -14,11 +14,11 @@
             </tr>
             </thead>
             <tbody>
-            {% for store in stores %}
-                <tr onclick="location.href='{{ path('manage_casting_store_detail', {'id': store.id}) }}';">
-                    <td>{{ store.id }}</td>
-                    <td>{{ store.name }}</td>
-                    <td>{{ store.description }}</td>
+            {% for slide in slides %}
+                <tr onclick="location.href='{{ path('manage_casting_slide_detail', {'id': slide.id}) }}';">
+                    <td>{{ slide.id }}</td>
+                    <td>{{ slide.name }}</td>
+                    <td>{{ slide.description }}</td>
                 </tr>
             {% endfor %}
             </tbody>

@@ -2,5 +2,9 @@
     <ul class="nav nav-pills">
         <li role="presentation" class="active"><a href="{{ path('manage_casting_store_index') }}">Overview</a></li>
         <li role="presentation"><a href="{{ path('manage_casting_store_new') }}">New store</a></li>
+
+        {% if app.request.attributes.get('_route') == 'manage_casting_store_detail' %}
+            <li role="presentation"><a href="{{ path('manage_casting_store_delete', {'id': store.id}) }}">Delete store</a></li>
+        {% endif %}
     </ul>
 </div>

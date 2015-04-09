@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Store details{% endblock %}
+
+{% block content %}
+    {% include '@Managecasting/Store/navigation.html.twig' %}
+    <h3 class="sub-header">Linked screens</h3>
+
+    <table id="table" class="table table-striped" cellspacing="0" width="90%">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for screen in screens %}
+            <tr onclick="location.href='{{ path('manage_casting_screen_detail', {'id': screen.id}) }}';">
+                <td>{{ screen.id }}</td>
+                <td>{{ screen.name }}</td>
+                <td>{{ screen.description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

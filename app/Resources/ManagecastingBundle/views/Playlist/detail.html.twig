@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Playlist details{% endblock %}
+
+{% block content %}
+    {% include '@Managecasting/playlist/navigation.html.twig' %}
+    <h3 class="sub-header">Linked playlists</h3>
+
+    <table id="table" class="table table-striped" cellspacing="0" width="90%">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for slide in slides %}
+            <tr onclick="location.href='{{ path('manage_casting_slide_detail', {'id': slide.id}) }}';">
+                <td>{{ slide.id }}</td>
+                <td>{{ slide.name }}</td>
+                <td>{{ slide.description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'ManagecastingBundle::layout.html.twig' %}
+
+{% block content %}
+
+    <table>
+        <tr>
+            <td>id</td>
+            <td>: {{ screen.id }}</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>: {{ screen.name }}</td>
+        </tr>
+        <tr>
+            <td>description</td>
+            <td>: {{ screen.description }}</td>
+        </tr>
+    </table>
+
+    <table>
+        {% for playlist in playlists %}
+            <tr onclick="location.href='{{ path('manage_casting_playlist_detail', {'id': playlist.id}) }}';">
+                <td>{{ playlist.id }}</td>
+                <td>{{ playlist.name }}</td>
+                <td>{{ playlist.description }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

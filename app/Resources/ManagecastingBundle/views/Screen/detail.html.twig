@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Screen details{% endblock %}
+
+{% block content %}
+    {% include '@Managecasting/Screen/navigation.html.twig' %}
+    <h3 class="sub-header">Linked screens</h3>
+
+    <table id="table" class="table table-striped" cellspacing="0" width="90%">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for playlist in playlists %}
+            <tr onclick="location.href='{{ path('manage_casting_playlist_detail', {'id': playlist.id}) }}';">
+                <td>{{ playlist.id }}</td>
+                <td>{{ playlist.name }}</td>
+                <td>{{ playlist.description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
