@@ -284,7 +284,7 @@ class Slide
             return;
         }
 
-        $filename = $this->getId() . '.' . $this->getFile()->getClientOriginalExtension();
+        $filename = md5(uniqid(rand(), true)) . '.' . $this->getFile()->getClientOriginalExtension();
 
         // use the original file name here but you should
         // sanitize it at least to avoid any security issues

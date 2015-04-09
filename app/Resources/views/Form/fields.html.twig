@@ -25,23 +25,20 @@
 {%- block form_start -%}
     {% set method = method|upper %}
     {%- if method in ["GET", "POST"] -%}
-    {% set form_method = method %}
-{%- else -%}
-    {% set form_method = "POST" %}
-{%- endif -%}
+        {% set form_method = method %}
+    {%- else -%}
+        {% set form_method = "POST" %}
+    {%- endif -%}
     <form class="form-horizontal" name="{{ name }}" method="{{ form_method|lower }}" action="{{ action }}"{% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}{% if multipart %} enctype="multipart/form-data"{% endif %}>
     {%- if form_method != method -%}
-    <input type="hidden" name="_method" value="{{ method }}" />
-{%- endif -%}
+        <input type="hidden" name="_method" value="{{ method }}" />
+    {%- endif -%}
 {%- endblock form_start -%}
-
-
-
 
 {% block _manage_bundle_castingbundle_slide_file_widget -%}
     {% if form.vars.data %}
         <a style="width:100%" class="th" href="/{{ form.vars.data }}">
-            <img src="/{{ form.vars.data }}">
+            <img class="img-thumbnail" src="/{{ form.vars.data }}">
         </a>
     {% endif %}
     {{ block('form_widget_simple') }}

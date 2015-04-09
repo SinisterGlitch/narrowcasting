@@ -4,6 +4,7 @@
         <li role="presentation"><a href="{{ path('manage_casting_slide_new') }}">New slide</a></li>
 
         {% if app.request.attributes.get('_route') == 'manage_casting_slide_detail' %}
+            <li role="presentation"><a href="{{ path('manage_casting_slide_edit', {'id': slide.id}) }}">Edit slide</a></li>
             <li role="presentation"><a href="{{ path('manage_casting_slide_delete', {'id': slide.id}) }}">Delete slide</a></li>
         {% endif %}
     </ul>
