@@ -45,7 +45,7 @@ class Playlist
     private $active;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Screen", inversedBy="playlists")
+     * @ORM\ManyToMany(targetEntity="Screen", inversedBy="playlists")
      * @ORM\JoinColumn(name="screen_id", referencedColumnName="id")
      **/
     private $screen;
