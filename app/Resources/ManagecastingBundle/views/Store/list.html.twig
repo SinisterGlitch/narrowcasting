@@ -3,24 +3,28 @@
 
 {% block content %}
     {% include '@Managecasting/Store/navigation.html.twig' %}
-    <h2 class="sub-header">Overview</h2>
-
-        <table id="table" class="table table-striped" cellspacing="0" width="90%">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for store in stores %}
-                <tr onclick="location.href='{{ path('manage_casting_store_detail', {'id': store.id}) }}';">
-                    <td>{{ store.id }}</td>
-                    <td>{{ store.name }}</td>
-                    <td>{{ store.description }}</td>
+    <br/>
+    <div class="panel panel-default">
+        <div class="panel-heading">Overview stores</div>
+        <div class="panel-body">
+            <table id="table" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Description</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for store in stores %}
+                    <tr onclick="location.href='{{ path('manage_casting_store_detail', {'id': store.id}) }}';">
+                        <td>{{ store.id }}</td>
+                        <td>{{ store.name }}</td>
+                        <td>{{ store.description }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
