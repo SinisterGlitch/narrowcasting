@@ -1,3 +1,4 @@
 manage_core_homepage:
-    path:     /
-    defaults: { _controller: ManageCoreBundle:Default:index }
+    type: rest
+    resource:     "ManageCoreBundle:Auth"
+    name_prefix:  api_
