@@ -1,3 +1,0 @@
-controllers:
-    resource: "@ManagecastingBundle/Controller/"
-    type:     annotation

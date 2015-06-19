@@ -1,5 +1,5 @@
-managecasting:
-    resource: "@ManagecastingBundle/Resources/config/routing.yml"
+manage_core:
+    resource: "@ManageCoreBundle/Resources/config/routing.yml"
     prefix:   /
 
 fos_user:

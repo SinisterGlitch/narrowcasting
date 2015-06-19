@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
-            new Manage\Bundle\castingBundle\ManagecastingBundle(),
+            new Bestcasting\Manage\CoreBundle\ManageCoreBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

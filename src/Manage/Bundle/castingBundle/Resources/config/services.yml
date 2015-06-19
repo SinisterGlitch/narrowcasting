@@ -1,4 +1,0 @@
-services:
-#    managecasting.example:
-#        class: Manage\Bundle\castingBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
