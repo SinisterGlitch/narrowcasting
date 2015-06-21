@@ -5,6 +5,8 @@ namespace Bestcasting\Manage\UserBundle\UserManager;
 use Doctrine\ORM\ORMException;
 use Bestcasting\Manage\UserBundle\Entity\User;
 use FOS\UserBundle\Doctrine\UserManager as FosUserManager;
+use FOS\UserBundle\Security\LoginManager;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Class UserManager
@@ -15,14 +17,22 @@ class UserManager
     /**
      * @var FosUserManager
      */
-    public $userManager;
+    private $userManager;
+
+    /**
+     * @var LoginManager
+     */
+    private $loginManager;
 
     /**
      * @param FosUserManager $userManager
+     * @param LoginManager $loginManager
      */
-    public function __construct(FosUserManager $userManager)
+    public function __construct(FosUserManager $userManager, LoginManager $loginManager)
     {
         $this->userManager = $userManager;
+
+        $this->loginManager = $loginManager;
     }
 
     /**
@@ -70,6 +80,8 @@ class UserManager
         if (!$user instanceof User) {
             throw new \Exception('Wrong username or password', 500);
         }
+
+        $this->loginManager->loginUser('main', $user);
     }
 
     /**
