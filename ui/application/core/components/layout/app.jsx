@@ -4,14 +4,19 @@ var RouteHandler = ReactRouter.RouteHandler;
 
 var Header = require('core/components/layout/header');
 
-var App = React.createClass({
+module.exports = React.createClass({
+
+    /**
+     * Render component
+     */
     render: function(){
         return (
             <div>
                 <Header />
+                <div id="main">
+                    <RouteHandler />
+                </div>
             </div>
         );
     }
 });
-
-module.exports = App;

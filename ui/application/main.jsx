@@ -2,8 +2,11 @@ var _ = require('lodash');
 var React = require('react');
 var ReactRouter = require('react-router');
 var Bootstrapper = require('bootstrapper');
+var Reflux = require('reflux');
 
-Bootstrapper();
+module.exports = function() {
+    _.assign(Reflux.ActionMethods, require('core/reflux/action-methods'));
+};
 
 // Set up application
 var App = require('core/components/layout/app');
