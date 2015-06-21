@@ -1,4 +1,7 @@
 manage_core:
-    type : rest
     resource: "@ManageCoreBundle/Resources/config/routing.yml"
+    prefix:   /api
+
+manage_user:
+    resource: "@ManageUserBundle/Resources/config/routing.yml"
     prefix:   /api

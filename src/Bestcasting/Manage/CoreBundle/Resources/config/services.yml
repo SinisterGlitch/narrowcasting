@@ -1,4 +1,0 @@
-services:
-#    manage_core.example:
-#        class: Bestcasting\Manage\CoreBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
