@@ -6,14 +6,13 @@ var Login = require('core/components/layout/login');
 
 var Header = React.createClass({
 
-    getInitialState: function () {
-        return ({
-            menu: [
-                { label:'home', route:'home'},
-                { label:'slides', route:'slides'},
-            ]
-        });
+    getMenuItems: function() {
+        return [
+            {label: 'login', route: 'login'},
+            {label: 'home', route: 'home'}
+        ]
     },
+
 
     render: function(){
         return (
@@ -23,7 +22,7 @@ var Header = React.createClass({
                         <a className="navbar-brand" href="#">BestCasting</a>
                     </div>
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <Menu items={this.state.menu} />
+                        <Menu items={this.getMenuItems()} />
                         <Login />
                     </div>
                 </nav>

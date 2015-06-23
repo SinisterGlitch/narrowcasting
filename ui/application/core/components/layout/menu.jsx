@@ -1,6 +1,7 @@
 var React = require('react');
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
 var _ = require('lodash');
-
 var Menu = React.createClass({
 
     getInitialState: function () {
@@ -9,13 +10,11 @@ var Menu = React.createClass({
         });
     },
 
-
     isActive: function (route) {
         if (route == this.state.activeRoute) {
             return 'active';
         }
     },
-
 
     render: function () {
         return (
@@ -27,12 +26,9 @@ var Menu = React.createClass({
         );
     },
 
-
     renderItem: function (item) {
         return (
-            <li className={this.isActive(item.route)}>
-                <a href={item.route}>{item.label}</a>
-            </li>
+            <Link to={item.route}>{item.label}</Link>
         );
     }
 });
