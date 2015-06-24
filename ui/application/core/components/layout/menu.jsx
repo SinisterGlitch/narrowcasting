@@ -10,7 +10,7 @@ class Menu extends React.Component {
      * Render component
      */
     render() {
-        return <ul className="nav navbar-nav">{this.props.items.map((item) => Menu.renderItem(item))}</ul>;
+        return <ul>{this.props.items.map((item) => Menu.renderItem(item))}</ul>;
     }
 
     /**
@@ -19,7 +19,7 @@ class Menu extends React.Component {
      * @param item
      */
     static renderItem(item) {
-        return <Link to={item.route}>{item.label}</Link>;
+        return <Link to={item.route}>{item.label} </Link>;
     }
 }
 

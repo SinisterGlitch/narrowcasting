@@ -13,8 +13,8 @@ class Header extends React.Component {
      */
     static getMenuItems() {
         return [
-            {label: 'login', route: 'login'},
-            {label: 'home', route: 'home'}
+            {label: 'home', route: 'home'},
+            {label: 'login', route: 'login'}
         ]
     }
 
@@ -23,16 +23,9 @@ class Header extends React.Component {
      */
     render(){
         return (
-            <div className="view">
-                <nav className="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
-                    <div className="navbar-header">
-                        <a className="navbar-brand" href="#">BestCasting</a>
-                    </div>
-                    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <Menu items={Header.getMenuItems()} />
-                        <Login />
-                    </div>
-                </nav>
+            <div>
+                <Menu items={Header.getMenuItems()} />
+                <Login />
             </div>
         );
     }
