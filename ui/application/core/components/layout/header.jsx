@@ -1,20 +1,27 @@
 var React = require('react');
-var $ = require('react');
 
 var Menu = require('core/components/layout/menu');
 var Login = require('core/components/layout/login');
 
-var Header = React.createClass({
+/**
+ * Header component
+ */
+class Header extends React.Component {
 
-    getMenuItems: function() {
+    /**
+     * Get menu items
+     */
+    static getMenuItems() {
         return [
             {label: 'login', route: 'login'},
             {label: 'home', route: 'home'}
         ]
-    },
+    }
 
-
-    render: function(){
+    /**
+     * Render component
+     */
+    render(){
         return (
             <div className="view">
                 <nav className="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
@@ -22,13 +29,13 @@ var Header = React.createClass({
                         <a className="navbar-brand" href="#">BestCasting</a>
                     </div>
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <Menu items={this.getMenuItems()} />
+                        <Menu items={Header.getMenuItems()} />
                         <Login />
                     </div>
                 </nav>
             </div>
         );
     }
-});
+}
 
 module.exports = Header;

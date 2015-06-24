@@ -4,7 +4,7 @@ namespace Bestcasting\Manage\UserBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\BrowserKit\Response;
 
 /**
  * Class UserController
@@ -18,9 +18,9 @@ class UserController extends Controller
      * @param $username
      * @param $password
      * @param $email
-     * @return JsonResponse
+     * @return Response
      */
-    public function UserCreateAction($username, $password, $email)
+    public function createUserAction($username, $password, $email)
     {
         try {
             $this->container
@@ -28,10 +28,10 @@ class UserController extends Controller
                 ->create($username, $password, $email);
 
         } catch (\Exception $e) {
-            return new JsonResponse($e->getMessage(), $e->getCode());
+            return new Response($e->getMessage(), $e->getCode());
         }
 
-        return new JsonResponse('Your account is ready to use', 200);
+        return new Response('Your account is ready to use', 200);
     }
 
     /**
@@ -39,9 +39,9 @@ class UserController extends Controller
      *
      * @param $username
      * @param $password
-     * @return JsonResponse
+     * @return Response
      */
-    public function UserLoginAction($username, $password)
+    public function LoginUserAction($username, $password)
     {
         try {
             $this->container
@@ -49,9 +49,9 @@ class UserController extends Controller
                 ->login($username, $password);
 
         } catch (\Exception $e) {
-            return new JsonResponse($e->getMessage(), $e->getCode());
+            return new Response($e->getMessage(), $e->getCode());
         }
 
-        return new JsonResponse('Your account is logged in', 200);
+        return new Response('Your account is logged in', 200);
     }
 }

@@ -1,3 +1,4 @@
 manage_user_create:
     type: rest
     resource: "ManageUserBundle:User"
+    defaults: { _format: 'json' }

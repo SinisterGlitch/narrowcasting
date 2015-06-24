@@ -46,16 +46,20 @@
 
 	var _ = __webpack_require__(1);
 	var React = __webpack_require__(3);
-	var ReactRouter = __webpack_require__(159);
 	var Reflux = __webpack_require__(198);
+	var ReactRouter = __webpack_require__(159);
+	var Routes = __webpack_require__(225);
 	
+	/**
+	 * Assign custom reflux methods to Reflux object
+	 */
 	module.exports = function() {
 	    _.assign(Reflux.ActionMethods, __webpack_require__(220));
 	};
 	
-	var App = __webpack_require__(221);
-	var Routes = __webpack_require__(225);
-	
+	/**
+	 * Build Application
+	 */
 	ReactRouter.run(Routes, function (Handler) {
 	    React.render(React.createElement(Handler, null), document.getElementById('container'));
 	});
@@ -37387,12 +37391,15 @@
 	
 	var Header = __webpack_require__(222);
 	
-	module.exports = React.createClass({displayName: "exports",
+	/**
+	 * App component
+	 */
+	var ____Class1V=React.Component;for(var ____Class1V____Key in ____Class1V){if(____Class1V.hasOwnProperty(____Class1V____Key)){App[____Class1V____Key]=____Class1V[____Class1V____Key];}}var ____SuperProtoOf____Class1V=____Class1V===null?null:____Class1V.prototype;App.prototype=Object.create(____SuperProtoOf____Class1V);App.prototype.constructor=App;App.__superConstructor__=____Class1V;function App(){"use strict";if(____Class1V!==null){____Class1V.apply(this,arguments);}}
 	
 	    /**
 	     * Render component
 	     */
-	    render: function(){
+	    Object.defineProperty(App.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement("div", null, 
 	                React.createElement(Header, null), 
@@ -37401,30 +37408,39 @@
 	                )
 	            )
 	        );
-	    }
-	});
+	    }});
+	
+	
+	module.exports = App;
 
 /***/ },
 /* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(3);
-	var $ = __webpack_require__(3);
 	
 	var Menu = __webpack_require__(223);
 	var Login = __webpack_require__(224);
 	
-	var Header = React.createClass({displayName: "Header",
+	/**
+	 * Header component
+	 */
+	var ____Class1W=React.Component;for(var ____Class1W____Key in ____Class1W){if(____Class1W.hasOwnProperty(____Class1W____Key)){Header[____Class1W____Key]=____Class1W[____Class1W____Key];}}var ____SuperProtoOf____Class1W=____Class1W===null?null:____Class1W.prototype;Header.prototype=Object.create(____SuperProtoOf____Class1W);Header.prototype.constructor=Header;Header.__superConstructor__=____Class1W;function Header(){"use strict";if(____Class1W!==null){____Class1W.apply(this,arguments);}}
 	
-	    getMenuItems: function() {
+	    /**
+	     * Get menu items
+	     */
+	    Object.defineProperty(Header,"getMenuItems",{writable:true,configurable:true,value:function() {"use strict";
 	        return [
 	            {label: 'login', route: 'login'},
 	            {label: 'home', route: 'home'}
 	        ]
-	    },
+	    }});
 	
-	
-	    render: function(){
+	    /**
+	     * Render component
+	     */
+	    Object.defineProperty(Header.prototype,"render",{writable:true,configurable:true,value:function(){"use strict";
 	        return (
 	            React.createElement("div", {className: "view"}, 
 	                React.createElement("nav", {className: "navbar navbar-default navbar-fixed-top navbar-inverse", role: "navigation"}, 
@@ -37432,14 +37448,14 @@
 	                        React.createElement("a", {className: "navbar-brand", href: "#"}, "BestCasting")
 	                    ), 
 	                    React.createElement("div", {className: "collapse navbar-collapse", id: "bs-example-navbar-collapse-1"}, 
-	                        React.createElement(Menu, {items: this.getMenuItems()}), 
+	                        React.createElement(Menu, {items: Header.getMenuItems()}), 
 	                        React.createElement(Login, null)
 	                    )
 	                )
 	            )
 	        );
-	    }
-	});
+	    }});
+	
 	
 	module.exports = Header;
 
@@ -37450,39 +37466,30 @@
 	var React = __webpack_require__(3);
 	var ReactRouter = __webpack_require__(159);
 	var Link = ReactRouter.Link;
-	var _ = __webpack_require__(1);
-	var Menu = React.createClass({displayName: "Menu",
 	
-	    getInitialState: function () {
-	        return ({
-	            activeRoute: 'home'
-	        });
-	    },
+	/**
+	 * Menu component
+	 */
+	var ____Class1Y=React.Component;for(var ____Class1Y____Key in ____Class1Y){if(____Class1Y.hasOwnProperty(____Class1Y____Key)){Menu[____Class1Y____Key]=____Class1Y[____Class1Y____Key];}}var ____SuperProtoOf____Class1Y=____Class1Y===null?null:____Class1Y.prototype;Menu.prototype=Object.create(____SuperProtoOf____Class1Y);Menu.prototype.constructor=Menu;Menu.__superConstructor__=____Class1Y;function Menu(){"use strict";if(____Class1Y!==null){____Class1Y.apply(this,arguments);}}
+	    /**
+	     * Render component
+	     */
+	    Object.defineProperty(Menu.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
+	        return React.createElement("ul", {className: "nav navbar-nav"}, this.props.items.map(function(item)  {return Menu.renderItem(item);}));
+	    }});
 	
-	    isActive: function (route) {
-	        if (route == this.state.activeRoute) {
-	            return 'active';
-	        }
-	    },
+	    /**
+	     * Render menu items
+	     *
+	     * @param item
+	     */
+	    Object.defineProperty(Menu,"renderItem",{writable:true,configurable:true,value:function(item) {"use strict";
+	        return React.createElement(Link, {to: item.route}, item.label);
+	    }});
 	
-	    render: function () {
-	        return (
-	            React.createElement("div", null, 
-	                React.createElement("ul", {className: "nav navbar-nav"}, 
-	                     _.map(this.props.items, this.renderItem) 
-	                )
-	            )
-	        );
-	    },
-	
-	    renderItem: function (item) {
-	        return (
-	            React.createElement(Link, {to: item.route}, item.label)
-	        );
-	    }
-	});
 	
 	module.exports = Menu;
+
 
 /***/ },
 /* 224 */
@@ -37490,8 +37497,15 @@
 
 	var React = __webpack_require__(3);
 	
-	var Login = React.createClass({displayName: "Login",
-	    render: function(){
+	/**
+	 * Login component
+	 */
+	var ____Class1X=React.Component;for(var ____Class1X____Key in ____Class1X){if(____Class1X.hasOwnProperty(____Class1X____Key)){Login[____Class1X____Key]=____Class1X[____Class1X____Key];}}var ____SuperProtoOf____Class1X=____Class1X===null?null:____Class1X.prototype;Login.prototype=Object.create(____SuperProtoOf____Class1X);Login.prototype.constructor=Login;Login.__superConstructor__=____Class1X;function Login(){"use strict";if(____Class1X!==null){____Class1X.apply(this,arguments);}}
+	
+	    /**
+	     * Render component
+	     */
+	    Object.defineProperty(Login.prototype,"render",{writable:true,configurable:true,value:function(){"use strict";
 	        return (
 	            React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
 	                React.createElement("li", {className: "dropdown"}, 
@@ -37506,8 +37520,8 @@
 	                )
 	            )
 	        );
-	    }
-	});
+	    }});
+	
 	
 	module.exports = Login;
 
@@ -37517,22 +37531,16 @@
 
 	var React = __webpack_require__(3);
 	var ReactRouter = __webpack_require__(159);
-	var DefaultRoute = ReactRouter.DefaultRoute;
 	var Route = ReactRouter.Route;
 	
 	var App = __webpack_require__(221);
-	
 	var dashboardHandler = __webpack_require__ (226);
 	
-	var Routes = (
-	    React.createElement(Route, {name: "home", handler: App, path: "/"}, 
+	module.exports = (
+	    React.createElement(Route, {name: "default", name: "home", handler: App, path: "/"}, 
 	        React.createElement(Route, {name: "login", handler: dashboardHandler, path: "/login"})
 	    )
 	);
-	
-	
-	
-	module.exports = Routes;
 
 /***/ },
 /* 226 */
@@ -37541,15 +37549,24 @@
 	var React = __webpack_require__(3);
 	var ReactRouter = __webpack_require__(159);
 	
-	module.exports = React.createClass({displayName: "exports",
-	    render: function(){
+	/**
+	 * Dashboard view
+	 */
+	var ____Class24=React.Component;for(var ____Class24____Key in ____Class24){if(____Class24.hasOwnProperty(____Class24____Key)){View[____Class24____Key]=____Class24[____Class24____Key];}}var ____SuperProtoOf____Class24=____Class24===null?null:____Class24.prototype;View.prototype=Object.create(____SuperProtoOf____Class24);View.prototype.constructor=View;View.__superConstructor__=____Class24;function View(){"use strict";if(____Class24!==null){____Class24.apply(this,arguments);}}
+	
+	    /**
+	     * Render view
+	     */
+	    Object.defineProperty(View.prototype,"render",{writable:true,configurable:true,value:function(){"use strict";
 	        return (
 	            React.createElement("div", null, 
 	                "test"
 	            )
 	        );
-	    }
-	});
+	    }});
+	
+	
+	module.exports = View;
 
 /***/ }
 /******/ ]);

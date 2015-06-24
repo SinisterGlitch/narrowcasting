@@ -1,7 +1,14 @@
 var React = require('react');
 
-var Login = React.createClass({
-    render: function(){
+/**
+ * Login component
+ */
+class Login extends React.Component {
+
+    /**
+     * Render component
+     */
+    render(){
         return (
             <ul className="nav navbar-nav navbar-right">
                 <li className="dropdown">
@@ -17,6 +24,6 @@ var Login = React.createClass({
             </ul>
         );
     }
-});
+}
 
 module.exports = Login;
