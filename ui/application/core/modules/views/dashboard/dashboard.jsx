@@ -24,7 +24,7 @@ class View extends React.Component {
      * @param data
      */
     onLoadDefaultData(data) {
-        console.log(data, 'data');
+        console.log('defaultData', data);
         this.forceUpdate();
     }
 

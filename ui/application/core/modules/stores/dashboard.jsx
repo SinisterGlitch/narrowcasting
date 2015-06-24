@@ -1,6 +1,7 @@
 var Reflux = require('reflux');
 var DashboardActions = require('core/modules/actions/dashboard');
 
+
 module.eports = Reflux.createStore({
 
     defaultData: {},
@@ -10,10 +11,9 @@ module.eports = Reflux.createStore({
     },
 
     loadDefaultCompleted(data) {
-        console.log('data', data);
-        console.log('completed');
-        this.defaultData = 'it almost works';
-        this.trigger();
+        console.log('completed', data);
+        this.defaultData = data;
+        this.trigger(data);
     },
 
     getDefaultData() {

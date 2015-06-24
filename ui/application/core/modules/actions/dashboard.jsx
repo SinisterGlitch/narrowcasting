@@ -9,13 +9,16 @@ var DashboardActions = Reflux.createActions({
     /**
      * Define actions
      */
-    loadDefault: { asyncResult: true }
+    loadDefault: {
+        children: ['completed','failed'],
+        asyncResult: true
+    }
 });
 
 /**
  * Listen to actions
  */
-DashboardActions.loadDefault.listen(DashboardRepository.default, DashboardRepository);
+DashboardActions.loadDefault.listenAndPromise(DashboardRepository.default, DashboardRepository);
 
 
 module.exports = DashboardActions;
