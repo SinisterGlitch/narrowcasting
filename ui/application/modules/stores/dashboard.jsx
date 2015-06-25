@@ -22,7 +22,7 @@ module.exports = Reflux.createStore({
      * @param data
      */
     onLoadDefault(data) {
-        this.defaultData = data.content;
+        this.defaultData = data;
         this.trigger();
     },
 

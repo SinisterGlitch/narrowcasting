@@ -13,12 +13,12 @@ module.exports = {
      */
     default(callback) {
         SuperAgent
-            .get('app_dev.php/api/user/get/233')
+            .get('app_dev.php/api/user/get/33')
             .end(function(err, res){
                 if (res.ok) {
-                    callback.completed(res.body);
+                    callback.completed(JSON.stringify(res.body));
                 } else {
-                    callback.failed(res.text);
+                    callback.failed(JSON.stringify(res.text));
                 }
             });
         }
