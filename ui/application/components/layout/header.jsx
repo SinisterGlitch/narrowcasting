@@ -1,7 +1,7 @@
 var React = require('react');
 
-var Menu = require('core/components/layout/menu');
-var Login = require('core/components/layout/login');
+var Menu = require('components/layout/menu');
+var Login = require('components/layout/login');
 
 /**
  * Header component

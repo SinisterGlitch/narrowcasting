@@ -19,7 +19,7 @@ class Menu extends React.Component {
      * @param item
      */
     static renderItem(item) {
-        return <Link to={item.route}>{item.label} </Link>;
+        return <Link key={item.route} to={item.route}>{item.label} </Link>;
     }
 }
 
