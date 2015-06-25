@@ -1,4 +1,5 @@
 var SuperAgent = require('superagent');
+var DashboardActions = require('core/modules/actions/dashboard');
 
 /**
  * Define repository calls
@@ -9,14 +10,8 @@ module.exports = {
      * Default request
      */
     default() {
-        var data = SuperAgent
+        return SuperAgent
             .get('app_dev.php/api/user/create/germain/riahi/testemail')
-            .end(function(err, res){
-                if (res.ok) {
-                    return JSON.stringify(res.body)
-                } else {
-                    return {error: res.text};
-                }
-            });
+            .end();
     }
 };

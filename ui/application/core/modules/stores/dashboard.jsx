@@ -1,22 +1,14 @@
+var React = require('react');
 var Reflux = require('reflux');
 var DashboardActions = require('core/modules/actions/dashboard');
 
+module.exports = Reflux.createStore({
 
-module.eports = Reflux.createStore({
-
-    defaultData: {},
-
-    init() {
-        this.listenTo(DashboardActions.loadDefault, 'loadDefaultCompleted');
+    init: function() {
+        this.listenTo(DashboardActions.loadDefault.completed, this.loadDefault);
     },
 
-    loadDefaultCompleted(data) {
-        console.log('completed', data);
-        this.defaultData = data;
+    loadDefault(data) {
         this.trigger(data);
-    },
-
-    getDefaultData() {
-        return this.defaultData;
     }
 });

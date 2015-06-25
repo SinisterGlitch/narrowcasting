@@ -1,24 +1,27 @@
+var React = require('react');
 var Reflux = require('reflux');
-var DashboardRepository = require('core/modules/repositories/dashboard');
+var SuperAgent = require('superagent');
 
 /**
  * Dashboard Reflux actions
  */
 var DashboardActions = Reflux.createActions({
-
-    /**
-     * Define actions
-     */
-    loadDefault: {
-        children: ['completed','failed'],
-        asyncResult: true
-    }
+    loadDefault: {children: ['completed','failed']}
 });
 
 /**
  * Listen to actions
  */
-DashboardActions.loadDefault.listenAndPromise(DashboardRepository.default, DashboardRepository);
-
+DashboardActions.loadDefault.listen( function() {
+    SuperAgent
+        .get('app_dev.php/api/user/create/germain/riahi/testemail')
+        .end(function(err, res){
+            if (res.ok) {
+                DashboardActions.loadDefault.completed(res.body);
+            } else {
+                DashboardActions.loadDefault.failed(res.text);
+            }
+        });
+});
 
 module.exports = DashboardActions;

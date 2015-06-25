@@ -23602,7 +23602,7 @@
 	/**
 	 * Header component
 	 */
-	var ____Class2=React.Component;for(var ____Class2____Key in ____Class2){if(____Class2.hasOwnProperty(____Class2____Key)){Header[____Class2____Key]=____Class2[____Class2____Key];}}var ____SuperProtoOf____Class2=____Class2===null?null:____Class2.prototype;Header.prototype=Object.create(____SuperProtoOf____Class2);Header.prototype.constructor=Header;Header.__superConstructor__=____Class2;function Header(){"use strict";if(____Class2!==null){____Class2.apply(this,arguments);}}
+	var ____Class1=React.Component;for(var ____Class1____Key in ____Class1){if(____Class1.hasOwnProperty(____Class1____Key)){Header[____Class1____Key]=____Class1[____Class1____Key];}}var ____SuperProtoOf____Class1=____Class1===null?null:____Class1.prototype;Header.prototype=Object.create(____SuperProtoOf____Class1);Header.prototype.constructor=Header;Header.__superConstructor__=____Class1;function Header(){"use strict";if(____Class1!==null){____Class1.apply(this,arguments);}}
 	
 	    /**
 	     * Get menu items
@@ -23640,7 +23640,7 @@
 	/**
 	 * Menu component
 	 */
-	var ____Class4=React.Component;for(var ____Class4____Key in ____Class4){if(____Class4.hasOwnProperty(____Class4____Key)){Menu[____Class4____Key]=____Class4[____Class4____Key];}}var ____SuperProtoOf____Class4=____Class4===null?null:____Class4.prototype;Menu.prototype=Object.create(____SuperProtoOf____Class4);Menu.prototype.constructor=Menu;Menu.__superConstructor__=____Class4;function Menu(){"use strict";if(____Class4!==null){____Class4.apply(this,arguments);}}
+	var ____Class2=React.Component;for(var ____Class2____Key in ____Class2){if(____Class2.hasOwnProperty(____Class2____Key)){Menu[____Class2____Key]=____Class2[____Class2____Key];}}var ____SuperProtoOf____Class2=____Class2===null?null:____Class2.prototype;Menu.prototype=Object.create(____SuperProtoOf____Class2);Menu.prototype.constructor=Menu;Menu.__superConstructor__=____Class2;function Menu(){"use strict";if(____Class2!==null){____Class2.apply(this,arguments);}}
 	    /**
 	     * Render component
 	     */
@@ -23687,48 +23687,33 @@
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(202);
-	var ReactRouter = __webpack_require__(157);
 	
 	var DashboardActions = __webpack_require__(224);
-	var DashboardStore = __webpack_require__(226);
+	var DashboardStore = __webpack_require__(228);
 	
 	/**
 	 * Dashboard view
 	 */
-	var ____Class1=React.Component;for(var ____Class1____Key in ____Class1){if(____Class1.hasOwnProperty(____Class1____Key)){View[____Class1____Key]=____Class1[____Class1____Key];}}var ____SuperProtoOf____Class1=____Class1===null?null:____Class1.prototype;View.prototype=Object.create(____SuperProtoOf____Class1);View.prototype.constructor=View;View.__superConstructor__=____Class1;
+	var DashboardComponent = React.createClass({displayName: "DashboardComponent",
 	
-	    /**
-	     * Constructor
-	     */
-	    function View() {"use strict";
+	    mixins: [
+	        Reflux.listenTo(DashboardStore, 'test')
+	    ],
+	
+	    componentDidMount:function() {
 	        DashboardActions.loadDefault();
-	        Reflux.listenTo(DashboardStore, 'onLoadDefaultData');
+	    },
+	
+	    test:function(data) {
+	        console.log(data);
+	    },
+	
+	    render:function(){
+	        return React.createElement("div", null, "test");
 	    }
+	});
 	
-	    /**
-	     * Onload default data
-	     *
-	     * @param data
-	     */
-	    Object.defineProperty(View.prototype,"onLoadDefaultData",{writable:true,configurable:true,value:function(data) {"use strict";
-	        console.log('defaultData', data);
-	        this.forceUpdate();
-	    }});
-	
-	    /**
-	     * Render view
-	     */
-	    Object.defineProperty(View.prototype,"render",{writable:true,configurable:true,value:function(){"use strict";
-	        console.log('render', DashboardStore.getDefaultData);
-	        return (
-	            React.createElement("div", null, 
-	                DashboardStore.getDefaultData
-	            )
-	        );
-	    }});
-	
-	
-	module.exports = View;
+	module.exports = DashboardComponent;
 
 /***/ },
 /* 202 */
@@ -25246,28 +25231,31 @@
 /* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(202);
-	var DashboardRepository = __webpack_require__(225);
+	var SuperAgent = __webpack_require__(225);
 	
 	/**
 	 * Dashboard Reflux actions
 	 */
 	var DashboardActions = Reflux.createActions({
-	
-	    /**
-	     * Define actions
-	     */
-	    loadDefault: {
-	        children: ['completed','failed'],
-	        asyncResult: true
-	    }
+	    loadDefault: {children: ['completed','failed']}
 	});
 	
 	/**
 	 * Listen to actions
 	 */
-	DashboardActions.loadDefault.listenAndPromise(DashboardRepository.default, DashboardRepository);
-	
+	DashboardActions.loadDefault.listen( function() {
+	    SuperAgent
+	        .get('app_dev.php/api/user/create/germain/riahi/testemail')
+	        .end(function(err, res){
+	            if (res.ok) {
+	                DashboardActions.loadDefault.completed(res.body);
+	            } else {
+	                DashboardActions.loadDefault.failed(res.text);
+	            }
+	        });
+	});
 	
 	module.exports = DashboardActions;
 
@@ -25275,83 +25263,12 @@
 /* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SuperAgent = __webpack_require__(228);
-	
-	/**
-	 * Define repository calls
-	 */
-	module.exports = {
-	
-	    /**
-	     * Default request
-	     */
-	    "default":function() {
-	        var data = SuperAgent
-	            .get('app_dev.php/api/user/create/germain/riahi/testemail')
-	            .end(function(err, res){
-	                if (res.ok) {
-	                    return JSON.stringify(res.body)
-	                } else {
-	                    return {error: res.text};
-	                }
-	            });
-	    }
-	};
-
-/***/ },
-/* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {var Reflux = __webpack_require__(202);
-	var DashboardActions = __webpack_require__(224);
-	
-	
-	module.eports = Reflux.createStore({
-	
-	    defaultData: {},
-	
-	    init:function() {
-	        this.listenTo(DashboardActions.loadDefault, 'loadDefaultCompleted');
-	    },
-	
-	    loadDefaultCompleted:function(data) {
-	        console.log('completed', data);
-	        this.defaultData = data;
-	        this.trigger(data);
-	    },
-	
-	    getDefaultData:function() {
-	        return this.defaultData;
-	    }
-	});
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227)(module)))
-
-/***/ },
-/* 227 */
-/***/ function(module, exports) {
-
-	module.exports = function(module) {
-		if(!module.webpackPolyfill) {
-			module.deprecate = function() {};
-			module.paths = [];
-			// module.parent = undefined by default
-			module.children = [];
-			module.webpackPolyfill = 1;
-		}
-		return module;
-	}
-
-
-/***/ },
-/* 228 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/**
 	 * Module dependencies.
 	 */
 	
-	var Emitter = __webpack_require__(229);
-	var reduce = __webpack_require__(230);
+	var Emitter = __webpack_require__(226);
+	var reduce = __webpack_require__(227);
 	
 	/**
 	 * Root reference for iframes.
@@ -26430,7 +26347,7 @@
 
 
 /***/ },
-/* 229 */
+/* 226 */
 /***/ function(module, exports) {
 
 	
@@ -26600,7 +26517,7 @@
 
 
 /***/ },
-/* 230 */
+/* 227 */
 /***/ function(module, exports) {
 
 	
@@ -26627,6 +26544,25 @@
 	  
 	  return curr;
 	};
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(202);
+	var DashboardActions = __webpack_require__(224);
+	
+	module.exports = Reflux.createStore({
+	
+	    init: function() {
+	        this.listenTo(DashboardActions.loadDefault.completed, this.loadDefault);
+	    },
+	
+	    loadDefault:function(data) {
+	        this.trigger(data);
+	    }
+	});
 
 /***/ }
 /******/ ]);
