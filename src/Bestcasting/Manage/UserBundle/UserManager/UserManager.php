@@ -2,11 +2,11 @@
 
 namespace Bestcasting\Manage\UserBundle\UserManager;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Bestcasting\Manage\UserBundle\Entity\User;
 use FOS\UserBundle\Doctrine\UserManager as FosUserManager;
 use FOS\UserBundle\Security\LoginManager;
-use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Class UserManager
@@ -25,14 +25,22 @@ class UserManager
     private $loginManager;
 
     /**
+     * @var EntityManager
+     */
+    private $entityManager;
+
+    /**
      * @param FosUserManager $userManager
      * @param LoginManager $loginManager
+     * @param EntityManager $entityManager
      */
-    public function __construct(FosUserManager $userManager, LoginManager $loginManager)
+    public function __construct(FosUserManager $userManager, LoginManager $loginManager, EntityManager $entityManager)
     {
         $this->userManager = $userManager;
 
         $this->loginManager = $loginManager;
+
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -45,7 +53,8 @@ class UserManager
      */
     public function create($username, $password, $email)
     {
-        if ($this->ifExists($username, $email)) {
+        if ($this->userManager->findUserBy(['username' => $username])
+            && $this->userManager->findUserBy(['password' => $password])) {
             throw new \Exception('Account already exists', 400);
         }
 
@@ -54,7 +63,7 @@ class UserManager
             ->setPlainPassword($password)
             ->setUsername($username)
             ->setEmail($email)
-            ->setToken('test');
+            ->setToken(uniqid());
 
         try {
             $this->userManager->updateUser($user);
@@ -72,10 +81,15 @@ class UserManager
      */
     public function login($username, $password)
     {
-        $user = $this->userManager->findUserBy([
-            'username' => $username,
-            'password' => $password
-        ]);
+        try {
+            $user = $this->entityManager->findBy([
+                'username' => $username,
+                'password' => $password
+            ]);
+
+        } catch (ORMException $e) {
+            throw new \Exception('Something went wrong while findingUser user', 500);
+        }
 
         if (!$user instanceof User) {
             throw new \Exception('Wrong username or password', 500);
@@ -85,17 +99,27 @@ class UserManager
     }
 
     /**
-     * if user exists
+     * Get user by id
      *
-     * @param $username
-     * @param $email
-     * @return bool
+     * @param $id
+     * @return User
+     * @throws \Exception
      */
-    private function ifExists($username, $email)
+    public function getUser($id)
     {
-        if ($this->userManager->findUserByUsername($username)
-            || $this->userManager->findUserByEmail($email)) {
-                return true;
+        try {
+            $user = $this->entityManager
+                ->getRepository('ManageUserBundle:User')
+                ->findOneBy(['id' => $id]);
+
+        } catch (ORMException $e) {
+            throw new \Exception('Something went wrong while fetching user', 500);
         }
+
+        if (!$user instanceof User) {
+            throw new \Exception('User not found with given id', 500);
+        }
+
+        return $user;
     }
 }

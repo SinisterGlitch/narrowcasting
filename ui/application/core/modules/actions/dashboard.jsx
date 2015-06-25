@@ -14,7 +14,7 @@ var DashboardActions = Reflux.createActions({
  */
 DashboardActions.loadDefault.listen( function() {
     SuperAgent
-        .get('app_dev.php/api/user/create/germain/riahi/testemail')
+        .get('app_dev.php/api/user/get/233')
         .end(function(err, res){
             if (res.ok) {
                 DashboardActions.loadDefault.completed(res.body);

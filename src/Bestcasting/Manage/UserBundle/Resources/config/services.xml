@@ -12,6 +12,7 @@
         <service id="manage_user_manager" class="%manage_user_manager.class%">
             <argument type="service" id="fos_user.user_manager"/>
             <argument type="service" id="fos_user.security.login_manager"/>
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
         </service>
     </services>
 </container>

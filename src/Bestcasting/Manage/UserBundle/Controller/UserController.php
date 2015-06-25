@@ -2,7 +2,9 @@
 
 namespace Bestcasting\Manage\UserBundle\Controller;
 
+use Bestcasting\Manage\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\View;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\BrowserKit\Response;
 
@@ -14,13 +16,13 @@ class UserController extends Controller
 {
     /**
      * @Get("/user/create/{username}/{password}/{email}")
-     *
+     * @View()
      * @param $username
      * @param $password
      * @param $email
      * @return Response
      */
-    public function createUserAction($username, $password, $email)
+    public function newUserAction($username, $password, $email)
     {
         try {
             $this->container
@@ -37,11 +39,12 @@ class UserController extends Controller
     /**
      * @Get("/user/login/{username}/{password}")
      *
+     * @View()
      * @param $username
      * @param $password
      * @return Response
      */
-    public function LoginUserAction($username, $password)
+    public function loginUserAction($username, $password)
     {
         try {
             $this->container
@@ -53,5 +56,23 @@ class UserController extends Controller
         }
 
         return new Response('Your account is logged in', 200);
+    }
+
+    /**
+     * @Get("/user/get/{userId}")
+     *
+     * @param $userId
+     * @return User
+     */
+    public function getUserAction($userId)
+    {
+        try {
+            return $this->container
+                ->get('manage_user_manager')
+                ->getUser($userId);
+
+        } catch (\Exception $e) {
+            return new Response($e->getMessage(), $e->getCode());
+        }
     }
 }

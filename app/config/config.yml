@@ -77,6 +77,8 @@ fos_user:
 
 # FOS restBundle Configuration
 fos_rest:
+    routing_loader:
+        default_format: json
     param_fetcher_listener: true
     body_listener: true
     format_listener: true
@@ -91,8 +93,6 @@ fos_rest:
             html: true
         failed_validation: HTTP_BAD_REQUEST
         default_engine: twig
-    routing_loader:
-        default_format: json
 
 
 # Services Configuration
