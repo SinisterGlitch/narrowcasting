@@ -81,15 +81,10 @@ class UserManager
      */
     public function login($username, $password)
     {
-        try {
-            $user = $this->entityManager->findBy([
-                'username' => $username,
-                'password' => $password
-            ]);
-
-        } catch (ORMException $e) {
-            throw new \Exception('Something went wrong while findingUser user', 500);
-        }
+        $user = $this->entityManager->findBy([
+            'username' => $username,
+            'password' => $password
+        ]);
 
         if (!$user instanceof User) {
             throw new \Exception('Wrong username or password', 500);
@@ -107,14 +102,9 @@ class UserManager
      */
     public function getUser($id)
     {
-        try {
-            $user = $this->entityManager
-                ->getRepository('ManageUserBundle:User')
-                ->findOneBy(['id' => $id]);
-
-        } catch (ORMException $e) {
-            throw new \Exception('Something went wrong while fetching user', 500);
-        }
+        $user = $this->entityManager
+            ->getRepository('ManageUserBundle:User')
+            ->findOneBy(['id' => $id]);
 
         if (!$user instanceof User) {
             throw new \Exception('User not found with given id', 500);

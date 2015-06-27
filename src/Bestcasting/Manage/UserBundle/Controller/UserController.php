@@ -16,7 +16,7 @@ class UserController extends Controller
 {
     /**
      * @Get("/user/create/{username}/{password}/{email}")
-     * @View()
+
      * @param $username
      * @param $password
      * @param $email
