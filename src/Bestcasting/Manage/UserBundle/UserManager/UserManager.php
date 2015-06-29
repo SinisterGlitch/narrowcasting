@@ -50,6 +50,7 @@ class UserManager
      * @param $password
      * @param $email
      * @throws \Exception
+     * @return User
      */
     public function create($username, $password, $email)
     {
@@ -65,11 +66,9 @@ class UserManager
             ->setEmail($email)
             ->setToken(uniqid());
 
-        try {
-            $this->userManager->updateUser($user);
-        } catch (ORMException $e) {
-            throw new \Exception('Something went wrong while creating user', 500);
-        }
+        $this->userManager->updateUser($user);
+
+        return $user;
     }
 
     /**

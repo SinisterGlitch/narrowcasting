@@ -23549,8 +23549,8 @@
 	var ReactRouter = __webpack_require__(157);
 	var Route = ReactRouter.Route;
 	
-	var App = __webpack_require__(220);
-	var dashboardHandler = __webpack_require__ (197);
+	var App = __webpack_require__(197);
+	var dashboardHandler = __webpack_require__ (201);
 	
 	module.exports = (
 	    React.createElement(Route, {name: "default", name: "home", handler: App, path: "/"}, 
@@ -23563,10 +23563,138 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Reflux = __webpack_require__(198);
+	var ReactRouter = __webpack_require__(157);
+	var RouteHandler = ReactRouter.RouteHandler;
 	
-	var DashboardActions = __webpack_require__(221);
-	var DashboardStore = __webpack_require__(222);
+	var Header = __webpack_require__(198);
+	
+	/**
+	 * App component
+	 */
+	var ____Class0=React.Component;for(var ____Class0____Key in ____Class0){if(____Class0.hasOwnProperty(____Class0____Key)){App[____Class0____Key]=____Class0[____Class0____Key];}}var ____SuperProtoOf____Class0=____Class0===null?null:____Class0.prototype;App.prototype=Object.create(____SuperProtoOf____Class0);App.prototype.constructor=App;App.__superConstructor__=____Class0;function App(){"use strict";if(____Class0!==null){____Class0.apply(this,arguments);}}
+	
+	    /**
+	     * Render component
+	     */
+	    Object.defineProperty(App.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
+	        return (
+	            React.createElement("div", {style: {width:'100%', textAlign:'center'}}, 
+	                React.createElement(Header, null), 
+	                React.createElement("div", {id: "main"}, 
+	                    React.createElement(RouteHandler, null)
+	                )
+	            )
+	        );
+	    }});
+	
+	
+	module.exports = App;
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	var Menu = __webpack_require__(199);
+	var Login = __webpack_require__(200);
+	
+	/**
+	 * Header component
+	 */
+	var ____Class1=React.Component;for(var ____Class1____Key in ____Class1){if(____Class1.hasOwnProperty(____Class1____Key)){Header[____Class1____Key]=____Class1[____Class1____Key];}}var ____SuperProtoOf____Class1=____Class1===null?null:____Class1.prototype;Header.prototype=Object.create(____SuperProtoOf____Class1);Header.prototype.constructor=Header;Header.__superConstructor__=____Class1;function Header(){"use strict";if(____Class1!==null){____Class1.apply(this,arguments);}}
+	
+	    /**
+	     * Get menu items
+	     */
+	    Object.defineProperty(Header,"getMenuItems",{writable:true,configurable:true,value:function() {"use strict";
+	        return [
+	            {label: 'home', route: 'home'},
+	            {label: 'login', route: 'login'}
+	        ]
+	    }});
+	
+	    /**
+	     * Render component
+	     */
+	    Object.defineProperty(Header.prototype,"render",{writable:true,configurable:true,value:function(){"use strict";
+	        return (
+	            React.createElement("div", null, 
+	                React.createElement(Menu, {items: Header.getMenuItems()}), 
+	                React.createElement(Login, null)
+	            )
+	        );
+	    }});
+	
+	
+	module.exports = Header;
+
+/***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(157);
+	var Link = ReactRouter.Link;
+	
+	/**
+	 * Menu component
+	 */
+	var ____Class2=React.Component;for(var ____Class2____Key in ____Class2){if(____Class2.hasOwnProperty(____Class2____Key)){Menu[____Class2____Key]=____Class2[____Class2____Key];}}var ____SuperProtoOf____Class2=____Class2===null?null:____Class2.prototype;Menu.prototype=Object.create(____SuperProtoOf____Class2);Menu.prototype.constructor=Menu;Menu.__superConstructor__=____Class2;function Menu(){"use strict";if(____Class2!==null){____Class2.apply(this,arguments);}}
+	    /**
+	     * Render component
+	     */
+	    Object.defineProperty(Menu.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
+	        return React.createElement("ul", null, this.props.items.map(function(item)  {return Menu.renderItem(item);}));
+	    }});
+	
+	    /**
+	     * Render menu items
+	     *
+	     * @param item
+	     */
+	    Object.defineProperty(Menu,"renderItem",{writable:true,configurable:true,value:function(item) {"use strict";
+	        return React.createElement(Link, {key: item.route, to: item.route}, item.label, " ");
+	    }});
+	
+	
+	module.exports = Menu;
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	/**
+	 * Login component
+	 */
+	var ____Class3=React.Component;for(var ____Class3____Key in ____Class3){if(____Class3.hasOwnProperty(____Class3____Key)){Login[____Class3____Key]=____Class3[____Class3____Key];}}var ____SuperProtoOf____Class3=____Class3===null?null:____Class3.prototype;Login.prototype=Object.create(____SuperProtoOf____Class3);Login.prototype.constructor=Login;Login.__superConstructor__=____Class3;function Login(){"use strict";if(____Class3!==null){____Class3.apply(this,arguments);}}
+	
+	    /**
+	     * Render component
+	     */
+	    Object.defineProperty(Login.prototype,"render",{writable:true,configurable:true,value:function(){"use strict";
+	        return (React.createElement("div", null));
+	    }});
+	
+	
+	module.exports = Login;
+
+/***/ },
+/* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(202);
+	
+	var Form = __webpack_require__(224);
+	
+	var DashboardActions = __webpack_require__(225);
+	var DashboardStore = __webpack_require__(230);
+	
+	var TextInput = __webpack_require__(231);
+	var SubmitInput = __webpack_require__(232);
 	
 	/**
 	 * Dashboard view
@@ -23598,45 +23726,53 @@
 	     * Render view
 	     */
 	    render:function(){
-	        return React.createElement("div", {key: "test"}, DashboardStore.getDefaultData());
+	        return (
+	            React.createElement("div", {key: "content"}, 
+	                React.createElement("form", {onclick: Form.submit(this)}, 
+	                    React.createElement(TextInput, {label: "username"}), 
+	                    React.createElement(TextInput, {label: "password"}), 
+	                    React.createElement(SubmitInput, {label: "submit"})
+	                )
+	            )
+	        )
 	    }
 	});
 
 /***/ },
-/* 198 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(199);
+	module.exports = __webpack_require__(203);
 
 
 /***/ },
-/* 199 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports.ActionMethods = __webpack_require__(201);
+	exports.ActionMethods = __webpack_require__(205);
 	
-	exports.ListenerMethods = __webpack_require__(202);
+	exports.ListenerMethods = __webpack_require__(206);
 	
-	exports.PublisherMethods = __webpack_require__(213);
+	exports.PublisherMethods = __webpack_require__(217);
 	
-	exports.StoreMethods = __webpack_require__(214);
+	exports.StoreMethods = __webpack_require__(218);
 	
-	exports.createAction = __webpack_require__(215);
+	exports.createAction = __webpack_require__(219);
 	
-	exports.createStore = __webpack_require__(209);
+	exports.createStore = __webpack_require__(213);
 	
-	exports.connect = __webpack_require__(216);
+	exports.connect = __webpack_require__(220);
 	
-	exports.connectFilter = __webpack_require__(217);
+	exports.connectFilter = __webpack_require__(221);
 	
-	exports.ListenerMixin = __webpack_require__(218);
+	exports.ListenerMixin = __webpack_require__(222);
 	
-	exports.listenTo = __webpack_require__(200);
+	exports.listenTo = __webpack_require__(204);
 	
-	exports.listenToMany = __webpack_require__(219);
+	exports.listenToMany = __webpack_require__(223);
 	
 	
-	var maker = __webpack_require__(208).staticJoinCreator;
+	var maker = __webpack_require__(212).staticJoinCreator;
 	
 	exports.joinTrailing = exports.all = maker("last"); // Reflux.all alias for backward compatibility
 	
@@ -23646,7 +23782,7 @@
 	
 	exports.joinConcat = maker("all");
 	
-	var _ = __webpack_require__(203);
+	var _ = __webpack_require__(207);
 	
 	exports.EventEmitter = _.EventEmitter;
 	
@@ -23675,7 +23811,7 @@
 	 * Sets the eventmitter that Reflux uses
 	 */
 	exports.setEventEmitter = function(ctx) {
-	    var _ = __webpack_require__(203);
+	    var _ = __webpack_require__(207);
 	    exports.EventEmitter = _.EventEmitter = ctx;
 	};
 	
@@ -23684,7 +23820,7 @@
 	 * Sets the Promise library that Reflux uses
 	 */
 	exports.setPromise = function(ctx) {
-	    var _ = __webpack_require__(203);
+	    var _ = __webpack_require__(207);
 	    exports.Promise = _.Promise = ctx;
 	};
 	
@@ -23694,7 +23830,7 @@
 	 * @param {Function} factory has the signature `function(resolver) { return [new Promise]; }`
 	 */
 	exports.setPromiseFactory = function(factory) {
-	    var _ = __webpack_require__(203);
+	    var _ = __webpack_require__(207);
 	    _.createPromise = factory;
 	};
 	
@@ -23703,14 +23839,14 @@
 	 * Sets the method used for deferring actions and stores
 	 */
 	exports.nextTick = function(nextTick) {
-	    var _ = __webpack_require__(203);
+	    var _ = __webpack_require__(207);
 	    _.nextTick = nextTick;
 	};
 	
 	/**
 	 * Provides the set of created actions and stores for introspection
 	 */
-	exports.__keep = __webpack_require__(210);
+	exports.__keep = __webpack_require__(214);
 	
 	/**
 	 * Warn if Function.prototype.bind not available
@@ -23725,10 +23861,10 @@
 
 
 /***/ },
-/* 200 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Reflux = __webpack_require__(199);
+	var Reflux = __webpack_require__(203);
 	
 	
 	/**
@@ -23767,7 +23903,7 @@
 
 
 /***/ },
-/* 201 */
+/* 205 */
 /***/ function(module, exports) {
 
 	/**
@@ -23779,11 +23915,11 @@
 
 
 /***/ },
-/* 202 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(203),
-	    maker = __webpack_require__(208).instanceJoinCreator;
+	var _ = __webpack_require__(207),
+	    maker = __webpack_require__(212).instanceJoinCreator;
 	
 	/**
 	 * Extract child listenables from a parent from their
@@ -24005,7 +24141,7 @@
 
 
 /***/ },
-/* 203 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -24040,7 +24176,7 @@
 	    return typeof value === 'function';
 	};
 	
-	exports.EventEmitter = __webpack_require__(204);
+	exports.EventEmitter = __webpack_require__(208);
 	
 	exports.nextTick = function(callback) {
 	    setTimeout(callback, 0);
@@ -24062,7 +24198,7 @@
 	    return o;
 	};
 	
-	exports.Promise = __webpack_require__(205);
+	exports.Promise = __webpack_require__(209);
 	
 	exports.createPromise = function(resolver) {
 	    return new exports.Promise(resolver);
@@ -24080,7 +24216,7 @@
 
 
 /***/ },
-/* 204 */
+/* 208 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24315,19 +24451,19 @@
 
 
 /***/ },
-/* 205 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*! Native Promise Only
 	    v0.7.8-a (c) Kyle Simpson
 	    MIT License: http://getify.mit-license.org
 	*/
-	!function(t,n,e){n[t]=n[t]||e(),"undefined"!=typeof module&&module.exports?module.exports=n[t]:"function"=="function"&&__webpack_require__(207)&&!(__WEBPACK_AMD_DEFINE_RESULT__ = function(){return n[t]}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))}("Promise","undefined"!=typeof global?global:this,function(){"use strict";function t(t,n){l.add(t,n),h||(h=y(l.drain))}function n(t){var n,e=typeof t;return null==t||"object"!=e&&"function"!=e||(n=t.then),"function"==typeof n?n:!1}function e(){for(var t=0;t<this.chain.length;t++)o(this,1===this.state?this.chain[t].success:this.chain[t].failure,this.chain[t]);this.chain.length=0}function o(t,e,o){var r,i;try{e===!1?o.reject(t.msg):(r=e===!0?t.msg:e.call(void 0,t.msg),r===o.promise?o.reject(TypeError("Promise-chain cycle")):(i=n(r))?i.call(r,o.resolve,o.reject):o.resolve(r))}catch(c){o.reject(c)}}function r(o){var c,u,a=this;if(!a.triggered){a.triggered=!0,a.def&&(a=a.def);try{(c=n(o))?(u=new f(a),c.call(o,function(){r.apply(u,arguments)},function(){i.apply(u,arguments)})):(a.msg=o,a.state=1,a.chain.length>0&&t(e,a))}catch(s){i.call(u||new f(a),s)}}}function i(n){var o=this;o.triggered||(o.triggered=!0,o.def&&(o=o.def),o.msg=n,o.state=2,o.chain.length>0&&t(e,o))}function c(t,n,e,o){for(var r=0;r<n.length;r++)!function(r){t.resolve(n[r]).then(function(t){e(r,t)},o)}(r)}function f(t){this.def=t,this.triggered=!1}function u(t){this.promise=t,this.state=0,this.triggered=!1,this.chain=[],this.msg=void 0}function a(n){if("function"!=typeof n)throw TypeError("Not a function");if(0!==this.__NPO__)throw TypeError("Not a promise");this.__NPO__=1;var o=new u(this);this.then=function(n,r){var i={success:"function"==typeof n?n:!0,failure:"function"==typeof r?r:!1};return i.promise=new this.constructor(function(t,n){if("function"!=typeof t||"function"!=typeof n)throw TypeError("Not a function");i.resolve=t,i.reject=n}),o.chain.push(i),0!==o.state&&t(e,o),i.promise},this["catch"]=function(t){return this.then(void 0,t)};try{n.call(void 0,function(t){r.call(o,t)},function(t){i.call(o,t)})}catch(c){i.call(o,c)}}var s,h,l,p=Object.prototype.toString,y="undefined"!=typeof setImmediate?function(t){return setImmediate(t)}:setTimeout;try{Object.defineProperty({},"x",{}),s=function(t,n,e,o){return Object.defineProperty(t,n,{value:e,writable:!0,configurable:o!==!1})}}catch(d){s=function(t,n,e){return t[n]=e,t}}l=function(){function t(t,n){this.fn=t,this.self=n,this.next=void 0}var n,e,o;return{add:function(r,i){o=new t(r,i),e?e.next=o:n=o,e=o,o=void 0},drain:function(){var t=n;for(n=e=h=void 0;t;)t.fn.call(t.self),t=t.next}}}();var g=s({},"constructor",a,!1);return a.prototype=g,s(g,"__NPO__",0,!1),s(a,"resolve",function(t){var n=this;return t&&"object"==typeof t&&1===t.__NPO__?t:new n(function(n,e){if("function"!=typeof n||"function"!=typeof e)throw TypeError("Not a function");n(t)})}),s(a,"reject",function(t){return new this(function(n,e){if("function"!=typeof n||"function"!=typeof e)throw TypeError("Not a function");e(t)})}),s(a,"all",function(t){var n=this;return"[object Array]"!=p.call(t)?n.reject(TypeError("Not an array")):0===t.length?n.resolve([]):new n(function(e,o){if("function"!=typeof e||"function"!=typeof o)throw TypeError("Not a function");var r=t.length,i=Array(r),f=0;c(n,t,function(t,n){i[t]=n,++f===r&&e(i)},o)})}),s(a,"race",function(t){var n=this;return"[object Array]"!=p.call(t)?n.reject(TypeError("Not an array")):new n(function(e,o){if("function"!=typeof e||"function"!=typeof o)throw TypeError("Not a function");c(n,t,function(t,n){e(n)},o)})}),a});
+	!function(t,n,e){n[t]=n[t]||e(),"undefined"!=typeof module&&module.exports?module.exports=n[t]:"function"=="function"&&__webpack_require__(211)&&!(__WEBPACK_AMD_DEFINE_RESULT__ = function(){return n[t]}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))}("Promise","undefined"!=typeof global?global:this,function(){"use strict";function t(t,n){l.add(t,n),h||(h=y(l.drain))}function n(t){var n,e=typeof t;return null==t||"object"!=e&&"function"!=e||(n=t.then),"function"==typeof n?n:!1}function e(){for(var t=0;t<this.chain.length;t++)o(this,1===this.state?this.chain[t].success:this.chain[t].failure,this.chain[t]);this.chain.length=0}function o(t,e,o){var r,i;try{e===!1?o.reject(t.msg):(r=e===!0?t.msg:e.call(void 0,t.msg),r===o.promise?o.reject(TypeError("Promise-chain cycle")):(i=n(r))?i.call(r,o.resolve,o.reject):o.resolve(r))}catch(c){o.reject(c)}}function r(o){var c,u,a=this;if(!a.triggered){a.triggered=!0,a.def&&(a=a.def);try{(c=n(o))?(u=new f(a),c.call(o,function(){r.apply(u,arguments)},function(){i.apply(u,arguments)})):(a.msg=o,a.state=1,a.chain.length>0&&t(e,a))}catch(s){i.call(u||new f(a),s)}}}function i(n){var o=this;o.triggered||(o.triggered=!0,o.def&&(o=o.def),o.msg=n,o.state=2,o.chain.length>0&&t(e,o))}function c(t,n,e,o){for(var r=0;r<n.length;r++)!function(r){t.resolve(n[r]).then(function(t){e(r,t)},o)}(r)}function f(t){this.def=t,this.triggered=!1}function u(t){this.promise=t,this.state=0,this.triggered=!1,this.chain=[],this.msg=void 0}function a(n){if("function"!=typeof n)throw TypeError("Not a function");if(0!==this.__NPO__)throw TypeError("Not a promise");this.__NPO__=1;var o=new u(this);this.then=function(n,r){var i={success:"function"==typeof n?n:!0,failure:"function"==typeof r?r:!1};return i.promise=new this.constructor(function(t,n){if("function"!=typeof t||"function"!=typeof n)throw TypeError("Not a function");i.resolve=t,i.reject=n}),o.chain.push(i),0!==o.state&&t(e,o),i.promise},this["catch"]=function(t){return this.then(void 0,t)};try{n.call(void 0,function(t){r.call(o,t)},function(t){i.call(o,t)})}catch(c){i.call(o,c)}}var s,h,l,p=Object.prototype.toString,y="undefined"!=typeof setImmediate?function(t){return setImmediate(t)}:setTimeout;try{Object.defineProperty({},"x",{}),s=function(t,n,e,o){return Object.defineProperty(t,n,{value:e,writable:!0,configurable:o!==!1})}}catch(d){s=function(t,n,e){return t[n]=e,t}}l=function(){function t(t,n){this.fn=t,this.self=n,this.next=void 0}var n,e,o;return{add:function(r,i){o=new t(r,i),e?e.next=o:n=o,e=o,o=void 0},drain:function(){var t=n;for(n=e=h=void 0;t;)t.fn.call(t.self),t=t.next}}}();var g=s({},"constructor",a,!1);return a.prototype=g,s(g,"__NPO__",0,!1),s(a,"resolve",function(t){var n=this;return t&&"object"==typeof t&&1===t.__NPO__?t:new n(function(n,e){if("function"!=typeof n||"function"!=typeof e)throw TypeError("Not a function");n(t)})}),s(a,"reject",function(t){return new this(function(n,e){if("function"!=typeof n||"function"!=typeof e)throw TypeError("Not a function");e(t)})}),s(a,"all",function(t){var n=this;return"[object Array]"!=p.call(t)?n.reject(TypeError("Not an array")):0===t.length?n.resolve([]):new n(function(e,o){if("function"!=typeof e||"function"!=typeof o)throw TypeError("Not a function");var r=t.length,i=Array(r),f=0;c(n,t,function(t,n){i[t]=n,++f===r&&e(i)},o)})}),s(a,"race",function(t){var n=this;return"[object Array]"!=p.call(t)?n.reject(TypeError("Not an array")):new n(function(e,o){if("function"!=typeof e||"function"!=typeof o)throw TypeError("Not a function");c(n,t,function(t,n){e(n)},o)})}),a});
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(206).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(210).setImmediate))
 
 /***/ },
-/* 206 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(3).nextTick;
@@ -24406,10 +24542,10 @@
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(206).setImmediate, __webpack_require__(206).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(210).setImmediate, __webpack_require__(210).clearImmediate))
 
 /***/ },
-/* 207 */
+/* 211 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -24417,7 +24553,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 208 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24425,8 +24561,8 @@
 	 */
 	
 	var slice = Array.prototype.slice,
-	    _ = __webpack_require__(203),
-	    createStore = __webpack_require__(209),
+	    _ = __webpack_require__(207),
+	    createStore = __webpack_require__(213),
 	    strategyMethodNames = {
 	        strict: "joinStrict",
 	        first: "joinLeading",
@@ -24529,15 +24665,15 @@
 
 
 /***/ },
-/* 209 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(203),
-	    Reflux = __webpack_require__(199),
-	    Keep = __webpack_require__(210),
-	    mixer = __webpack_require__(211),
+	var _ = __webpack_require__(207),
+	    Reflux = __webpack_require__(203),
+	    Keep = __webpack_require__(214),
+	    mixer = __webpack_require__(215),
 	    allowed = {preEmit:1,shouldEmit:1},
-	    bindMethods = __webpack_require__(212);
+	    bindMethods = __webpack_require__(216);
 	
 	/**
 	 * Creates an event emitting Data Store. It is mixed in with functions
@@ -24596,7 +24732,7 @@
 
 
 /***/ },
-/* 210 */
+/* 214 */
 /***/ function(module, exports) {
 
 	exports.createdStores = [];
@@ -24614,10 +24750,10 @@
 
 
 /***/ },
-/* 211 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(203);
+	var _ = __webpack_require__(207);
 	
 	module.exports = function mix(def) {
 	    var composed = {
@@ -24677,7 +24813,7 @@
 
 
 /***/ },
-/* 212 */
+/* 216 */
 /***/ function(module, exports) {
 
 	module.exports = function(store, definition) {
@@ -24706,10 +24842,10 @@
 
 
 /***/ },
-/* 213 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(203);
+	var _ = __webpack_require__(207);
 	
 	/**
 	 * A module of methods for object that you want to be able to listen to.
@@ -24893,7 +25029,7 @@
 
 
 /***/ },
-/* 214 */
+/* 218 */
 /***/ function(module, exports) {
 
 	/**
@@ -24905,12 +25041,12 @@
 
 
 /***/ },
-/* 215 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(203),
-	    Reflux = __webpack_require__(199),
-	    Keep = __webpack_require__(210),
+	var _ = __webpack_require__(207),
+	    Reflux = __webpack_require__(203),
+	    Keep = __webpack_require__(214),
 	    allowed = {preEmit:1,shouldEmit:1};
 	
 	/**
@@ -24976,11 +25112,11 @@
 
 
 /***/ },
-/* 216 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Reflux = __webpack_require__(199),
-	    _ = __webpack_require__(203);
+	var Reflux = __webpack_require__(203),
+	    _ = __webpack_require__(207);
 	
 	module.exports = function(listenable,key){
 	    return {
@@ -25008,11 +25144,11 @@
 
 
 /***/ },
-/* 217 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Reflux = __webpack_require__(199),
-	  _ = __webpack_require__(203);
+	var Reflux = __webpack_require__(203),
+	  _ = __webpack_require__(207);
 	
 	module.exports = function(listenable, key, filterFunc) {
 	    filterFunc = _.isFunction(key) ? key : filterFunc;
@@ -25053,11 +25189,11 @@
 
 
 /***/ },
-/* 218 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(203),
-	    ListenerMethods = __webpack_require__(202);
+	var _ = __webpack_require__(207),
+	    ListenerMethods = __webpack_require__(206);
 	
 	/**
 	 * A module meant to be consumed as a mixin by a React component. Supplies the methods from
@@ -25076,10 +25212,10 @@
 
 
 /***/ },
-/* 219 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Reflux = __webpack_require__(199);
+	var Reflux = __webpack_require__(203);
 	
 	/**
 	 * A mixin factory for a React component. Meant as a more convenient way of using the `listenerMixin`,
@@ -25115,44 +25251,27 @@
 
 
 /***/ },
-/* 220 */
-/***/ function(module, exports, __webpack_require__) {
+/* 224 */
+/***/ function(module, exports) {
 
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(157);
-	var RouteHandler = ReactRouter.RouteHandler;
-	
-	var Header = __webpack_require__(227);
-	
 	/**
-	 * App component
+	 * Form submit handler
 	 */
-	var ____Classb=React.Component;for(var ____Classb____Key in ____Classb){if(____Classb.hasOwnProperty(____Classb____Key)){App[____Classb____Key]=____Classb[____Classb____Key];}}var ____SuperProtoOf____Classb=____Classb===null?null:____Classb.prototype;App.prototype=Object.create(____SuperProtoOf____Classb);App.prototype.constructor=App;App.__superConstructor__=____Classb;function App(){"use strict";if(____Classb!==null){____Classb.apply(this,arguments);}}
+	module.exports = {
 	
-	    /**
-	     * Render component
-	     */
-	    Object.defineProperty(App.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
-	        return (
-	            React.createElement("div", {style: {width:'100%', textAlign:'center'}}, 
-	                React.createElement(Header, null), 
-	                React.createElement("div", {id: "main"}, 
-	                    React.createElement(RouteHandler, null)
-	                )
-	            )
-	        );
-	    }});
-	
-	
-	module.exports = App;
+	    submit:function(e) {
+	        e.preventDefault();
+	        return 123;
+	    }
+	};
 
 /***/ },
-/* 221 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Reflux = __webpack_require__(198);
-	var DashboardRepository = __webpack_require__(223);
+	var Reflux = __webpack_require__(202);
+	var Request = __webpack_require__(226);
 	
 	/**
 	 * Dashboard Reflux actions
@@ -25164,92 +25283,69 @@
 	/**
 	 * Listen to actions
 	 */
-	DashboardActions.loadDefault.listen(function()  {return DashboardRepository.default(DashboardActions.loadDefault);});
+	DashboardActions.loadDefault.listen(function () {
+	    Request.get('app_dev.php/api/user/get/3223', DashboardActions.loadDefault);
+	});
 	
 	module.exports = DashboardActions;
 
 /***/ },
-/* 222 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var Reflux = __webpack_require__(198);
-	var DashboardActions = __webpack_require__(221);
-	
-	module.exports = Reflux.createStore({
-	
-	    /**
-	     * Default data storage
-	     */
-	    defaultData: {},
-	
-	    /**
-	     * Event listeners
-	     */
-	    init: function() {
-	        this.listenTo(DashboardActions.loadDefault.completed, this.onLoadDefault);
-	    },
-	
-	    /**
-	     * Load default data
-	     *
-	     * @param data
-	     */
-	    onLoadDefault:function(data) {
-	        this.defaultData = data;
-	        this.trigger();
-	    },
-	
-	    /**
-	     * Get default data
-	     *
-	     * @returns {*}
-	     */
-	    getDefaultData:function() {
-	        return this.defaultData;
-	    }
-	});
-
-/***/ },
-/* 223 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var SuperAgent = __webpack_require__(224);
-	var DashboardActions = __webpack_require__(221);
+	var SuperAgent = __webpack_require__(227);
 	
 	/**
-	 * Define repository calls
+	 * Ajax request object
 	 */
 	module.exports = {
 	
 	    /**
-	     * TODO: fix callback hack and mixin/service superagent
+	     * Get Request
 	     *
-	     * Default request
+	     * @param url
+	     * @param callback
 	     */
-	    "default":function(callback) {
-	        SuperAgent
-	            .get('app_dev.php/api/user/get/33')
-	            .end(function(err, res){
-	                if (res.ok) {
-	                    callback.completed(JSON.stringify(res.body));
-	                } else {
-	                    callback.failed(JSON.stringify(res.text));
-	                }
-	            });
+	    get:function(url, callback) {
+	        SuperAgent.get(url).end(function(err, res)  {return this.responseHandler(err, res, callback);}.bind(this))
+	    },
+	
+	    /**
+	     * Post request
+	     *
+	     * @param url
+	     * @param data
+	     * @param callback
+	     */
+	    post:function(url, data, callback) {
+	        SuperAgent.post(url).end(function(err, res)  {return this.responseHandler(err, res, callback);}.bind(this))
+	    },
+	
+	    /**
+	     * Response handler
+	     *
+	     * @param err
+	     * @param res
+	     */
+	    responseHandler:function(err, res, callback) {
+	        if (res.ok) {
+	            callback.completed(res.body);
+	        } else {
+	            callback.failed(res.text);
 	        }
+	    }
 	};
 
 /***/ },
-/* 224 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 	
-	var Emitter = __webpack_require__(225);
-	var reduce = __webpack_require__(226);
+	var Emitter = __webpack_require__(228);
+	var reduce = __webpack_require__(229);
 	
 	/**
 	 * Root reference for iframes.
@@ -26328,7 +26424,7 @@
 
 
 /***/ },
-/* 225 */
+/* 228 */
 /***/ function(module, exports) {
 
 	
@@ -26498,7 +26594,7 @@
 
 
 /***/ },
-/* 226 */
+/* 229 */
 /***/ function(module, exports) {
 
 	
@@ -26527,95 +26623,131 @@
 	};
 
 /***/ },
-/* 227 */
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(202);
+	var DashboardActions = __webpack_require__(225);
+	
+	module.exports = Reflux.createStore({
+	
+	    /**
+	     * Default data storage
+	     */
+	    defaultData: {},
+	
+	    /**
+	     * Event listeners
+	     */
+	    init: function() {
+	        this.listenTo(DashboardActions.loadDefault.completed, this.onLoadDefault);
+	    },
+	
+	    /**
+	     * Load default data
+	     *
+	     * @param data
+	     */
+	    onLoadDefault:function(data) {
+	        this.defaultData = data;
+	        this.trigger();
+	    },
+	
+	    /**
+	     * Get default data
+	     *
+	     * @returns {*}
+	     */
+	    getDefaultData:function() {
+	        return this.defaultData;
+	    }
+	});
+
+/***/ },
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
-	var Menu = __webpack_require__(228);
-	var Login = __webpack_require__(229);
-	
 	/**
-	 * Header component
+	 * Text input component
 	 */
-	var ____Class3=React.Component;for(var ____Class3____Key in ____Class3){if(____Class3.hasOwnProperty(____Class3____Key)){Header[____Class3____Key]=____Class3[____Class3____Key];}}var ____SuperProtoOf____Class3=____Class3===null?null:____Class3.prototype;Header.prototype=Object.create(____SuperProtoOf____Class3);Header.prototype.constructor=Header;Header.__superConstructor__=____Class3;function Header(){"use strict";if(____Class3!==null){____Class3.apply(this,arguments);}}
+	var TextInput = React.createClass({displayName: "TextInput",
 	
 	    /**
-	     * Get menu items
+	     * Validate properties
 	     */
-	    Object.defineProperty(Header,"getMenuItems",{writable:true,configurable:true,value:function() {"use strict";
-	        return [
-	            {label: 'home', route: 'home'},
-	            {label: 'login', route: 'login'}
-	        ]
-	    }});
+	    propTypes: {
+	        placeholder: React.PropTypes.string,
+	        label: React.PropTypes.string
+	    },
+	
+	    /**
+	     * Default values for properties
+	     */
+	    getDefaultProps:function() {
+	        return {
+	            placeholder: false,
+	            label: ''
+	        }
+	    },
 	
 	    /**
 	     * Render component
 	     */
-	    Object.defineProperty(Header.prototype,"render",{writable:true,configurable:true,value:function(){"use strict";
+	    render:function() {
 	        return (
 	            React.createElement("div", null, 
-	                React.createElement(Menu, {items: Header.getMenuItems()}), 
-	                React.createElement(Login, null)
+	                React.createElement("label", {for: this.props.label}, this.props.label), 
+	                React.createElement("input", {type: "text", name: this.props.label, id: this.props.label, value: this.props.value})
 	            )
 	        );
-	    }});
+	    }
+	});
 	
-	
-	module.exports = Header;
+	module.exports = TextInput;
 
 /***/ },
-/* 228 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(157);
-	var Link = ReactRouter.Link;
-	
-	/**
-	 * Menu component
-	 */
-	var ____Class6=React.Component;for(var ____Class6____Key in ____Class6){if(____Class6.hasOwnProperty(____Class6____Key)){Menu[____Class6____Key]=____Class6[____Class6____Key];}}var ____SuperProtoOf____Class6=____Class6===null?null:____Class6.prototype;Menu.prototype=Object.create(____SuperProtoOf____Class6);Menu.prototype.constructor=Menu;Menu.__superConstructor__=____Class6;function Menu(){"use strict";if(____Class6!==null){____Class6.apply(this,arguments);}}
-	    /**
-	     * Render component
-	     */
-	    Object.defineProperty(Menu.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
-	        return React.createElement("ul", null, this.props.items.map(function(item)  {return Menu.renderItem(item);}));
-	    }});
-	
-	    /**
-	     * Render menu items
-	     *
-	     * @param item
-	     */
-	    Object.defineProperty(Menu,"renderItem",{writable:true,configurable:true,value:function(item) {"use strict";
-	        return React.createElement(Link, {key: item.route, to: item.route}, item.label, " ");
-	    }});
-	
-	
-	module.exports = Menu;
-
-/***/ },
-/* 229 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
 	/**
-	 * Login component
+	 * Text input component
 	 */
-	var ____Class5=React.Component;for(var ____Class5____Key in ____Class5){if(____Class5.hasOwnProperty(____Class5____Key)){Login[____Class5____Key]=____Class5[____Class5____Key];}}var ____SuperProtoOf____Class5=____Class5===null?null:____Class5.prototype;Login.prototype=Object.create(____SuperProtoOf____Class5);Login.prototype.constructor=Login;Login.__superConstructor__=____Class5;function Login(){"use strict";if(____Class5!==null){____Class5.apply(this,arguments);}}
+	var TextInput = React.createClass({displayName: "TextInput",
+	
+	    /**
+	     * Validate properties
+	     */
+	    propTypes: {
+	        label: React.PropTypes.string
+	    },
+	
+	    /**
+	     * Default values for properties
+	     */
+	    getDefaultProps:function() {
+	        return {
+	            label: ''
+	        }
+	    },
 	
 	    /**
 	     * Render component
 	     */
-	    Object.defineProperty(Login.prototype,"render",{writable:true,configurable:true,value:function(){"use strict";
-	        return (React.createElement("div", null));
-	    }});
+	    render:function() {
+	        return (
+	            React.createElement("div", null, 
+	                React.createElement("input", {type: "submit", name: this.props.label, id: this.props.label})
+	            )
+	        );
+	    }
+	});
 	
-	
-	module.exports = Login;
+	module.exports = TextInput;
 
 /***/ }
 /******/ ]);
