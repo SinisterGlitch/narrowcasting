@@ -1,36 +1,41 @@
 var SuperAgent = require('superagent');
 
 /**
- * Ajax request object
+ * XHR Request service
  */
 module.exports = {
 
     /**
-     * Get Request
+     * Initiate GET Request
      *
-     * @param url
-     * @param callback
+     * @param {string} url
+     * @param {func} callback
      */
     get(url, callback) {
-        SuperAgent.get(url).end((err, res) => this.responseHandler(err, res, callback))
+        SuperAgent.get(url).end(
+            (err, res) => this.responseHandler(err, res, callback)
+        )
     },
 
     /**
-     * Post request
+     * Initiate POST request
      *
-     * @param url
-     * @param data
-     * @param callback
+     * @param {string} url
+     * @param {array} data
+     * @param {func} callback
      */
     post(url, data, callback) {
-        SuperAgent.post(url).end((err, res) => this.responseHandler(err, res, callback))
+        SuperAgent.post(url, data).end(
+            (err, res) => this.responseHandler(err, res, callback)
+        )
     },
 
     /**
-     * Response handler
+     * XHR Response handler
      *
-     * @param err
-     * @param res
+     * @param {object} err
+     * @param {object} res
+     * @param {func} callback
      */
     responseHandler(err, res, callback) {
         if (res.ok) {
