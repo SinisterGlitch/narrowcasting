@@ -37,9 +37,7 @@ class UserManager
     public function __construct(FosUserManager $userManager, LoginManager $loginManager, EntityManager $entityManager)
     {
         $this->userManager = $userManager;
-
         $this->loginManager = $loginManager;
-
         $this->entityManager = $entityManager;
     }
 
@@ -101,9 +99,7 @@ class UserManager
      */
     public function getUser($id)
     {
-        $user = $this->entityManager
-            ->getRepository('ManageUserBundle:User')
-            ->findOneBy(['id' => $id]);
+        $user = $this->entityManager->getRepository('ManageUserBundle:User')->findOneBy(['id' => $id]);
 
         if (!$user instanceof User) {
             throw new \Exception('User not found with given id', 500);

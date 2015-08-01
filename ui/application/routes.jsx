@@ -3,10 +3,12 @@ var ReactRouter = require('react-router');
 var Route = ReactRouter.Route;
 
 var App = require('components/layout/app');
-var dashboardHandler = require ('modules/views/dashboard/dashboard');
+var indexHandler = require ('modules/views/dashboard/index');
+var loginHandler = require ('modules/views/dashboard/login');
 
 module.exports = (
     <Route name="default" name="home" handler={App} path="/">
-        <Route name="login" handler={dashboardHandler} path="/login" />
+        <Route name="index" handler={indexHandler} path="/" />
+        <Route name="login" handler={loginHandler} path="/login" />
     </Route>
 );

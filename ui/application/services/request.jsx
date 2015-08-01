@@ -14,7 +14,7 @@ module.exports = {
     get(url, callback) {
         SuperAgent.get(url).end(
             (err, res) => this.responseHandler(err, res, callback)
-        )
+        );
     },
 
     /**

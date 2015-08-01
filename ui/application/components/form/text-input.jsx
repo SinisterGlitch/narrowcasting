@@ -3,37 +3,50 @@ var React = require('react');
 /**
  * Text input component
  */
-var TextInput = React.createClass({
+module.exports = React.createClass({
 
-    /**
-     * Validate properties
-     */
     propTypes: {
         placeholder: React.PropTypes.string,
-        label: React.PropTypes.string
+        hideInput: React.PropTypes.string,
+        label: React.PropTypes.string,
+        value: React.PropTypes.string,
+        name: React.PropTypes.string
     },
 
-    /**
-     * Default values for properties
-     */
     getDefaultProps() {
         return {
             placeholder: false,
-            label: ''
+            hideInput: false,
+            label: '',
+            name: ''
         }
     },
 
-    /**
-     * Render component
-     */
+    getInitialState() {
+        return {
+            value: this.props.value
+        }
+    },
+
+    handleChange(e) {
+        this.setState({value: e.target.value});
+    },
+
     render() {
         return (
             <div>
-                <label for={this.props.label}>{this.props.label}</label>
-                <input type="text" name={this.props.label} id={this.props.label} value={this.props.value} />
+                <label htmlFor={this.props.label}>
+                    {this.props.label}
+                </label>
+
+                <input type={(this.props.hideInput) ? 'password' : 'text'}
+                    name={this.props.name}
+                    id={this.props.name}
+                    placeholder={this.props.placeholder}
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                />
             </div>
         );
     }
 });
-
-module.exports = TextInput;
