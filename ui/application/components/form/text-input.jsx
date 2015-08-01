@@ -7,7 +7,6 @@ module.exports = React.createClass({
 
     propTypes: {
         placeholder: React.PropTypes.string,
-        hideInput: React.PropTypes.string,
         label: React.PropTypes.string,
         value: React.PropTypes.string,
         name: React.PropTypes.string

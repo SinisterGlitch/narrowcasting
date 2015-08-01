@@ -23550,11 +23550,13 @@
 	var Route = ReactRouter.Route;
 	
 	var App = __webpack_require__(197);
-	var dashboardHandler = __webpack_require__ (201);
+	var indexHandler = __webpack_require__ (233);
+	var loginHandler = __webpack_require__ (234);
 	
 	module.exports = (
 	    React.createElement(Route, {name: "default", name: "home", handler: App, path: "/"}, 
-	        React.createElement(Route, {name: "login", handler: dashboardHandler, path: "/login"})
+	        React.createElement(Route, {name: "index", handler: indexHandler, path: "/"}), 
+	        React.createElement(Route, {name: "login", handler: loginHandler, path: "/login"})
 	    )
 	);
 
@@ -23571,7 +23573,7 @@
 	/**
 	 * App component
 	 */
-	var ____Class0=React.Component;for(var ____Class0____Key in ____Class0){if(____Class0.hasOwnProperty(____Class0____Key)){App[____Class0____Key]=____Class0[____Class0____Key];}}var ____SuperProtoOf____Class0=____Class0===null?null:____Class0.prototype;App.prototype=Object.create(____SuperProtoOf____Class0);App.prototype.constructor=App;App.__superConstructor__=____Class0;function App(){"use strict";if(____Class0!==null){____Class0.apply(this,arguments);}}
+	var ____Classa=React.Component;for(var ____Classa____Key in ____Classa){if(____Classa.hasOwnProperty(____Classa____Key)){App[____Classa____Key]=____Classa[____Classa____Key];}}var ____SuperProtoOf____Classa=____Classa===null?null:____Classa.prototype;App.prototype=Object.create(____SuperProtoOf____Classa);App.prototype.constructor=App;App.__superConstructor__=____Classa;function App(){"use strict";if(____Classa!==null){____Classa.apply(this,arguments);}}
 	
 	    /**
 	     * Render component
@@ -23602,7 +23604,7 @@
 	/**
 	 * Header component
 	 */
-	var ____Class1=React.Component;for(var ____Class1____Key in ____Class1){if(____Class1.hasOwnProperty(____Class1____Key)){Header[____Class1____Key]=____Class1[____Class1____Key];}}var ____SuperProtoOf____Class1=____Class1===null?null:____Class1.prototype;Header.prototype=Object.create(____SuperProtoOf____Class1);Header.prototype.constructor=Header;Header.__superConstructor__=____Class1;function Header(){"use strict";if(____Class1!==null){____Class1.apply(this,arguments);}}
+	var ____Class9=React.Component;for(var ____Class9____Key in ____Class9){if(____Class9.hasOwnProperty(____Class9____Key)){Header[____Class9____Key]=____Class9[____Class9____Key];}}var ____SuperProtoOf____Class9=____Class9===null?null:____Class9.prototype;Header.prototype=Object.create(____SuperProtoOf____Class9);Header.prototype.constructor=Header;Header.__superConstructor__=____Class9;function Header(){"use strict";if(____Class9!==null){____Class9.apply(this,arguments);}}
 	
 	    /**
 	     * Get menu items
@@ -23640,7 +23642,7 @@
 	/**
 	 * Menu component
 	 */
-	var ____Class2=React.Component;for(var ____Class2____Key in ____Class2){if(____Class2.hasOwnProperty(____Class2____Key)){Menu[____Class2____Key]=____Class2[____Class2____Key];}}var ____SuperProtoOf____Class2=____Class2===null?null:____Class2.prototype;Menu.prototype=Object.create(____SuperProtoOf____Class2);Menu.prototype.constructor=Menu;Menu.__superConstructor__=____Class2;function Menu(){"use strict";if(____Class2!==null){____Class2.apply(this,arguments);}}
+	var ____Class3=React.Component;for(var ____Class3____Key in ____Class3){if(____Class3.hasOwnProperty(____Class3____Key)){Menu[____Class3____Key]=____Class3[____Class3____Key];}}var ____SuperProtoOf____Class3=____Class3===null?null:____Class3.prototype;Menu.prototype=Object.create(____SuperProtoOf____Class3);Menu.prototype.constructor=Menu;Menu.__superConstructor__=____Class3;function Menu(){"use strict";if(____Class3!==null){____Class3.apply(this,arguments);}}
 	    /**
 	     * Render component
 	     */
@@ -23669,7 +23671,7 @@
 	/**
 	 * Login component
 	 */
-	var ____Class3=React.Component;for(var ____Class3____Key in ____Class3){if(____Class3.hasOwnProperty(____Class3____Key)){Login[____Class3____Key]=____Class3[____Class3____Key];}}var ____SuperProtoOf____Class3=____Class3===null?null:____Class3.prototype;Login.prototype=Object.create(____SuperProtoOf____Class3);Login.prototype.constructor=Login;Login.__superConstructor__=____Class3;function Login(){"use strict";if(____Class3!==null){____Class3.apply(this,arguments);}}
+	var ____Class7=React.Component;for(var ____Class7____Key in ____Class7){if(____Class7.hasOwnProperty(____Class7____Key)){Login[____Class7____Key]=____Class7[____Class7____Key];}}var ____SuperProtoOf____Class7=____Class7===null?null:____Class7.prototype;Login.prototype=Object.create(____SuperProtoOf____Class7);Login.prototype.constructor=Login;Login.__superConstructor__=____Class7;function Login(){"use strict";if(____Class7!==null){____Class7.apply(this,arguments);}}
 	
 	    /**
 	     * Render component
@@ -23682,63 +23684,7 @@
 	module.exports = Login;
 
 /***/ },
-/* 201 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Reflux = __webpack_require__(202);
-	
-	var Form = __webpack_require__(224);
-	
-	var DashboardActions = __webpack_require__(225);
-	var DashboardStore = __webpack_require__(230);
-	
-	var TextInput = __webpack_require__(231);
-	var SubmitInput = __webpack_require__(232);
-	
-	/**
-	 * Dashboard view
-	 */
-	module.exports = React.createClass({displayName: "module.exports",
-	
-	    /**
-	     * Event listeners
-	     */
-	    mixins: [
-	        Reflux.listenTo(DashboardStore, 'initRender')
-	    ],
-	
-	    /**
-	     * When component successfully mounted
-	     */
-	    componentDidMount:function() {
-	        DashboardActions.loadDefault();
-	    },
-	
-	    /**
-	     * Initiate render by force update
-	     */
-	    initRender:function() {
-	        this.forceUpdate();
-	    },
-	
-	    /**
-	     * Render view
-	     */
-	    render:function(){
-	        return (
-	            React.createElement("div", {key: "content"}, 
-	                React.createElement("form", {onclick: Form.submit(this)}, 
-	                    React.createElement(TextInput, {label: "username"}), 
-	                    React.createElement(TextInput, {label: "password"}), 
-	                    React.createElement(SubmitInput, {label: "submit"})
-	                )
-	            )
-	        )
-	    }
-	});
-
-/***/ },
+/* 201 */,
 /* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -25255,77 +25201,70 @@
 /***/ function(module, exports) {
 
 	/**
-	 * Form submit handler
+	 * Form service
 	 */
 	module.exports = {
 	
-	    submit:function(e) {
+	    /**
+	     * Get input values from form
+	     */
+	    getFormData:function(e) {
 	        e.preventDefault();
-	        return 123;
+	
+	        var list = {};
+	        for (var i = 0, len = e.target.length; i < len; i++) {
+	            if (typeof e.target[i].value != 'undefined' && e.target[i].type != 'submit') {
+	                list[e.target[i].name] = e.target[i].value
+	            }
+	        }
+	
+	        return list;
 	    }
-	};
+	}
 
 /***/ },
-/* 225 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Reflux = __webpack_require__(202);
-	var Request = __webpack_require__(226);
-	
-	/**
-	 * Dashboard Reflux actions
-	 */
-	var DashboardActions = Reflux.createActions({
-	    loadDefault: {children: ['completed','failed']}
-	});
-	
-	/**
-	 * Listen to actions
-	 */
-	DashboardActions.loadDefault.listen(function () {
-	    Request.get('app_dev.php/api/user/get/3223', DashboardActions.loadDefault);
-	});
-	
-	module.exports = DashboardActions;
-
-/***/ },
+/* 225 */,
 /* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var SuperAgent = __webpack_require__(227);
 	
 	/**
-	 * Ajax request object
+	 * XHR Request service
 	 */
 	module.exports = {
 	
 	    /**
-	     * Get Request
+	     * Initiate GET Request
 	     *
-	     * @param url
-	     * @param callback
+	     * @param {string} url
+	     * @param {func} callback
 	     */
 	    get:function(url, callback) {
-	        SuperAgent.get(url).end(function(err, res)  {return this.responseHandler(err, res, callback);}.bind(this))
+	        SuperAgent.get(url).end(
+	            function(err, res)  {return this.responseHandler(err, res, callback);}.bind(this)
+	        );
 	    },
 	
 	    /**
-	     * Post request
+	     * Initiate POST request
 	     *
-	     * @param url
-	     * @param data
-	     * @param callback
+	     * @param {string} url
+	     * @param {array} data
+	     * @param {func} callback
 	     */
 	    post:function(url, data, callback) {
-	        SuperAgent.post(url).end(function(err, res)  {return this.responseHandler(err, res, callback);}.bind(this))
+	        SuperAgent.post(url, data).end(
+	            function(err, res)  {return this.responseHandler(err, res, callback);}.bind(this)
+	        )
 	    },
 	
 	    /**
-	     * Response handler
+	     * XHR Response handler
 	     *
-	     * @param err
-	     * @param res
+	     * @param {object} err
+	     * @param {object} res
+	     * @param {func} callback
 	     */
 	    responseHandler:function(err, res, callback) {
 	        if (res.ok) {
@@ -26623,48 +26562,7 @@
 	};
 
 /***/ },
-/* 230 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Reflux = __webpack_require__(202);
-	var DashboardActions = __webpack_require__(225);
-	
-	module.exports = Reflux.createStore({
-	
-	    /**
-	     * Default data storage
-	     */
-	    defaultData: {},
-	
-	    /**
-	     * Event listeners
-	     */
-	    init: function() {
-	        this.listenTo(DashboardActions.loadDefault.completed, this.onLoadDefault);
-	    },
-	
-	    /**
-	     * Load default data
-	     *
-	     * @param data
-	     */
-	    onLoadDefault:function(data) {
-	        this.defaultData = data;
-	        this.trigger();
-	    },
-	
-	    /**
-	     * Get default data
-	     *
-	     * @returns {*}
-	     */
-	    getDefaultData:function() {
-	        return this.defaultData;
-	    }
-	});
-
-/***/ },
+/* 230 */,
 /* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -26673,75 +26571,217 @@
 	/**
 	 * Text input component
 	 */
-	var TextInput = React.createClass({displayName: "TextInput",
+	module.exports = React.createClass({displayName: "module.exports",
 	
-	    /**
-	     * Validate properties
-	     */
 	    propTypes: {
 	        placeholder: React.PropTypes.string,
-	        label: React.PropTypes.string
+	        label: React.PropTypes.string,
+	        value: React.PropTypes.string,
+	        name: React.PropTypes.string
 	    },
 	
-	    /**
-	     * Default values for properties
-	     */
 	    getDefaultProps:function() {
 	        return {
 	            placeholder: false,
-	            label: ''
+	            hideInput: false,
+	            label: '',
+	            name: ''
 	        }
 	    },
 	
-	    /**
-	     * Render component
-	     */
+	    getInitialState:function() {
+	        return {
+	            value: this.props.value
+	        }
+	    },
+	
+	    handleChange:function(e) {
+	        this.setState({value: e.target.value});
+	    },
+	
 	    render:function() {
 	        return (
 	            React.createElement("div", null, 
-	                React.createElement("label", {for: this.props.label}, this.props.label), 
-	                React.createElement("input", {type: "text", name: this.props.label, id: this.props.label, value: this.props.value})
+	                React.createElement("label", {htmlFor: this.props.label}, 
+	                    this.props.label
+	                ), 
+	
+	                React.createElement("input", {type: (this.props.hideInput) ? 'password' : 'text', 
+	                    name: this.props.name, 
+	                    id: this.props.name, 
+	                    placeholder: this.props.placeholder, 
+	                    value: this.state.value, 
+	                    onChange: this.handleChange}
+	                )
 	            )
 	        );
 	    }
 	});
-	
-	module.exports = TextInput;
 
 /***/ },
-/* 232 */
+/* 232 */,
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(202);
+	
+	/**
+	 * Index view
+	 */
+	module.exports = React.createClass({displayName: "module.exports",
+	
+	    /**
+	     * Render view
+	     */
+	    render:function(){
+	        return (
+	            React.createElement("div", {key: "content"}, 
+	                "Please login to continue"
+	            )
+	        )
+	    }
+	});
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(202);
+	
+	var UserActions = __webpack_require__(235);
+	var UserStore = __webpack_require__(236);
+	
+	var Form = __webpack_require__(224);
+	var TextInput = __webpack_require__(231);
+	var Submit = __webpack_require__(238);
+	
+	module.exports = React.createClass({displayName: "module.exports",
+	
+	    getInitialState:function() {
+	        return {
+	            user: {}
+	        }
+	    },
+	
+	    onLoadUser:function() {
+	        this.setState({
+	            user: UserStore.getUser()
+	        });
+	    },
+	
+	    onSubmit:function(form) {
+	        UserActions.loadUser(Form.getFormData(form));
+	    },
+	
+	    render:function(){
+	        return (
+	            React.createElement("div", {key: "content"}, 
+	                React.createElement("form", {onSubmit: this.onSubmit}, 
+	                    React.createElement(TextInput, {name: "username", label: "Username", value: "germain", placeholder: "..."}), 
+	                    React.createElement(TextInput, {name: "password", label: "Password", hideInput: true, value: "test", placeholder: "..."}), 
+	                    React.createElement(Submit, {label: "Login", name: "login"})
+	                )
+	            )
+	        )
+	    }
+	});
+
+/***/ },
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(202);
+	var Request = __webpack_require__(226);
+	
+	/**
+	 * User Reflux actions
+	 */
+	var UserActions = Reflux.createActions({
+	    loadUser: {children: ['completed','failed']}
+	});
+	
+	UserActions.loadUser.listen(function(data)
+	     {return Request.post('app_dev.php/api/user/login', data, UserActions.loadUser);}
+	);
+	
+	module.exports = UserActions;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(202);
+	var UserActions = __webpack_require__(235);
+	
+	module.exports = Reflux.createStore({
+	
+	    /**
+	     * User storage
+	     */
+	    _user: {},
+	
+	    /**
+	     * Event listeners
+	     */
+	    init: function() {
+	        this.listenTo(UserActions.loadUser.completed, this._onLoadUser);
+	    },
+	
+	    /**
+	     * Load user
+	     *
+	     * @param user
+	     */
+	    _onLoadUser:function(user) {
+	        this._user = user;
+	        this.trigger();
+	    },
+	
+	    /**
+	     * Get user
+	     */
+	    getUser:function() {
+	        return this._user;
+	    }
+	});
+
+/***/ },
+/* 237 */,
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	
 	/**
-	 * Text input component
+	 * Submit input component
 	 */
 	var TextInput = React.createClass({displayName: "TextInput",
 	
-	    /**
-	     * Validate properties
-	     */
 	    propTypes: {
-	        label: React.PropTypes.string
+	        label: React.PropTypes.string,
+	        name: React.PropTypes.string
 	    },
 	
-	    /**
-	     * Default values for properties
-	     */
 	    getDefaultProps:function() {
 	        return {
-	            label: ''
+	            label: 'Submit',
+	            name: ''
 	        }
 	    },
 	
-	    /**
-	     * Render component
-	     */
 	    render:function() {
 	        return (
 	            React.createElement("div", null, 
-	                React.createElement("input", {type: "submit", name: this.props.label, id: this.props.label})
+	                React.createElement("input", React.__spread({},  this.props, 
+	                    {type: "submit", 
+	                    value: this.props.label, 
+	                    name: this.props.name, 
+	                    id: this.props.name})
+	                )
 	            )
 	        );
 	    }

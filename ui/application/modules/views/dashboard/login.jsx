@@ -4,6 +4,7 @@ var Reflux = require('reflux');
 var UserActions = require('modules/actions/user');
 var UserStore = require('modules/stores/user');
 
+var Form = require('services/form');
 var TextInput = require('components/form/text-input');
 var Submit = require('components/form/submit-button');
 
@@ -21,17 +22,17 @@ module.exports = React.createClass({
         });
     },
 
-    onSubmit(e) {
-        console.log('values', e.target.value);
+    onSubmit(form) {
+        UserActions.loadUser(Form.getFormData(form));
     },
 
     render(){
         return (
             <div key="content">
-                <form>
+                <form onSubmit={this.onSubmit}>
                     <TextInput name="username" label="Username" value="germain" placeholder="..." />
                     <TextInput name="password" label="Password" hideInput={true} value="test" placeholder="..." />
-                    <Submit label="Login" name="login" onClick={this.onSubmit} />
+                    <Submit label="Login" name="login" />
                 </form>
             </div>
         )

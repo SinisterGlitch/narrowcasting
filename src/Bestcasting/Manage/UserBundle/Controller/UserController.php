@@ -4,6 +4,7 @@ namespace Bestcasting\Manage\UserBundle\Controller;
 
 use Bestcasting\Manage\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\View;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\BrowserKit\Response;
@@ -37,9 +38,9 @@ class UserController extends Controller
     }
 
     /**
-     * @Get("/user/login/{username}/{password}")
-     *
+     * @Post("/user/login/{username}/{password}")
      * @View()
+     *
      * @param $username
      * @param $password
      * @return Response

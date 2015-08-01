@@ -9,8 +9,8 @@ var UserActions = Reflux.createActions({
     loadUser: {children: ['completed','failed']}
 });
 
-UserActions.loadUser.listen(()
-    => Request.post('app_dev.php/api/user/get/4325', UserActions.loadUser, data)
+UserActions.loadUser.listen((data)
+    => Request.post('app_dev.php/api/user/login', data, UserActions.loadUser)
 );
 
 module.exports = UserActions;

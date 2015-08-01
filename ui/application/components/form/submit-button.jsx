@@ -20,8 +20,8 @@ var TextInput = React.createClass({
     render() {
         return (
             <div>
-                <input
-                    type="button"
+                <input {...this.props}
+                    type="submit"
                     value={this.props.label}
                     name={this.props.name}
                     id={this.props.name}
