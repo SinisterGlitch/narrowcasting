@@ -23549,10 +23549,10 @@
 	var ReactRouter = __webpack_require__(157);
 	var Route = ReactRouter.Route;
 	
-	var App = __webpack_require__(220);
+	var App = __webpack_require__(227);
 	var indexHandler = __webpack_require__ (197);
-	var loginHandler = __webpack_require__ (224);
-	var registerHandler = __webpack_require__ (234);
+	var loginHandler = __webpack_require__ (229);
+	var registerHandler = __webpack_require__ (233);
 	
 	module.exports = (
 	    React.createElement(Route, {name: "default", name: "home", handler: App, path: "/"}, 
@@ -23569,7 +23569,7 @@
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
 	
-	var UserStore = __webpack_require__(230);
+	var UserStore = __webpack_require__(220);
 	
 	/**
 	 * Index view
@@ -25111,177 +25111,88 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(157);
-	var RouteHandler = ReactRouter.RouteHandler;
+	var Reflux = __webpack_require__(198);
+	var Storage = __webpack_require__(221);
+	var UserActions = __webpack_require__(222);
 	
-	var Header = __webpack_require__(221);
-	
-	/**
-	 * App component
-	 */
-	var ____Class0=React.Component;for(var ____Class0____Key in ____Class0){if(____Class0.hasOwnProperty(____Class0____Key)){App[____Class0____Key]=____Class0[____Class0____Key];}}var ____SuperProtoOf____Class0=____Class0===null?null:____Class0.prototype;App.prototype=Object.create(____SuperProtoOf____Class0);App.prototype.constructor=App;App.__superConstructor__=____Class0;function App(){"use strict";if(____Class0!==null){____Class0.apply(this,arguments);}}
+	module.exports = Reflux.createStore({
 	
 	    /**
-	     * Render component
+	     * User storage
 	     */
-	    Object.defineProperty(App.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
-	        return (
-	            React.createElement("div", {style: {width:'100%', textAlign:'center'}}, 
-	                React.createElement(Header, null), 
-	                React.createElement("div", {id: "main"}, 
-	                    React.createElement(RouteHandler, null)
-	                )
-	            )
-	        );
-	    }});
+	    _user: {},
 	
+	    /**
+	     * Event listeners
+	     */
+	    init: function() {
+	        this._user = Storage.read('user', {});
+	        this.listenTo(UserActions.loadUser.completed, this._onLoadUser);
+	    },
 	
-	module.exports = App;
+	    /**
+	     * Load user
+	     *
+	     * @param user
+	     */
+	    _onLoadUser:function(user) {
+	        this._user = user;
+	        Storage.write('user', this._user);
+	        this.trigger();
+	    },
+	
+	    /**
+	     * Get user
+	     */
+	    getUser:function() {
+	        return this._user;
+	    }
+	});
 
 /***/ },
 /* 221 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	var React = __webpack_require__(1);
-	
-	var Menu = __webpack_require__(222);
-	var Login = __webpack_require__(223);
-	
 	/**
-	 * Header component
+	 * Add locale storage support
 	 */
-	var ____Class1=React.Component;for(var ____Class1____Key in ____Class1){if(____Class1.hasOwnProperty(____Class1____Key)){Header[____Class1____Key]=____Class1[____Class1____Key];}}var ____SuperProtoOf____Class1=____Class1===null?null:____Class1.prototype;Header.prototype=Object.create(____SuperProtoOf____Class1);Header.prototype.constructor=Header;Header.__superConstructor__=____Class1;function Header(){"use strict";if(____Class1!==null){____Class1.apply(this,arguments);}}
+	module.exports = {
 	
-	    /**
-	     * Get menu items
-	     */
-	    Object.defineProperty(Header,"getMenuItems",{writable:true,configurable:true,value:function() {"use strict";
-	        return [
-	            {label: 'home', route: 'home'},
-	            {label: 'login', route: 'login'},
-	            {label: 'register', route: 'register'}
-	        ]
-	    }});
+	    write: function (key, value) {
+	        if (!value) {
+	            return;
+	        }
 	
-	    /**
-	     * Render component
-	     */
-	    Object.defineProperty(Header.prototype,"render",{writable:true,configurable:true,value:function(){"use strict";
-	        return (
-	            React.createElement("div", null, 
-	                React.createElement(Menu, {items: Header.getMenuItems()}), 
-	                React.createElement(Login, null)
-	            )
-	        );
-	    }});
+	        if (typeof localStorage === 'object') {
+	            localStorage.setItem(key, JSON.stringify(value));
+	        }
+	    },
 	
+	    clear: function(key) {
+	        if (typeof localStorage === 'object') {
+	            localStorage.setItem(key, undefined);
+	        }
+	    },
 	
-	module.exports = Header;
+	    read: function (key, defaultValue) {
+	        if (typeof localStorage === 'object') {
+	            var value = localStorage.getItem(key);
+	            if (value) {
+	                value = JSON.parse(value);
+	            }
+	
+	            return value ? value : defaultValue;
+	        }
+	    }
+	};
 
 /***/ },
 /* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(157);
-	var Link = ReactRouter.Link;
-	
-	/**
-	 * Menu component
-	 */
-	var ____Class3=React.Component;for(var ____Class3____Key in ____Class3){if(____Class3.hasOwnProperty(____Class3____Key)){Menu[____Class3____Key]=____Class3[____Class3____Key];}}var ____SuperProtoOf____Class3=____Class3===null?null:____Class3.prototype;Menu.prototype=Object.create(____SuperProtoOf____Class3);Menu.prototype.constructor=Menu;Menu.__superConstructor__=____Class3;function Menu(){"use strict";if(____Class3!==null){____Class3.apply(this,arguments);}}
-	    /**
-	     * Render component
-	     */
-	    Object.defineProperty(Menu.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
-	        return React.createElement("ul", null, this.props.items.map(function(item)  {return Menu.renderItem(item);}));
-	    }});
-	
-	    /**
-	     * Render menu items
-	     *
-	     * @param item
-	     */
-	    Object.defineProperty(Menu,"renderItem",{writable:true,configurable:true,value:function(item) {"use strict";
-	        return React.createElement(Link, {key: item.route, to: item.route}, item.label, " ");
-	    }});
-	
-	
-	module.exports = Menu;
-
-/***/ },
-/* 223 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	/**
-	 * Login component
-	 */
-	var ____Class2=React.Component;for(var ____Class2____Key in ____Class2){if(____Class2.hasOwnProperty(____Class2____Key)){Login[____Class2____Key]=____Class2[____Class2____Key];}}var ____SuperProtoOf____Class2=____Class2===null?null:____Class2.prototype;Login.prototype=Object.create(____SuperProtoOf____Class2);Login.prototype.constructor=Login;Login.__superConstructor__=____Class2;function Login(){"use strict";if(____Class2!==null){____Class2.apply(this,arguments);}}
-	
-	    /**
-	     * Render component
-	     */
-	    Object.defineProperty(Login.prototype,"render",{writable:true,configurable:true,value:function(){"use strict";
-	        return (React.createElement("div", null));
-	    }});
-	
-	
-	module.exports = Login;
-
-/***/ },
-/* 224 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
-	
-	var UserActions = __webpack_require__(225);
-	var UserStore = __webpack_require__(230);
-	
-	var Form = __webpack_require__(231);
-	var TextInput = __webpack_require__(232);
-	var Submit = __webpack_require__(233);
-	
-	module.exports = React.createClass({displayName: "module.exports",
-	
-	    getInitialState:function() {
-	        return {
-	            user: {}
-	        }
-	    },
-	
-	    onLoadUser:function() {
-	        this.setState({
-	            user: UserStore.getUser()
-	        });
-	    },
-	
-	    onSubmit:function(form) {
-	        UserActions.loadUser(Form.getFormData(form));
-	    },
-	
-	    render:function(){
-	        return (
-	            React.createElement("div", {key: "content"}, 
-	                React.createElement("form", {onSubmit: this.onSubmit}, 
-	                    React.createElement(TextInput, {name: "username", label: "Username", value: "germain", placeholder: "..."}), 
-	                    React.createElement(TextInput, {name: "password", label: "Password", hideInput: true, value: "test", placeholder: "..."}), 
-	                    React.createElement(Submit, {label: "Login", name: "login"})
-	                )
-	            )
-	        )
-	    }
-	});
-
-/***/ },
-/* 225 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Reflux = __webpack_require__(198);
-	var Request = __webpack_require__(226);
+	var Request = __webpack_require__(223);
 	
 	/**
 	 * User Reflux actions
@@ -25302,10 +25213,10 @@
 	module.exports = UserActions;
 
 /***/ },
-/* 226 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SuperAgent = __webpack_require__(227);
+	var SuperAgent = __webpack_require__(224);
 	
 	/**
 	 * XHR Request service
@@ -25354,15 +25265,15 @@
 	};
 
 /***/ },
-/* 227 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 	
-	var Emitter = __webpack_require__(228);
-	var reduce = __webpack_require__(229);
+	var Emitter = __webpack_require__(225);
+	var reduce = __webpack_require__(226);
 	
 	/**
 	 * Root reference for iframes.
@@ -26441,7 +26352,7 @@
 
 
 /***/ },
-/* 228 */
+/* 225 */
 /***/ function(module, exports) {
 
 	
@@ -26611,7 +26522,7 @@
 
 
 /***/ },
-/* 229 */
+/* 226 */
 /***/ function(module, exports) {
 
 	
@@ -26640,50 +26551,162 @@
 	};
 
 /***/ },
-/* 230 */
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(157);
+	var RouteHandler = ReactRouter.RouteHandler;
+	
+	var Header = __webpack_require__(228);
+	
+	/**
+	 * App component
+	 */
+	var ____Classk=React.Component;for(var ____Classk____Key in ____Classk){if(____Classk.hasOwnProperty(____Classk____Key)){App[____Classk____Key]=____Classk[____Classk____Key];}}var ____SuperProtoOf____Classk=____Classk===null?null:____Classk.prototype;App.prototype=Object.create(____SuperProtoOf____Classk);App.prototype.constructor=App;App.__superConstructor__=____Classk;function App(){"use strict";if(____Classk!==null){____Classk.apply(this,arguments);}}
+	
+	    /**
+	     * Render component
+	     */
+	    Object.defineProperty(App.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
+	        return (
+	            React.createElement("div", {style: {width:'100%', textAlign:'center'}}, 
+	                React.createElement(Header, null), 
+	                React.createElement("br", null), 
+	                React.createElement("div", {className: "container"}, 
+	                    React.createElement("div", {className: "jumbotron"}, 
+	                        React.createElement(RouteHandler, null)
+	                    )
+	                )
+	            )
+	        );
+	    }});
+	
+	
+	module.exports = App;
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(157);
+	var Link = ReactRouter.Link;
+	
+	var Login = __webpack_require__(235);
+	
+	/**
+	 * Header component
+	 */
+	var ____Classn=React.Component;for(var ____Classn____Key in ____Classn){if(____Classn.hasOwnProperty(____Classn____Key)){Header[____Classn____Key]=____Classn[____Classn____Key];}}var ____SuperProtoOf____Classn=____Classn===null?null:____Classn.prototype;Header.prototype=Object.create(____SuperProtoOf____Classn);Header.prototype.constructor=Header;Header.__superConstructor__=____Classn;function Header(){"use strict";if(____Classn!==null){____Classn.apply(this,arguments);}}
+	
+	    Object.defineProperty(Header.prototype,"mainMenu",{writable:true,configurable:true,value:function() {"use strict";
+	        var items = [
+	            {label: 'home', route: 'index'}
+	        ];
+	
+	        return items.map(function(item)  {return Header.renderItem(item);});
+	    }});
+	
+	    Object.defineProperty(Header.prototype,"loginMenu",{writable:true,configurable:true,value:function() {"use strict";
+	        var items = [
+	            {label: 'login', route: 'login'},
+	            {label: 'register', route: 'register'}
+	        ];
+	
+	        return (
+	            React.createElement("ul", {className: "nav navbar-nav navbar-right"}, 
+	                items.map(function(item)  {return Header.renderItem(item);})
+	            )
+	        );
+	    }});
+	
+	    /**
+	     * Render menu items
+	     *
+	     * @param item
+	     */
+	    Object.defineProperty(Header,"renderItem",{writable:true,configurable:true,value:function(item) {"use strict";
+	        return React.createElement("li", {id: item.route}, React.createElement(Link, {key: item.route, to: item.route}, item.label));
+	    }});
+	
+	    /**
+	     * Render component
+	     */
+	    Object.defineProperty(Header.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
+	        return (
+	            React.createElement("nav", {className: "navbar navbar-default navbar-fixed-top"}, 
+	                React.createElement("div", {className: "container"}, 
+	                    React.createElement("div", {className: "navbar-header"}, 
+	                        React.createElement("button", {type: "button", className: "navbar-toggle collapsed", "data-toggle": "collapse", "data-target": "#navbar", "aria-expanded": "false", "aria-controls": "navbar"}, 
+	                            React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
+	                            React.createElement("span", {className: "icon-bar"}), 
+	                            React.createElement("span", {className: "icon-bar"}), 
+	                            React.createElement("span", {className: "icon-bar"})
+	                        ), 
+	                        React.createElement("a", {className: "navbar-brand", href: "#"}, "Bestcasting")
+	                    ), 
+	                    React.createElement("div", {id: "navbar", className: "navbar-collapse collapse"}, 
+	                        React.createElement("ul", {className: "nav navbar-nav"}, 
+	                            this.mainMenu()
+	                        ), 
+	                        this.loginMenu()
+	                    )
+	                )
+	            )
+	        );
+	    }});
+	
+	
+	module.exports = Header;
+
+/***/ },
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
-	var Storage = __webpack_require__(235);
-	var UserActions = __webpack_require__(225);
 	
-	module.exports = Reflux.createStore({
+	var UserActions = __webpack_require__(222);
+	var UserStore = __webpack_require__(220);
 	
-	    /**
-	     * User storage
-	     */
-	    _user: {},
+	var Form = __webpack_require__(230);
+	var TextInput = __webpack_require__(231);
+	var Submit = __webpack_require__(232);
 	
-	    /**
-	     * Event listeners
-	     */
-	    init: function() {
-	        this._user = Storage.read('user', {});
-	        this.listenTo(UserActions.loadUser.completed, this._onLoadUser);
+	module.exports = React.createClass({displayName: "module.exports",
+	
+	    getInitialState:function() {
+	        return {
+	            user: {}
+	        }
 	    },
 	
-	    /**
-	     * Load user
-	     *
-	     * @param user
-	     */
-	    _onLoadUser:function(user) {
-	        this._user = user;
-	        Storage.write('user', this._user);
-	        this.trigger();
+	    onLoadUser:function() {
+	        this.setState({
+	            user: UserStore.getUser()
+	        });
 	    },
 	
-	    /**
-	     * Get user
-	     */
-	    getUser:function() {
-	        return this._user;
+	    onSubmit:function(form) {
+	        UserActions.loadUser(Form.getFormData(form));
+	    },
+	
+	    render:function(){
+	        return (
+	            React.createElement("div", {key: "content"}, 
+	                React.createElement("form", {onSubmit: this.onSubmit}, 
+	                    React.createElement(TextInput, {name: "username", label: "Username", value: "germain", placeholder: "..."}), 
+	                    React.createElement(TextInput, {name: "password", label: "Password", hideInput: true, value: "test", placeholder: "..."}), 
+	                    React.createElement(Submit, {label: "Login", name: "login"})
+	                )
+	            )
+	        )
 	    }
 	});
 
 /***/ },
-/* 231 */
+/* 230 */
 /***/ function(module, exports) {
 
 	/**
@@ -26709,7 +26732,7 @@
 	}
 
 /***/ },
-/* 232 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -26765,7 +26788,7 @@
 	});
 
 /***/ },
-/* 233 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -26804,18 +26827,18 @@
 	module.exports = TextInput;
 
 /***/ },
-/* 234 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
 	
-	var UserActions = __webpack_require__(225);
-	var UserStore = __webpack_require__(230);
+	var UserActions = __webpack_require__(222);
+	var UserStore = __webpack_require__(220);
 	
-	var Form = __webpack_require__(231);
-	var TextInput = __webpack_require__(232);
-	var Submit = __webpack_require__(233);
+	var Form = __webpack_require__(230);
+	var TextInput = __webpack_require__(231);
+	var Submit = __webpack_require__(232);
 	
 	module.exports = React.createClass({displayName: "module.exports",
 	
@@ -26850,41 +26873,26 @@
 	});
 
 /***/ },
+/* 234 */,
 /* 235 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(1);
+	
 	/**
-	 * Add locale storage support
+	 * Login component
 	 */
-	module.exports = {
+	var ____Class3=React.Component;for(var ____Class3____Key in ____Class3){if(____Class3.hasOwnProperty(____Class3____Key)){Login[____Class3____Key]=____Class3[____Class3____Key];}}var ____SuperProtoOf____Class3=____Class3===null?null:____Class3.prototype;Login.prototype=Object.create(____SuperProtoOf____Class3);Login.prototype.constructor=Login;Login.__superConstructor__=____Class3;function Login(){"use strict";if(____Class3!==null){____Class3.apply(this,arguments);}}
 	
-	    write: function (key, value) {
-	        if (!value) {
-	            return;
-	        }
+	    /**
+	     * Render component
+	     */
+	    Object.defineProperty(Login.prototype,"render",{writable:true,configurable:true,value:function(){"use strict";
+	        return (React.createElement("div", null));
+	    }});
 	
-	        if (typeof localStorage === 'object') {
-	            localStorage.setItem(key, JSON.stringify(value));
-	        }
-	    },
 	
-	    clear: function(key) {
-	        if (typeof localStorage === 'object') {
-	            localStorage.setItem(key, undefined);
-	        }
-	    },
-	
-	    read: function (key, defaultValue) {
-	        if (typeof localStorage === 'object') {
-	            var value = localStorage.getItem(key);
-	            if (value) {
-	                value = JSON.parse(value);
-	            }
-	
-	            return value ? value : defaultValue;
-	        }
-	    }
-	};
+	module.exports = Login;
 
 /***/ }
 /******/ ]);

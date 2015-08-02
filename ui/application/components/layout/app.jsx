@@ -16,8 +16,11 @@ class App extends React.Component {
         return (
             <div style={{width:'100%', textAlign:'center'}}>
                 <Header />
-                <div id="main">
-                    <RouteHandler />
+                <br />
+                <div className="container">
+                    <div className="jumbotron">
+                        <RouteHandler />
+                    </div>
                 </div>
             </div>
         );
