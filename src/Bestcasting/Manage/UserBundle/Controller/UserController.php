@@ -6,6 +6,7 @@ use Bestcasting\Manage\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\View;
+use JMS\Serializer\Annotation\Groups;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,15 +29,13 @@ class UserController extends Controller
         $formData = $request->get('data');
 
         try {
-            $this->container
+            return $this->container
                 ->get('manage_user_manager')
                 ->create($formData['username'], $formData['password'], $formData['email']);
 
         } catch (\Exception $e) {
             return new Response($e->getMessage(), $e->getCode());
         }
-
-        return new Response($request->headers->all(), 200);
     }
 
     /**
@@ -51,15 +50,13 @@ class UserController extends Controller
         $formData = $request->get('data');
 
         try {
-            $this->container
+            return $this->container
                 ->get('manage_user_manager')
                 ->login($formData['username'], $formData['password']);
 
         } catch (\Exception $e) {
             return new Response($e->getMessage(), $e->getCode());
         }
-
-        return new Response('Your account is logged in', 200);
     }
 
     /**
