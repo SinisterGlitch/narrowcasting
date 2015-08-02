@@ -26770,18 +26770,18 @@
 	
 	    render:function() {
 	        return (
-	            React.createElement("div", null, 
+	            React.createElement("div", {className: "form-inline"}, 
 	                React.createElement("label", {htmlFor: this.props.label}, 
 	                    this.props.label
 	                ), 
-	
 	                React.createElement("input", {type: (this.props.hideInput) ? 'password' : 'text', 
-	                    name: this.props.name, 
-	                    id: this.props.name, 
-	                    placeholder: this.props.placeholder, 
-	                    value: this.state.value, 
-	                    onChange: this.handleChange}
-	                )
+	                       name: this.props.name, 
+	                       id: this.props.name, 
+	                       placeholder: this.props.placeholder, 
+	                       value: this.state.value, 
+	                       onChange: this.handleChange, 
+	                       className: "form-control"}
+	                    )
 	            )
 	        );
 	    }

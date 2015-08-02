@@ -33,18 +33,18 @@ module.exports = React.createClass({
 
     render() {
         return (
-            <div>
+            <div className="form-inline">
                 <label htmlFor={this.props.label}>
                     {this.props.label}
                 </label>
-
                 <input type={(this.props.hideInput) ? 'password' : 'text'}
-                    name={this.props.name}
-                    id={this.props.name}
-                    placeholder={this.props.placeholder}
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                />
+                       name={this.props.name}
+                       id={this.props.name}
+                       placeholder={this.props.placeholder}
+                       value={this.state.value}
+                       onChange={this.handleChange}
+                       className="form-control"
+                    />
             </div>
         );
     }
