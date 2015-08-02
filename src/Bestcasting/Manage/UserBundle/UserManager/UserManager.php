@@ -92,17 +92,17 @@ class UserManager
     public function login($username, $password)
     {
         $user = $this->userManager->findUserByUsername($username);
-        $encoder = $this->encoderFactory->getEncoder($user);
 
         if (!$user instanceof User) {
             throw new \Exception('Wrong username or password', 500);
         }
 
+        $encoder = $this->encoderFactory->getEncoder($user);
         if ($encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt())) {
             $this->loginManager->loginUser('main', $user);
-
-            return true;
         }
+
+        throw new \Exception('Wrong username or password', 500);
     }
 
     /**
