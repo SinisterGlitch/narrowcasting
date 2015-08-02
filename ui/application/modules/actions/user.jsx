@@ -11,7 +11,7 @@ var UserActions = Reflux.createActions({
 });
 
 UserActions.loadUser.listen((data)
-    => Request.post('app_dev.php/api/login', {data: data}, UserActions.loadUser)
+    => Request.post('app_dev.php/api/users/login', {data: data}, UserActions.loadUser)
 );
 
 UserActions.postUser.listen((data)

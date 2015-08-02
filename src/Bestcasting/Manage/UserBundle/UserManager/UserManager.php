@@ -39,20 +39,15 @@ class UserManager
      */
     public function login($username, $password)
     {
-        $user = $this->getUserManager()->findUserByUsername($username);
-
-        if (!$user instanceof User) {
-            throw new \Exception('Wrong username or password', 500);
-        }
-
+        $user = $this->findUserBy(['username' => $username]);
         if ($this->validateUser($user, $password)) {
+            $user->setToken($this->createToken());
+
+            $this->getEntityManager()->flush($user);
             $this->getLoginManager()->loginUser('main', $user);
-            $this->createToken($user);
 
             return $user;
         }
-
-        throw new \Exception('Wrong username or password', 500);
     }
 
     /**
@@ -79,7 +74,7 @@ class UserManager
             ->setPlainPassword($password)
             ->setUsername($username)
             ->setEmail($email)
-            ->setToken(uniqid());
+            ->setToken($this->createToken());
 
         $this->getUserManager()->updateUser($user);
 
@@ -95,14 +90,7 @@ class UserManager
      */
     public function getUser($id)
     {
-        $user = $this
-            ->getEntityManager()
-            ->getRepository('ManageUserBundle:User')
-            ->findOneBy(['id' => $id]);
-
-        if (!$user instanceof User) {
-            throw new \Exception('User not found with given id', 500);
-        }
+        $user = $this->findUserBy(['id' => $id]);
 
         return $user;
     }
@@ -125,18 +113,22 @@ class UserManager
     }
 
     /**
+     * @param array $params
+     * @return User
+     */
+    private function findUserBy(array $params)
+    {
+        return $this->getEntityManager()->getRepository('ManageUserBundle:User')->findOneBy($params);
+    }
+
+    /**
      * Creates new token for user
      *
-     * @param User $user
      * @return string
      */
-    private function createToken(User $user)
+    private function createToken()
     {
-        $token = $this->getTokenGenerator()->generateToken();
-        $user->setToken($token);
-        $this->getEntityManager()->flush($user);
-
-        return $token;
+        return $this->getTokenGenerator()->generateToken();
     }
 
     /**

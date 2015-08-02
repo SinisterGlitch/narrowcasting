@@ -1,10 +1,18 @@
 var React = require('react');
 var Reflux = require('reflux');
 
+var UserStore = require('modules/stores/user');
+
 /**
  * Index view
  */
 module.exports = React.createClass({
+
+    getInitialState() {
+        return {
+            user: UserStore.getUser()
+        }
+    },
 
     /**
      * Render view
@@ -12,7 +20,7 @@ module.exports = React.createClass({
     render(){
         return (
             <div key="content">
-                Please login to continue
+                {(this.state.user.id) ? 'Welcome, ' + this.state.user.username : 'login to continue'}
             </div>
         )
     }

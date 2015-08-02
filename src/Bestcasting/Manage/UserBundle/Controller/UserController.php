@@ -22,41 +22,44 @@ class UserController extends Controller
      * @View()
      *
      * @param Request $request
-     * @return Response
+     * @return Response|User
      */
     public function postUserAction(Request $request)
     {
         $formData = $request->get('data');
 
         try {
-            return $this->container
+            $user = $this->container
                 ->get('manage_user_manager')
                 ->create($formData['username'], $formData['password'], $formData['email']);
 
         } catch (\Exception $e) {
             return new Response($e->getMessage(), $e->getCode());
         }
+
+        return $user;
     }
 
     /**
-     * @Post("/login")
+     * @Post("/users/login")
      * @View()
      *
      * @param Request $request
-     * @return Response
+     * @return Response|User
      */
     public function postLoginAction(Request $request)
     {
         $formData = $request->get('data');
 
-        try {
-            return $this->container
-                ->get('manage_user_manager')
-                ->login($formData['username'], $formData['password']);
+        $user = $this->container
+            ->get('manage_user_manager')
+            ->login($formData['username'], $formData['password']);
 
-        } catch (\Exception $e) {
-            return new Response($e->getMessage(), $e->getCode());
+        if (!$user instanceof User) {
+            return new Response('Wrong password or username', 400);
         }
+
+        return $user;
     }
 
     /**
@@ -64,16 +67,16 @@ class UserController extends Controller
      *
      * @param $id
      * @return User
+     * @throws Response
      */
     public function getUserAction($id)
     {
-        try {
-            return $this->container
-                ->get('manage_user_manager')
-                ->getUser($id);
+        $user = $this->container->get('manage_user_manager')->getUser($id);
 
-        } catch (\Exception $e) {
-            return new Response($e->getMessage(), $e->getCode());
+        if (!$user instanceof User) {
+            return new Response('User not found with given id', 500);
         }
+
+        return $user;
     }
 }

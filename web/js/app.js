@@ -23569,10 +23569,18 @@
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
 	
+	var UserStore = __webpack_require__(230);
+	
 	/**
 	 * Index view
 	 */
 	module.exports = React.createClass({displayName: "module.exports",
+	
+	    getInitialState:function() {
+	        return {
+	            user: UserStore.getUser()
+	        }
+	    },
 	
 	    /**
 	     * Render view
@@ -23580,7 +23588,7 @@
 	    render:function(){
 	        return (
 	            React.createElement("div", {key: "content"}, 
-	                "Please login to continue"
+	                (this.state.user.id) ? 'Welcome, ' + this.state.user.username : 'login to continue'
 	            )
 	        )
 	    }
@@ -25284,7 +25292,7 @@
 	});
 	
 	UserActions.loadUser.listen(function(data)
-	     {return Request.post('app_dev.php/api/login', {data: data}, UserActions.loadUser);}
+	     {return Request.post('app_dev.php/api/users/login', {data: data}, UserActions.loadUser);}
 	);
 	
 	UserActions.postUser.listen(function(data)
@@ -26637,6 +26645,7 @@
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
+	var Storage = __webpack_require__(235);
 	var UserActions = __webpack_require__(225);
 	
 	module.exports = Reflux.createStore({
@@ -26650,6 +26659,7 @@
 	     * Event listeners
 	     */
 	    init: function() {
+	        this._user = Storage.read('user', {});
 	        this.listenTo(UserActions.loadUser.completed, this._onLoadUser);
 	    },
 	
@@ -26660,6 +26670,7 @@
 	     */
 	    _onLoadUser:function(user) {
 	        this._user = user;
+	        Storage.write('user', this._user);
 	        this.trigger();
 	    },
 	
@@ -26837,6 +26848,43 @@
 	        )
 	    }
 	});
+
+/***/ },
+/* 235 */
+/***/ function(module, exports) {
+
+	/**
+	 * Add locale storage support
+	 */
+	module.exports = {
+	
+	    write: function (key, value) {
+	        if (!value) {
+	            return;
+	        }
+	
+	        if (typeof localStorage === 'object') {
+	            localStorage.setItem(key, JSON.stringify(value));
+	        }
+	    },
+	
+	    clear: function(key) {
+	        if (typeof localStorage === 'object') {
+	            localStorage.setItem(key, undefined);
+	        }
+	    },
+	
+	    read: function (key, defaultValue) {
+	        if (typeof localStorage === 'object') {
+	            var value = localStorage.getItem(key);
+	            if (value) {
+	                value = JSON.parse(value);
+	            }
+	
+	            return value ? value : defaultValue;
+	        }
+	    }
+	};
 
 /***/ }
 /******/ ]);
