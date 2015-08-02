@@ -8,6 +8,7 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\View;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\BrowserKit\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class UserController
@@ -38,15 +39,20 @@ class UserController extends Controller
     }
 
     /**
-     * @Post("/user/login/{username}/{password}")
+     * @Post("/login")
      * @View()
      *
-     * @param $username
-     * @param $password
+     * @param Request $request
      * @return Response
      */
-    public function loginUserAction($username, $password)
+    public function postLoginAction(Request $request)
     {
+        $data = $request->query->all();
+
+        $username = 'germain';
+        $password = 'test';
+
+
         try {
             $this->container
                 ->get('manage_user_manager')

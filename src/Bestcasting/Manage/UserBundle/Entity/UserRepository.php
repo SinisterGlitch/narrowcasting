@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    /**
+     * @param string $username
+     * @param string $password
+     */
+    public function findByUsernameAndPassword($username, $password)
+    {
+        $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.');
+    }
 }

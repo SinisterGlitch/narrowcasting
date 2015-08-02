@@ -3,7 +3,6 @@
 namespace Bestcasting\Manage\UserBundle\UserManager;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMException;
 use Bestcasting\Manage\UserBundle\Entity\User;
 use FOS\UserBundle\Doctrine\UserManager as FosUserManager;
 use FOS\UserBundle\Security\LoginManager;
@@ -78,7 +77,7 @@ class UserManager
      */
     public function login($username, $password)
     {
-        $user = $this->entityManager->findBy([
+        $user = $this->userManager->findUserBy([
             'username' => $username,
             'password' => $password
         ]);

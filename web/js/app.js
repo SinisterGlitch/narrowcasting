@@ -26704,7 +26704,7 @@
 	});
 	
 	UserActions.loadUser.listen(function(data)
-	     {return Request.post('app_dev.php/api/user/login', data, UserActions.loadUser);}
+	     {return Request.post('app_dev.php/api/login', {data: data}, UserActions.loadUser);}
 	);
 	
 	module.exports = UserActions;
