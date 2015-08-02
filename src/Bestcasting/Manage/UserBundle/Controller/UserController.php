@@ -17,25 +17,26 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends Controller
 {
     /**
-     * @Get("/user/create/{username}/{password}/{email}")
-
-     * @param $username
-     * @param $password
-     * @param $email
+     * @Post("/users")
+     * @View()
+     *
+     * @param Request $request
      * @return Response
      */
-    public function newUserAction($username, $password, $email)
+    public function postUserAction(Request $request)
     {
+        $formData = $request->get('data');
+
         try {
             $this->container
                 ->get('manage_user_manager')
-                ->create($username, $password, $email);
+                ->create($formData['username'], $formData['password'], $formData['email']);
 
         } catch (\Exception $e) {
             return new Response($e->getMessage(), $e->getCode());
         }
 
-        return new Response('Your account is ready to use', 200);
+        return new Response($request->headers->all(), 200);
     }
 
     /**
@@ -47,16 +48,12 @@ class UserController extends Controller
      */
     public function postLoginAction(Request $request)
     {
-        $data = $request->query->all();
-
-        $username = 'germain';
-        $password = 'test';
-
+        $formData = $request->get('data');
 
         try {
             $this->container
                 ->get('manage_user_manager')
-                ->login($username, $password);
+                ->login($formData['username'], $formData['password']);
 
         } catch (\Exception $e) {
             return new Response($e->getMessage(), $e->getCode());
@@ -66,17 +63,17 @@ class UserController extends Controller
     }
 
     /**
-     * @Get("/user/get/{userId}")
+     * @Get("/users/{id}")
      *
-     * @param $userId
+     * @param $id
      * @return User
      */
-    public function getUserAction($userId)
+    public function getUserAction($id)
     {
         try {
             return $this->container
                 ->get('manage_user_manager')
-                ->getUser($userId);
+                ->getUser($id);
 
         } catch (\Exception $e) {
             return new Response($e->getMessage(), $e->getCode());

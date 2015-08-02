@@ -14,7 +14,8 @@ class Header extends React.Component {
     static getMenuItems() {
         return [
             {label: 'home', route: 'home'},
-            {label: 'login', route: 'login'}
+            {label: 'login', route: 'login'},
+            {label: 'register', route: 'register'}
         ]
     }
 

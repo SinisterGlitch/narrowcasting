@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Bestcasting\Manage\UserBundle\Entity\User;
 use FOS\UserBundle\Doctrine\UserManager as FosUserManager;
 use FOS\UserBundle\Security\LoginManager;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 /**
  * Class UserManager
@@ -29,15 +30,26 @@ class UserManager
     private $entityManager;
 
     /**
+     * @var EncoderFactory
+     */
+    private $encoderFactory;
+
+    /**
      * @param FosUserManager $userManager
      * @param LoginManager $loginManager
      * @param EntityManager $entityManager
+     * @param EncoderFactory $encoderFactory
      */
-    public function __construct(FosUserManager $userManager, LoginManager $loginManager, EntityManager $entityManager)
-    {
+    public function __construct(
+        FosUserManager $userManager,
+        LoginManager $loginManager,
+        EntityManager $entityManager,
+        EncoderFactory $encoderFactory
+    ) {
         $this->userManager = $userManager;
         $this->loginManager = $loginManager;
         $this->entityManager = $entityManager;
+        $this->encoderFactory = $encoderFactory;
     }
 
     /**
@@ -52,7 +64,8 @@ class UserManager
     public function create($username, $password, $email)
     {
         if ($this->userManager->findUserBy(['username' => $username])
-            && $this->userManager->findUserBy(['password' => $password])) {
+            && $this->userManager->findUserBy(['password' => $password])
+        ) {
             throw new \Exception('Account already exists', 400);
         }
 
@@ -69,24 +82,27 @@ class UserManager
     }
 
     /**
-     * Login new user
+     * Login user
      *
      * @param $username
      * @param $password
      * @throws \Exception
+     * @return array
      */
     public function login($username, $password)
     {
-        $user = $this->userManager->findUserBy([
-            'username' => $username,
-            'password' => $password
-        ]);
+        $user = $this->userManager->findUserByUsername($username);
+        $encoder = $this->encoderFactory->getEncoder($user);
 
         if (!$user instanceof User) {
             throw new \Exception('Wrong username or password', 500);
         }
 
-        $this->loginManager->loginUser('main', $user);
+        if ($encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt())) {
+            $this->loginManager->loginUser('main', $user);
+
+            return true;
+        }
     }
 
     /**
