@@ -11,7 +11,8 @@ class Header extends React.Component {
 
     mainMenu() {
         var items = [
-            {label: 'home', route: 'dashboard-index'}
+            {label: 'home', route: 'dashboard-index'},
+            {label: 'branches', route: 'branches-list'},
         ];
 
         return items.map((item) => Header.renderItem(item));

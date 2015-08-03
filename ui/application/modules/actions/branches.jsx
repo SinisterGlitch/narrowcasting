@@ -14,8 +14,8 @@ BranchesActions.loadBranch.listen((id)
     => Request.get('app_dev.php/api/branches/'+ id, BranchesActions.loadBranch)
 );
 
-BranchesActions.loadBranches.listen((data)
-    => Request.get('app_dev.php/api/branches', BranchesActions.loadBranches)
+BranchesActions.loadBranches.listen(()
+    => Request.get('app_dev.php/api/branches/0', BranchesActions.loadBranches)
 );
 
 module.exports = BranchesActions;

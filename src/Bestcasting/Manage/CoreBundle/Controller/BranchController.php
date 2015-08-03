@@ -4,6 +4,7 @@ namespace Bestcasting\Manage\CoreBundle\Controller;
 
 use Bestcasting\Manage\CoreBundle\Entity\Branch;
 use FOS\RestBundle\Controller\Annotations\Get;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class BranchController
@@ -13,18 +14,52 @@ class BranchController extends BaseController
 {
     /**
      * @Get("/branches/{id}")
-     *
-     * @param $id
+     * @param int $id
      * @return Branch[]
      */
-    public function getBranchesAction($id = null)
+    public function getAction($id)
     {
         if ($id) {
-            $entities = [$this->getRepository('Branch')->find($id)];
+            $result = $this->getRepository('Branch')->find($id);
         } else {
-            $entities = $this->getRepository('Branch')->findAll();
+            $result = $this->getRepository('Branch')->findAll();
         }
 
-        return $entities;
+        return $result;
+    }
+
+    /**
+     * @param Request $request
+     * @return Branch
+     */
+    public function postAction(Request $request)
+    {
+        $formData = $request->get('data');
+
+        $entity = new Branch();
+
+        return $entity;
+    }
+
+    /**
+     * @param Request $request
+     * @return Branch
+     */
+    public function putAction(Request $request)
+    {
+        $formData = $request->get('data');
+
+        $entity = new Branch();
+
+        return $entity;
+    }
+
+    /**
+     * @param $id
+     */
+    public function deleteAction($id)
+    {
+        $entity = $this->getRepository('Branch')->find($id);
+        $this->getDoctrine()->getManager()->remove($entity);
     }
 }

@@ -43,5 +43,12 @@ module.exports = Reflux.createStore({
      */
     getBranches() {
         return this._branches;
+    },
+
+    /**
+     * Get branches
+     */
+    getBranch() {
+        return this._branches;
     }
 });

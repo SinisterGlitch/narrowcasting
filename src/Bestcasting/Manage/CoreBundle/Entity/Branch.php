@@ -25,9 +25,8 @@ class Branch
     /**
      * @var Address
      *
-     * @ORM\OneToOne(targetEntity="Address")
-     * @JoinColumn(name="address_id", referencedColumnName="id")
-     **/
+     * @ORM\OneToOne(targetEntity="Address", mappedBy="branch")
+     */
     private $address;
 
     /**
