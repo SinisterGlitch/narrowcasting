@@ -1,3 +1,3 @@
-manage_user_create:
+manage_user_user:
     type: rest
     resource: "ManageUserBundle:User"

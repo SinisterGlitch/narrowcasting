@@ -3,7 +3,6 @@
 namespace Bestcasting\Manage\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class DefaultController
@@ -12,10 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
     /**
-     * @return Response
+     * @return array
      */
     public function indexAction()
     {
-        return $this->render('ManageCoreBundle:Default:index.html.twig');
+        return [];
     }
 }
