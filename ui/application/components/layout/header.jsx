@@ -11,7 +11,7 @@ class Header extends React.Component {
 
     mainMenu() {
         var items = [
-            {label: 'home', route: 'index'}
+            {label: 'home', route: 'dashboard-index'}
         ];
 
         return items.map((item) => Header.renderItem(item));
@@ -19,8 +19,8 @@ class Header extends React.Component {
 
     loginMenu() {
         var items = [
-            {label: 'login', route: 'login'},
-            {label: 'register', route: 'register'}
+            {label: 'login', route: 'dashboard-login'},
+            {label: 'register', route: 'dashboard-register'}
         ];
 
         return (

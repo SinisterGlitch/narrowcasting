@@ -23550,15 +23550,17 @@
 	var Route = ReactRouter.Route;
 	
 	var App = __webpack_require__(227);
-	var indexHandler = __webpack_require__ (197);
-	var loginHandler = __webpack_require__ (229);
-	var registerHandler = __webpack_require__ (233);
+	var dashboardIndexView = __webpack_require__ (197);
+	var dashboardLoginView = __webpack_require__ (230);
+	var dashboardRegisterView = __webpack_require__ (234);
 	
 	module.exports = (
-	    React.createElement(Route, {name: "default", name: "home", handler: App, path: "/"}, 
-	        React.createElement(Route, {name: "index", handler: indexHandler, path: "/"}), 
-	        React.createElement(Route, {name: "login", handler: loginHandler, path: "/login"}), 
-	        React.createElement(Route, {name: "register", handler: registerHandler, path: "/register"})
+	    React.createElement(Route, {handler: App, path: "/"}, 
+	        React.createElement(Route, {name: "dashboard"}, 
+	            React.createElement(Route, {name: "dashboard-index", handler: dashboardIndexView, path: "/dashboard"}), 
+	            React.createElement(Route, {name: "dashboard-login", handler: dashboardLoginView, path: "/dashboard/login"}), 
+	            React.createElement(Route, {name: "dashboard-register", handler: dashboardRegisterView, path: "/dashboard/register"})
+	        )
 	    )
 	);
 
@@ -23576,10 +23578,20 @@
 	 */
 	module.exports = React.createClass({displayName: "module.exports",
 	
+	    mixins: [
+	        Reflux.listenTo(UserStore, 'onLoadUser')
+	    ],
+	
 	    getInitialState:function() {
 	        return {
 	            user: UserStore.getUser()
 	        }
+	    },
+	
+	    onLoadUser:function() {
+	        this.setState({
+	            user: UserStore.getUser()
+	        });
 	    },
 	
 	    /**
@@ -23588,7 +23600,9 @@
 	    render:function(){
 	        return (
 	            React.createElement("div", {key: "content"}, 
-	                (this.state.user.id) ? 'Welcome, ' + this.state.user.username : 'login to continue'
+	                (this.state.user.id) ? 'Welcome, ' + this.state.user.username : 'login to continue', 
+	                React.createElement("br", null), 
+	                (this.state.user.id) ? React.createElement("a", {onClick: UserStore.onLogout}, "logoff") : ''
 	            )
 	        )
 	    }
@@ -25146,6 +25160,13 @@
 	     */
 	    getUser:function() {
 	        return this._user;
+	    },
+	
+	    /**
+	     * unset user on logout
+	     */
+	    onLogout: function () {
+	        this._onLoadUser({});
 	    }
 	});
 
@@ -25199,7 +25220,7 @@
 	 */
 	var UserActions = Reflux.createActions({
 	    loadUser: {children: ['completed','failed']},
-	    postUser: {children: ['completed','failed']}
+	    postUser: {children: ['completed','failed']},
 	});
 	
 	UserActions.loadUser.listen(function(data)
@@ -26563,7 +26584,7 @@
 	/**
 	 * App component
 	 */
-	var ____Classk=React.Component;for(var ____Classk____Key in ____Classk){if(____Classk.hasOwnProperty(____Classk____Key)){App[____Classk____Key]=____Classk[____Classk____Key];}}var ____SuperProtoOf____Classk=____Classk===null?null:____Classk.prototype;App.prototype=Object.create(____SuperProtoOf____Classk);App.prototype.constructor=App;App.__superConstructor__=____Classk;function App(){"use strict";if(____Classk!==null){____Classk.apply(this,arguments);}}
+	var ____Class0=React.Component;for(var ____Class0____Key in ____Class0){if(____Class0.hasOwnProperty(____Class0____Key)){App[____Class0____Key]=____Class0[____Class0____Key];}}var ____SuperProtoOf____Class0=____Class0===null?null:____Class0.prototype;App.prototype=Object.create(____SuperProtoOf____Class0);App.prototype.constructor=App;App.__superConstructor__=____Class0;function App(){"use strict";if(____Class0!==null){____Class0.apply(this,arguments);}}
 	
 	    /**
 	     * Render component
@@ -26593,16 +26614,16 @@
 	var ReactRouter = __webpack_require__(157);
 	var Link = ReactRouter.Link;
 	
-	var Login = __webpack_require__(235);
+	var Login = __webpack_require__(229);
 	
 	/**
 	 * Header component
 	 */
-	var ____Classn=React.Component;for(var ____Classn____Key in ____Classn){if(____Classn.hasOwnProperty(____Classn____Key)){Header[____Classn____Key]=____Classn[____Classn____Key];}}var ____SuperProtoOf____Classn=____Classn===null?null:____Classn.prototype;Header.prototype=Object.create(____SuperProtoOf____Classn);Header.prototype.constructor=Header;Header.__superConstructor__=____Classn;function Header(){"use strict";if(____Classn!==null){____Classn.apply(this,arguments);}}
+	var ____Class6=React.Component;for(var ____Class6____Key in ____Class6){if(____Class6.hasOwnProperty(____Class6____Key)){Header[____Class6____Key]=____Class6[____Class6____Key];}}var ____SuperProtoOf____Class6=____Class6===null?null:____Class6.prototype;Header.prototype=Object.create(____SuperProtoOf____Class6);Header.prototype.constructor=Header;Header.__superConstructor__=____Class6;function Header(){"use strict";if(____Class6!==null){____Class6.apply(this,arguments);}}
 	
 	    Object.defineProperty(Header.prototype,"mainMenu",{writable:true,configurable:true,value:function() {"use strict";
 	        var items = [
-	            {label: 'home', route: 'index'}
+	            {label: 'home', route: 'dashboard-index'}
 	        ];
 	
 	        return items.map(function(item)  {return Header.renderItem(item);});
@@ -26610,8 +26631,8 @@
 	
 	    Object.defineProperty(Header.prototype,"loginMenu",{writable:true,configurable:true,value:function() {"use strict";
 	        var items = [
-	            {label: 'login', route: 'login'},
-	            {label: 'register', route: 'register'}
+	            {label: 'login', route: 'dashboard-login'},
+	            {label: 'register', route: 'dashboard-register'}
 	        ];
 	
 	        return (
@@ -26665,14 +26686,35 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	
+	/**
+	 * Login component
+	 */
+	var ____Class2=React.Component;for(var ____Class2____Key in ____Class2){if(____Class2.hasOwnProperty(____Class2____Key)){Login[____Class2____Key]=____Class2[____Class2____Key];}}var ____SuperProtoOf____Class2=____Class2===null?null:____Class2.prototype;Login.prototype=Object.create(____SuperProtoOf____Class2);Login.prototype.constructor=Login;Login.__superConstructor__=____Class2;function Login(){"use strict";if(____Class2!==null){____Class2.apply(this,arguments);}}
+	
+	    /**
+	     * Render component
+	     */
+	    Object.defineProperty(Login.prototype,"render",{writable:true,configurable:true,value:function(){"use strict";
+	        return (React.createElement("div", null));
+	    }});
+	
+	
+	module.exports = Login;
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
 	
 	var UserActions = __webpack_require__(222);
 	var UserStore = __webpack_require__(220);
 	
-	var Form = __webpack_require__(230);
-	var TextInput = __webpack_require__(231);
-	var Submit = __webpack_require__(232);
+	var Form = __webpack_require__(231);
+	var TextInput = __webpack_require__(232);
+	var Submit = __webpack_require__(233);
 	
 	module.exports = React.createClass({displayName: "module.exports",
 	
@@ -26706,7 +26748,7 @@
 	});
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports) {
 
 	/**
@@ -26732,7 +26774,7 @@
 	}
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -26788,7 +26830,7 @@
 	});
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -26827,7 +26869,7 @@
 	module.exports = TextInput;
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -26836,9 +26878,9 @@
 	var UserActions = __webpack_require__(222);
 	var UserStore = __webpack_require__(220);
 	
-	var Form = __webpack_require__(230);
-	var TextInput = __webpack_require__(231);
-	var Submit = __webpack_require__(232);
+	var Form = __webpack_require__(231);
+	var TextInput = __webpack_require__(232);
+	var Submit = __webpack_require__(233);
 	
 	module.exports = React.createClass({displayName: "module.exports",
 	
@@ -26871,28 +26913,6 @@
 	        )
 	    }
 	});
-
-/***/ },
-/* 234 */,
-/* 235 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	/**
-	 * Login component
-	 */
-	var ____Class3=React.Component;for(var ____Class3____Key in ____Class3){if(____Class3.hasOwnProperty(____Class3____Key)){Login[____Class3____Key]=____Class3[____Class3____Key];}}var ____SuperProtoOf____Class3=____Class3===null?null:____Class3.prototype;Login.prototype=Object.create(____SuperProtoOf____Class3);Login.prototype.constructor=Login;Login.__superConstructor__=____Class3;function Login(){"use strict";if(____Class3!==null){____Class3.apply(this,arguments);}}
-	
-	    /**
-	     * Render component
-	     */
-	    Object.defineProperty(Login.prototype,"render",{writable:true,configurable:true,value:function(){"use strict";
-	        return (React.createElement("div", null));
-	    }});
-	
-	
-	module.exports = Login;
 
 /***/ }
 /******/ ]);

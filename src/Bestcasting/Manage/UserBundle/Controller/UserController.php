@@ -68,7 +68,7 @@ class UserController extends Controller
      * @return User
      * @throws Response
      */
-    public function getUserAction($id)
+    public function getUsersAction($id = null)
     {
         $user = $this->container->get('manage_user_manager')->getUser($id);
 
