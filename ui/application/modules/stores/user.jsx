@@ -34,5 +34,12 @@ module.exports = Reflux.createStore({
      */
     getUser() {
         return this._user;
+    },
+
+    /**
+     * unset user on logout
+     */
+    onLogout: function () {
+        this._onLoadUser({});
     }
 });
