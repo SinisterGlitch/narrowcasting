@@ -42,23 +42,25 @@ module.exports = React.createClass({
         BranchesActions.saveBranch(Form.getFormData(form));
     },
 
-
     onSave(data) {
         console.log('data', data);
     },
 
     render(){
-        console.log('edit');
-        return (
-            <div key="content">
-                <form onSubmit={this.onSubmit}>
-                    <TextInput name="active" label="Active" value="" />
-                    <TextInput name="name" label="Name" value="" />
-                    <TextInput name="created_at" label="created at" value="" />
-                    <TextInput name="updated_at" label="updated at" value="" />
-                    <Submit label="Save" name="save" />
-                </form>
-            </div>
-        )
+        if (!isNaN(this.state.branch.id)) {
+            return (
+                <div key="content">
+                    edit
+                    <form onSubmit={this.onSubmit}>
+                        <TextInput name="active" label="Active" value={this.state.branch.active} />
+                        <TextInput name="name" label="Name" value={this.state.branch.name} />
+                        <TextInput name="created_at" label="created at" value={this.state.branch.created_at} />
+                        <TextInput name="updated_at" label="updated at" value={this.state.branch.updated_at} />
+                        <Submit label="Save" name="save" />
+                    </form>
+                </div>
+            )
+        }
+        return (<div>wait</div>)
     }
 });

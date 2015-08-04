@@ -17,7 +17,7 @@ module.exports = React.createClass({
     ],
 
     componentDidMount() {
-        if (this.getParams().id > 0) {
+        if (!isNaN(this.getParams().id)) {
             BranchesActions.loadBranch(this.getParams().id)
         }
     },
