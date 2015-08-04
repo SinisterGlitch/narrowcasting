@@ -8,7 +8,7 @@ var BranchesStore = require('modules/stores/branches');
 var BranchesActions = require('modules/actions/branches');
 
 /**
- * Index view
+ * List branches view
  */
 module.exports = React.createClass({
 
@@ -34,17 +34,19 @@ module.exports = React.createClass({
 
     render(){
         return (
-            <div key="content">
-                {this.state.branches.map(this.renderRow)}
+            <div key="content" key="content">
+                {(this.state.branches) ? this.state.branches.map(this.renderRow) : ''}
             </div>
         )
     },
 
     renderRow(branch) {
         return (
-            <div>
+            <div key={branch.id}>
                 <div>{branch.name}</div>
-                <Link key={branch.id} to={'/branches/:id'} params={{id: branch.id}}>detail</Link>
+                <Link key="detail" to={'/branches/:id'} params={{id: branch.id}}>detail</Link>
+                -
+                <Link key="edit" to={'/branches/edit/:id'} params={{id: branch.id}}>edit</Link>
             </div>
         )
     }

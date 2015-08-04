@@ -13,6 +13,7 @@ class Header extends React.Component {
         var items = [
             {label: 'home', route: 'dashboard-index'},
             {label: 'branches', route: 'branches-list'},
+            {label: 'new branch', route: 'branches-new'}
         ];
 
         return items.map((item) => Header.renderItem(item));

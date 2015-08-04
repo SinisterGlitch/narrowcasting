@@ -41,7 +41,7 @@ module.exports = React.createClass({
                        name={this.props.name}
                        id={this.props.name}
                        placeholder={this.props.placeholder}
-                       value={this.state.value}
+                       value={(this.state.value) ? this.state.value : ' '}
                        onChange={this.handleChange}
                        className="form-control"
                     />

@@ -6,7 +6,7 @@ var BranchesStore = require('modules/stores/branches');
 var BranchesActions = require('modules/actions/branches');
 
 /**
- * Index view
+ * Branch details view
  */
 module.exports = React.createClass({
 
@@ -17,7 +17,9 @@ module.exports = React.createClass({
     ],
 
     componentDidMount() {
-        BranchesActions.loadBranch(this.getParams().id)
+        if (this.getParams().id > 0) {
+            BranchesActions.loadBranch(this.getParams().id)
+        }
     },
 
     getInitialState() {
@@ -32,14 +34,10 @@ module.exports = React.createClass({
         });
     },
 
-    /**
-     * Render view
-     */
     render(){
-        console.log(this.state.branch);
         return (
             <div key="content">
-                {(this.state.branch.id) ? this.state.branch.name : 'branch not found'}
+                {(this.state.branch.id) ? this.state.branch.name+' => '+ this.state.branch.id: 'branch not found'}
             </div>
         )
     }

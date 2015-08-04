@@ -9,6 +9,8 @@ var dashboardRegisterView = require ('modules/views/dashboard/register');
 
 var branchesListView = require ('modules/views/branches/list');
 var branchesDetailView = require ('modules/views/branches/detail');
+var branchesEditView = require ('modules/views/branches/edit');
+var branchesNewView = require ('modules/views/branches/new');
 
 module.exports = (
     <Route handler={App} path="/">
@@ -20,6 +22,8 @@ module.exports = (
         <Route name="branches">
             <Route name="branches-list" handler={branchesListView} path="/branches" />
             <Route name="branches-detail" handler={branchesDetailView} path="/branches/:id" />
+            <Route name="branches-edit" handler={branchesEditView} path="/branches/edit/:id" />
+            <Route name="branches-new" handler={branchesNewView} path="/branches/new" />
         </Route>
     </Route>
 );

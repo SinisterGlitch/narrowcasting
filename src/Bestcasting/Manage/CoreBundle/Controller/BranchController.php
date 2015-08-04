@@ -15,17 +15,20 @@ class BranchController extends BaseController
     /**
      * @Get("/branches/{id}")
      * @param int $id
-     * @return Branch[]
+     * @return Branch
      */
     public function getAction($id)
     {
-        if ($id) {
-            $result = $this->getRepository('Branch')->find($id);
-        } else {
-            $result = $this->getRepository('Branch')->findAll();
-        }
+        return $this->getRepository('Branch')->find($id);
+    }
 
-        return $result;
+    /**
+     * @Get("/branches")
+     * @return Branch[]
+     */
+    public function getAllAction()
+    {
+        return $this->getRepository('Branch')->findAll();
     }
 
     /**

@@ -8,6 +8,11 @@ module.exports = Reflux.createStore({
     /**
      * branch storage
      */
+    _branch: [],
+
+    /**
+     * branches list storage
+     */
     _branches: [],
 
     /**
@@ -34,7 +39,7 @@ module.exports = Reflux.createStore({
      * @param branch
      */
     _onLoadBranch(branch) {
-        this._branches.push(branch);
+        this._branch = branch;
         this.trigger();
     },
 
@@ -49,6 +54,6 @@ module.exports = Reflux.createStore({
      * Get branches
      */
     getBranch() {
-        return this._branches;
+        return this._branch;
     }
 });

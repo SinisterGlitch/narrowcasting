@@ -8,6 +8,9 @@ var Form = require('services/form');
 var TextInput = require('components/form/text-input');
 var Submit = require('components/form/submit-button');
 
+/**
+ * Register user view
+ */
 module.exports = React.createClass({
 
     getInitialState() {

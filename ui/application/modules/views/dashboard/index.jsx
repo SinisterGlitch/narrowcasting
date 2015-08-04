@@ -4,7 +4,7 @@ var Reflux = require('reflux');
 var UserStore = require('modules/stores/user');
 
 /**
- * Index view
+ * Dashboard view
  */
 module.exports = React.createClass({
 
@@ -24,9 +24,6 @@ module.exports = React.createClass({
         });
     },
 
-    /**
-     * Render view
-     */
     render(){
         return (
             <div key="content">
