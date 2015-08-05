@@ -2,6 +2,7 @@ var React = require('react');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
 
+var Notification = require('components/layout/notification');
 var Login = require('components/layout/login');
 
 /**
@@ -38,7 +39,7 @@ class Header extends React.Component {
      * @param item
      */
     static renderItem(item) {
-        return <li id={item.route}><Link key={item.route} to={item.route}>{item.label}</Link></li>;
+        return <li key={item.route}><Link key={item.route} to={item.route}>{item.label}</Link></li>;
     }
 
     /**
@@ -46,14 +47,14 @@ class Header extends React.Component {
      */
     render() {
         return (
-            <nav className="navbar navbar-default navbar-fixed-top">
+            <nav className="navbar navbar-default ">
                 <div className="container">
                     <div className="navbar-header">
                         <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span className="sr-only">Toggle navigation</span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
+                            <span key="toggle-nav" className="sr-only">Toggle navigation</span>
+                            <span key="nav1" className="icon-bar"></span>
+                            <span key="nav2" className="icon-bar"></span>
+                            <span key="nav3" className="icon-bar"></span>
                         </button>
                         <a className="navbar-brand" href="#">Bestcasting</a>
                     </div>

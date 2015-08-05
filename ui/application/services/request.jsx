@@ -1,4 +1,5 @@
 var SuperAgent = require('superagent');
+var NotificationActions = require('components/actions/notification');
 
 /**
  * XHR Request service
@@ -13,7 +14,7 @@ module.exports = {
      */
     get(url, callback) {
         SuperAgent.get(url).end(
-            (err, res) => this.responseHandler(err, res, callback)
+            (err, res) => this.responseHandler(res, callback)
         );
     },
 
@@ -26,22 +27,23 @@ module.exports = {
      */
     post(url, data, callback) {
         SuperAgent.post(url, data).end(
-            (err, res) => this.responseHandler(err, res, callback)
+            (err, res) => this.responseHandler(res, callback)
         )
     },
 
     /**
      * XHR Response handler
      *
-     * @param {object} err
-     * @param {object} res
+     * @param {object} response
      * @param {func} callback
      */
-    responseHandler(err, res, callback) {
-        if (res.ok) {
-            callback.completed(res.body);
+    responseHandler(response, callback) {
+        if (response.ok) {
+            callback.completed(response.body);
         } else {
-            callback.failed(res.text);
+            callback.failed(response.text);
         }
+
+        NotificationActions.show(response.body, response.status);
     }
 };

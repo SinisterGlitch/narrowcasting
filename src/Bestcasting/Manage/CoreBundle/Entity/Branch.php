@@ -112,7 +112,7 @@ class Branch
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->createdAt->format('Y-m-d');
     }
 
     /**
@@ -136,7 +136,7 @@ class Branch
      */
     public function getUpdatedAt()
     {
-        return $this->updatedAt;
+        return $this->updatedAt->format('Y-m-d');
     }
 
     /**

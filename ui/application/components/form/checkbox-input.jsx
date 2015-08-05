@@ -7,17 +7,16 @@ module.exports = React.createClass({
 
     propTypes: {
         label: React.PropTypes.string,
-        value: React.PropTypes.string,
-        key: React.PropTypes.string
+        value: React.PropTypes.bool,
+        name: React.PropTypes.string
     },
 
     getDefaultProps() {
         return {
             placeholder: '',
             hideInput: false,
-            value:'',
-            label: '',
-            name: ''
+            value: 0,
+            label: ''
         }
     },
 
@@ -37,14 +36,16 @@ module.exports = React.createClass({
                 <label htmlFor={this.props.label}>
                     {this.props.label}
                 </label>
-                <input type={(this.props.hideInput) ? 'password' : 'text'}
-                       name={this.props.name}
-                       key={this.props.name}
-                       placeholder={this.props.placeholder}
-                       value={(this.state.value) ? this.state.value : ' '}
-                       onChange={this.handleChange}
-                       className="form-control"
+                <div className="checkbox">
+                    <input
+                        type="checkbox"
+                        name={this.props.name}
+                        key={this.props.name}
+                        placeholder={this.props.placeholder}
+                        value={(this.state.value) ? this.state.value : ' '}
+                        onChange={this.handleChange}
                     />
+                </div>
             </div>
         );
     }

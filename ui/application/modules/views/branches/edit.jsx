@@ -4,6 +4,7 @@ var Reflux = require('reflux');
 
 var Form = require('services/form');
 var TextInput = require('components/form/text-input');
+var Checkbox = require('components/form/checkbox-input');
 var Submit = require('components/form/submit-button');
 
 
@@ -52,8 +53,8 @@ module.exports = React.createClass({
                 <div key="content">
                     edit
                     <form onSubmit={this.onSubmit}>
-                        <TextInput name="active" label="Active" value={this.state.branch.active} />
                         <TextInput name="name" label="Name" value={this.state.branch.name} />
+                        <Checkbox name="active" label="Active" value={this.state.branch.active} />
                         <TextInput name="created_at" label="created at" value={this.state.branch.created_at} />
                         <TextInput name="updated_at" label="updated at" value={this.state.branch.updated_at} />
                         <Submit label="Save" name="save" />

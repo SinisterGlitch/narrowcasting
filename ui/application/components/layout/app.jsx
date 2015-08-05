@@ -2,6 +2,7 @@ var React = require('react');
 var ReactRouter = require('react-router');
 var RouteHandler = ReactRouter.RouteHandler;
 
+var Notification = require('components/layout/notification');
 var Header = require('components/layout/header');
 
 /**
@@ -10,17 +11,15 @@ var Header = require('components/layout/header');
 class App extends React.Component {
 
     /**
-     * Render component
+     * Render application
      */
     render() {
         return (
-            <div style={{width:'100%', textAlign:'center'}}>
+            <div className="container">
                 <Header />
-                <br />
-                <div className="container">
-                    <div className="jumbotron">
-                        <RouteHandler />
-                    </div>
+                <Notification/>
+                <div className="jumbotron">
+                    <RouteHandler />
                 </div>
             </div>
         );

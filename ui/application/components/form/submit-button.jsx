@@ -7,12 +7,14 @@ var TextInput = React.createClass({
 
     propTypes: {
         label: React.PropTypes.string,
+        value: React.PropTypes.string,
         name: React.PropTypes.string
     },
 
     getDefaultProps() {
         return {
             label: 'Submit',
+            value: 'submit',
             name: ''
         }
     },
@@ -24,7 +26,7 @@ var TextInput = React.createClass({
                     type="submit"
                     value={this.props.label}
                     name={this.props.name}
-                    id={this.props.name}
+                    key={this.props.name}
                 />
             </div>
         );

@@ -40,7 +40,7 @@ class UserManager
     public function login($username, $password)
     {
         $user = $this->findUserBy(['username' => $username]);
-        if ($this->validateUser($user, $password)) {
+        if ($user instanceof User && $this->validateUser($user, $password)) {
             $user->setToken($this->createToken());
 
             $this->getEntityManager()->flush($user);

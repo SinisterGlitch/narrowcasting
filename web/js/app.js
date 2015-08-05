@@ -23548,11 +23548,16 @@
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(157);
 	var Route = ReactRouter.Route;
+	var App = __webpack_require__(230);
 	
-	var App = __webpack_require__(227);
-	var dashboardIndexView = __webpack_require__ (197);
-	var dashboardLoginView = __webpack_require__ (230);
-	var dashboardRegisterView = __webpack_require__ (234);
+	var dashboardIndexView = __webpack_require__ (233);
+	var dashboardLoginView = __webpack_require__ (234);
+	var dashboardRegisterView = __webpack_require__ (197);
+	
+	var branchesListView = __webpack_require__ (235);
+	var branchesDetailView = __webpack_require__ (238);
+	var branchesEditView = __webpack_require__ (239);
+	var branchesNewView = __webpack_require__ (241);
 	
 	module.exports = (
 	    React.createElement(Route, {handler: App, path: "/"}, 
@@ -23560,6 +23565,12 @@
 	            React.createElement(Route, {name: "dashboard-index", handler: dashboardIndexView, path: "/dashboard"}), 
 	            React.createElement(Route, {name: "dashboard-login", handler: dashboardLoginView, path: "/dashboard/login"}), 
 	            React.createElement(Route, {name: "dashboard-register", handler: dashboardRegisterView, path: "/dashboard/register"})
+	        ), 
+	        React.createElement(Route, {name: "branches"}, 
+	            React.createElement(Route, {name: "branches-list", handler: branchesListView, path: "/branches"}), 
+	            React.createElement(Route, {name: "branches-detail", handler: branchesDetailView, path: "/branches/:id"}), 
+	            React.createElement(Route, {name: "branches-edit", handler: branchesEditView, path: "/branches/edit/:id"}), 
+	            React.createElement(Route, {name: "branches-new", handler: branchesNewView, path: "/branches/new"})
 	        )
 	    )
 	);
@@ -23571,20 +23582,21 @@
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
 	
-	var UserStore = __webpack_require__(220);
+	var UserActions = __webpack_require__(220);
+	var UserStore = __webpack_require__(225);
+	
+	var Form = __webpack_require__(227);
+	var TextInput = __webpack_require__(228);
+	var Submit = __webpack_require__(229);
 	
 	/**
-	 * Index view
+	 * Register user view
 	 */
 	module.exports = React.createClass({displayName: "module.exports",
 	
-	    mixins: [
-	        Reflux.listenTo(UserStore, 'onLoadUser')
-	    ],
-	
 	    getInitialState:function() {
 	        return {
-	            user: UserStore.getUser()
+	            user: {}
 	        }
 	    },
 	
@@ -23594,15 +23606,19 @@
 	        });
 	    },
 	
-	    /**
-	     * Render view
-	     */
+	    onSubmit:function(form) {
+	        UserActions.postUser(Form.getFormData(form));
+	    },
+	
 	    render:function(){
 	        return (
 	            React.createElement("div", {key: "content"}, 
-	                (this.state.user.id) ? 'Welcome, ' + this.state.user.username : 'login to continue', 
-	                React.createElement("br", null), 
-	                (this.state.user.id) ? React.createElement("a", {onClick: UserStore.onLogout}, "logoff") : ''
+	                React.createElement("form", {onSubmit: this.onSubmit}, 
+	                    React.createElement(TextInput, {name: "username", label: "Username", value: "germain", placeholder: "..."}), 
+	                    React.createElement(TextInput, {name: "password", label: "Password", hideInput: true, value: "test", placeholder: "..."}), 
+	                    React.createElement(TextInput, {name: "email", label: "Email", value: "test", placeholder: "..."}), 
+	                    React.createElement(Submit, {label: "Login", name: "login"})
+	                )
 	            )
 	        )
 	    }
@@ -25126,97 +25142,10 @@
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
-	var Storage = __webpack_require__(221);
-	var UserActions = __webpack_require__(222);
-	
-	module.exports = Reflux.createStore({
-	
-	    /**
-	     * User storage
-	     */
-	    _user: {},
-	
-	    /**
-	     * Event listeners
-	     */
-	    init: function() {
-	        this._user = Storage.read('user', {});
-	        this.listenTo(UserActions.loadUser.completed, this._onLoadUser);
-	    },
-	
-	    /**
-	     * Load user
-	     *
-	     * @param user
-	     */
-	    _onLoadUser:function(user) {
-	        this._user = user;
-	        Storage.write('user', this._user);
-	        this.trigger();
-	    },
-	
-	    /**
-	     * Get user
-	     */
-	    getUser:function() {
-	        return this._user;
-	    },
-	
-	    /**
-	     * unset user on logout
-	     */
-	    onLogout: function () {
-	        this._onLoadUser({});
-	    }
-	});
-
-/***/ },
-/* 221 */
-/***/ function(module, exports) {
-
-	/**
-	 * Add locale storage support
-	 */
-	module.exports = {
-	
-	    write: function (key, value) {
-	        if (!value) {
-	            return;
-	        }
-	
-	        if (typeof localStorage === 'object') {
-	            localStorage.setItem(key, JSON.stringify(value));
-	        }
-	    },
-	
-	    clear: function(key) {
-	        if (typeof localStorage === 'object') {
-	            localStorage.setItem(key, undefined);
-	        }
-	    },
-	
-	    read: function (key, defaultValue) {
-	        if (typeof localStorage === 'object') {
-	            var value = localStorage.getItem(key);
-	            if (value) {
-	                value = JSON.parse(value);
-	            }
-	
-	            return value ? value : defaultValue;
-	        }
-	    }
-	};
-
-/***/ },
-/* 222 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Reflux = __webpack_require__(198);
-	var Request = __webpack_require__(223);
+	var Request = __webpack_require__(221);
 	
 	/**
-	 * User Reflux actions
+	 * User actions
 	 */
 	var UserActions = Reflux.createActions({
 	    loadUser: {children: ['completed','failed']},
@@ -25234,10 +25163,11 @@
 	module.exports = UserActions;
 
 /***/ },
-/* 223 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SuperAgent = __webpack_require__(224);
+	var SuperAgent = __webpack_require__(222);
+	var NotificationActions = __webpack_require__(243);
 	
 	/**
 	 * XHR Request service
@@ -25252,7 +25182,7 @@
 	     */
 	    get:function(url, callback) {
 	        SuperAgent.get(url).end(
-	            function(err, res)  {return this.responseHandler(err, res, callback);}.bind(this)
+	            function(err, res)  {return this.responseHandler(res, callback);}.bind(this)
 	        );
 	    },
 	
@@ -25265,36 +25195,37 @@
 	     */
 	    post:function(url, data, callback) {
 	        SuperAgent.post(url, data).end(
-	            function(err, res)  {return this.responseHandler(err, res, callback);}.bind(this)
+	            function(err, res)  {return this.responseHandler(res, callback);}.bind(this)
 	        )
 	    },
 	
 	    /**
 	     * XHR Response handler
 	     *
-	     * @param {object} err
-	     * @param {object} res
+	     * @param {object} response
 	     * @param {func} callback
 	     */
-	    responseHandler:function(err, res, callback) {
-	        if (res.ok) {
-	            callback.completed(res.body);
+	    responseHandler:function(response, callback) {
+	        if (response.ok) {
+	            callback.completed(response.body);
 	        } else {
-	            callback.failed(res.text);
+	            callback.failed(response.text);
 	        }
+	
+	        NotificationActions.show(response.body, response.status);
 	    }
 	};
 
 /***/ },
-/* 224 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 	
-	var Emitter = __webpack_require__(225);
-	var reduce = __webpack_require__(226);
+	var Emitter = __webpack_require__(223);
+	var reduce = __webpack_require__(224);
 	
 	/**
 	 * Root reference for iframes.
@@ -26373,7 +26304,7 @@
 
 
 /***/ },
-/* 225 */
+/* 223 */
 /***/ function(module, exports) {
 
 	
@@ -26543,7 +26474,7 @@
 
 
 /***/ },
-/* 226 */
+/* 224 */
 /***/ function(module, exports) {
 
 	
@@ -26572,32 +26503,241 @@
 	};
 
 /***/ },
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(198);
+	var Storage = __webpack_require__(226);
+	var UserActions = __webpack_require__(220);
+	
+	module.exports = Reflux.createStore({
+	
+	    /**
+	     * User storage
+	     */
+	    _user: {},
+	
+	    /**
+	     * Event listeners
+	     */
+	    init: function() {
+	        this._user = Storage.read('user', {});
+	        this.listenTo(UserActions.loadUser.completed, this._onLoadUser);
+	    },
+	
+	    /**
+	     * Load user
+	     *
+	     * @param user
+	     */
+	    _onLoadUser:function(user) {
+	        this._user = user;
+	        Storage.write('user', this._user);
+	        this.trigger();
+	    },
+	
+	    /**
+	     * Get user
+	     */
+	    getUser:function() {
+	        return this._user;
+	    },
+	
+	    /**
+	     * unset user on logout
+	     */
+	    onLogout: function () {
+	        this._onLoadUser({});
+	    }
+	});
+
+/***/ },
+/* 226 */
+/***/ function(module, exports) {
+
+	/**
+	 * Add locale storage support
+	 */
+	module.exports = {
+	
+	    write: function (key, value) {
+	        if (!value) {
+	            return;
+	        }
+	
+	        if (typeof localStorage === 'object') {
+	            localStorage.setItem(key, JSON.stringify(value));
+	        }
+	    },
+	
+	    clear: function(key) {
+	        if (typeof localStorage === 'object') {
+	            localStorage.setItem(key, undefined);
+	        }
+	    },
+	
+	    read: function (key, defaultValue) {
+	        if (typeof localStorage === 'object') {
+	            var value = localStorage.getItem(key);
+	            if (value) {
+	                value = JSON.parse(value);
+	            }
+	
+	            return value ? value : defaultValue;
+	        }
+	    }
+	};
+
+/***/ },
 /* 227 */
+/***/ function(module, exports) {
+
+	/**
+	 * Form service
+	 */
+	module.exports = {
+	
+	    /**
+	     * Get input values from form
+	     */
+	    getFormData:function(e) {
+	        e.preventDefault();
+	
+	        var list = {};
+	        for (var i = 0, len = e.target.length; i < len; i++) {
+	            if (typeof e.target[i].value != 'undefined' && e.target[i].type != 'submit') {
+	                list[e.target[i].name] = e.target[i].value;
+	            }
+	        }
+	
+	        return list;
+	    }
+	};
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	/**
+	 * Text input component
+	 */
+	module.exports = React.createClass({displayName: "module.exports",
+	
+	    propTypes: {
+	        label: React.PropTypes.string,
+	        value: React.PropTypes.string,
+	        key: React.PropTypes.string
+	    },
+	
+	    getDefaultProps:function() {
+	        return {
+	            placeholder: '',
+	            hideInput: false,
+	            value:'',
+	            label: '',
+	            name: ''
+	        }
+	    },
+	
+	    getInitialState:function() {
+	        return {
+	            value: this.props.value
+	        }
+	    },
+	
+	    handleChange:function(e) {
+	        this.setState({value: e.target.value});
+	    },
+	
+	    render:function() {
+	        return (
+	            React.createElement("div", {className: "form-inline"}, 
+	                React.createElement("label", {htmlFor: this.props.label}, 
+	                    this.props.label
+	                ), 
+	                React.createElement("input", {type: (this.props.hideInput) ? 'password' : 'text', 
+	                       name: this.props.name, 
+	                       key: this.props.name, 
+	                       placeholder: this.props.placeholder, 
+	                       value: (this.state.value) ? this.state.value : ' ', 
+	                       onChange: this.handleChange, 
+	                       className: "form-control"}
+	                    )
+	            )
+	        );
+	    }
+	});
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	/**
+	 * Submit input component
+	 */
+	var TextInput = React.createClass({displayName: "TextInput",
+	
+	    propTypes: {
+	        label: React.PropTypes.string,
+	        value: React.PropTypes.string,
+	        name: React.PropTypes.string
+	    },
+	
+	    getDefaultProps:function() {
+	        return {
+	            label: 'Submit',
+	            value: 'submit',
+	            name: ''
+	        }
+	    },
+	
+	    render:function() {
+	        return (
+	            React.createElement("div", null, 
+	                React.createElement("input", React.__spread({},  this.props, 
+	                    {type: "submit", 
+	                    value: this.props.label, 
+	                    name: this.props.name, 
+	                    key: this.props.name})
+	                )
+	            )
+	        );
+	    }
+	});
+	
+	module.exports = TextInput;
+
+/***/ },
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(157);
 	var RouteHandler = ReactRouter.RouteHandler;
 	
-	var Header = __webpack_require__(228);
+	var Notification = __webpack_require__(242);
+	var Header = __webpack_require__(231);
 	
 	/**
 	 * App component
 	 */
-	var ____Class0=React.Component;for(var ____Class0____Key in ____Class0){if(____Class0.hasOwnProperty(____Class0____Key)){App[____Class0____Key]=____Class0[____Class0____Key];}}var ____SuperProtoOf____Class0=____Class0===null?null:____Class0.prototype;App.prototype=Object.create(____SuperProtoOf____Class0);App.prototype.constructor=App;App.__superConstructor__=____Class0;function App(){"use strict";if(____Class0!==null){____Class0.apply(this,arguments);}}
+	var ____ClassI=React.Component;for(var ____ClassI____Key in ____ClassI){if(____ClassI.hasOwnProperty(____ClassI____Key)){App[____ClassI____Key]=____ClassI[____ClassI____Key];}}var ____SuperProtoOf____ClassI=____ClassI===null?null:____ClassI.prototype;App.prototype=Object.create(____SuperProtoOf____ClassI);App.prototype.constructor=App;App.__superConstructor__=____ClassI;function App(){"use strict";if(____ClassI!==null){____ClassI.apply(this,arguments);}}
 	
 	    /**
-	     * Render component
+	     * Render application
 	     */
 	    Object.defineProperty(App.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
-	            React.createElement("div", {style: {width:'100%', textAlign:'center'}}, 
+	            React.createElement("div", {className: "container"}, 
 	                React.createElement(Header, null), 
-	                React.createElement("br", null), 
-	                React.createElement("div", {className: "container"}, 
-	                    React.createElement("div", {className: "jumbotron"}, 
-	                        React.createElement(RouteHandler, null)
-	                    )
+	                React.createElement(Notification, null), 
+	                React.createElement("div", {className: "jumbotron"}, 
+	                    React.createElement(RouteHandler, null)
 	                )
 	            )
 	        );
@@ -26607,23 +26747,26 @@
 	module.exports = App;
 
 /***/ },
-/* 228 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(157);
 	var Link = ReactRouter.Link;
 	
-	var Login = __webpack_require__(229);
+	var Notification = __webpack_require__(242);
+	var Login = __webpack_require__(232);
 	
 	/**
 	 * Header component
 	 */
-	var ____Class6=React.Component;for(var ____Class6____Key in ____Class6){if(____Class6.hasOwnProperty(____Class6____Key)){Header[____Class6____Key]=____Class6[____Class6____Key];}}var ____SuperProtoOf____Class6=____Class6===null?null:____Class6.prototype;Header.prototype=Object.create(____SuperProtoOf____Class6);Header.prototype.constructor=Header;Header.__superConstructor__=____Class6;function Header(){"use strict";if(____Class6!==null){____Class6.apply(this,arguments);}}
+	var ____ClassH=React.Component;for(var ____ClassH____Key in ____ClassH){if(____ClassH.hasOwnProperty(____ClassH____Key)){Header[____ClassH____Key]=____ClassH[____ClassH____Key];}}var ____SuperProtoOf____ClassH=____ClassH===null?null:____ClassH.prototype;Header.prototype=Object.create(____SuperProtoOf____ClassH);Header.prototype.constructor=Header;Header.__superConstructor__=____ClassH;function Header(){"use strict";if(____ClassH!==null){____ClassH.apply(this,arguments);}}
 	
 	    Object.defineProperty(Header.prototype,"mainMenu",{writable:true,configurable:true,value:function() {"use strict";
 	        var items = [
-	            {label: 'home', route: 'dashboard-index'}
+	            {label: 'home', route: 'dashboard-index'},
+	            {label: 'branches', route: 'branches-list'},
+	            {label: 'new branch', route: 'branches-new'}
 	        ];
 	
 	        return items.map(function(item)  {return Header.renderItem(item);});
@@ -26648,7 +26791,7 @@
 	     * @param item
 	     */
 	    Object.defineProperty(Header,"renderItem",{writable:true,configurable:true,value:function(item) {"use strict";
-	        return React.createElement("li", {id: item.route}, React.createElement(Link, {key: item.route, to: item.route}, item.label));
+	        return React.createElement("li", {key: item.route}, React.createElement(Link, {key: item.route, to: item.route}, item.label));
 	    }});
 	
 	    /**
@@ -26656,14 +26799,14 @@
 	     */
 	    Object.defineProperty(Header.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
-	            React.createElement("nav", {className: "navbar navbar-default navbar-fixed-top"}, 
+	            React.createElement("nav", {className: "navbar navbar-default "}, 
 	                React.createElement("div", {className: "container"}, 
 	                    React.createElement("div", {className: "navbar-header"}, 
 	                        React.createElement("button", {type: "button", className: "navbar-toggle collapsed", "data-toggle": "collapse", "data-target": "#navbar", "aria-expanded": "false", "aria-controls": "navbar"}, 
-	                            React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
-	                            React.createElement("span", {className: "icon-bar"}), 
-	                            React.createElement("span", {className: "icon-bar"}), 
-	                            React.createElement("span", {className: "icon-bar"})
+	                            React.createElement("span", {key: "toggle-nav", className: "sr-only"}, "Toggle navigation"), 
+	                            React.createElement("span", {key: "nav1", className: "icon-bar"}), 
+	                            React.createElement("span", {key: "nav2", className: "icon-bar"}), 
+	                            React.createElement("span", {key: "nav3", className: "icon-bar"})
 	                        ), 
 	                        React.createElement("a", {className: "navbar-brand", href: "#"}, "Bestcasting")
 	                    ), 
@@ -26682,7 +26825,7 @@
 	module.exports = Header;
 
 /***/ },
-/* 229 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -26703,19 +26846,63 @@
 	module.exports = Login;
 
 /***/ },
-/* 230 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
 	
-	var UserActions = __webpack_require__(222);
-	var UserStore = __webpack_require__(220);
+	var UserStore = __webpack_require__(225);
 	
-	var Form = __webpack_require__(231);
-	var TextInput = __webpack_require__(232);
-	var Submit = __webpack_require__(233);
+	/**
+	 * Dashboard view
+	 */
+	module.exports = React.createClass({displayName: "module.exports",
 	
+	    mixins: [
+	        Reflux.listenTo(UserStore, 'onLoadUser')
+	    ],
+	
+	    getInitialState:function() {
+	        return {
+	            user: UserStore.getUser()
+	        }
+	    },
+	
+	    onLoadUser:function() {
+	        this.setState({
+	            user: UserStore.getUser()
+	        });
+	    },
+	
+	    render:function(){
+	        return (
+	            React.createElement("div", {key: "content"}, 
+	                (this.state.user.id) ? 'Welcome, ' + this.state.user.username : 'login to continue', 
+	                React.createElement("br", null), 
+	                (this.state.user.id) ? React.createElement("a", {onClick: UserStore.onLogout}, "logoff") : ''
+	            )
+	        )
+	    }
+	});
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(198);
+	
+	var UserActions = __webpack_require__(220);
+	var UserStore = __webpack_require__(225);
+	
+	var Form = __webpack_require__(227);
+	var TextInput = __webpack_require__(228);
+	var Submit = __webpack_require__(229);
+	
+	/**
+	 * Login user view
+	 */
 	module.exports = React.createClass({displayName: "module.exports",
 	
 	    getInitialState:function() {
@@ -26748,33 +26935,284 @@
 	});
 
 /***/ },
-/* 231 */
-/***/ function(module, exports) {
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(157);
+	var Reflux = __webpack_require__(198);
+	var Link = ReactRouter.Link;
+	
+	
+	var BranchesStore = __webpack_require__(236);
+	var BranchesActions = __webpack_require__(237);
+	
 	/**
-	 * Form service
+	 * List branches view
 	 */
-	module.exports = {
+	module.exports = React.createClass({displayName: "module.exports",
 	
-	    /**
-	     * Get input values from form
-	     */
-	    getFormData:function(e) {
-	        e.preventDefault();
+	    mixins: [
+	        Reflux.listenTo(BranchesStore, '_onLoadBranches')
+	    ],
 	
-	        var list = {};
-	        for (var i = 0, len = e.target.length; i < len; i++) {
-	            if (typeof e.target[i].value != 'undefined' && e.target[i].type != 'submit') {
-	                list[e.target[i].name] = e.target[i].value
-	            }
+	    componentDidMount:function() {
+	        BranchesActions.loadBranches()
+	    },
+	
+	    getInitialState:function() {
+	        return {
+	            branches: BranchesStore.getBranches()
 	        }
+	    },
 	
-	        return list;
+	    _onLoadBranches:function() {
+	        this.setState({
+	            branches: BranchesStore.getBranches()
+	        });
+	    },
+	
+	    render:function(){
+	        return (
+	            React.createElement("div", {key: "content", key: "content"}, 
+	                (this.state.branches) ? this.state.branches.map(this.renderRow) : ''
+	            )
+	        )
+	    },
+	
+	    renderRow:function(branch) {
+	        return (
+	            React.createElement("div", {key: branch.id}, 
+	                React.createElement("div", null, branch.name), 
+	                React.createElement(Link, {key: "detail", to: '/branches/:id', params: {id: branch.id}}, "detail"), 
+	                "-", 
+	                React.createElement(Link, {key: "edit", to: '/branches/edit/:id', params: {id: branch.id}}, "edit")
+	            )
+	        )
 	    }
-	}
+	});
 
 /***/ },
-/* 232 */
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(198);
+	
+	var BranchesActions = __webpack_require__(237);
+	
+	module.exports = Reflux.createStore({
+	
+	    /**
+	     * branch storage
+	     */
+	    _branch: [],
+	
+	    /**
+	     * branches list storage
+	     */
+	    _branches: [],
+	
+	    /**
+	     * Event listeners
+	     */
+	    init: function() {
+	        this.listenTo(BranchesActions.loadBranch.completed, this._onLoadBranch);
+	        this.listenTo(BranchesActions.loadBranches.completed, this._onLoadBranches);
+	    },
+	
+	    /**
+	     * Load branches
+	     *
+	     * @param branches
+	     */
+	    _onLoadBranches:function(branches) {
+	        this._branches = branches;
+	        this.trigger();
+	    },
+	
+	    /**
+	     * Load branch
+	     *
+	     * @param branch
+	     */
+	    _onLoadBranch:function(branch) {
+	        this._branch = branch;
+	        this.trigger();
+	    },
+	
+	    /**
+	     * Get branches
+	     */
+	    getBranches:function() {
+	        return this._branches;
+	    },
+	
+	    /**
+	     * Get branches
+	     */
+	    getBranch:function() {
+	        return this._branch;
+	    }
+	});
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(198);
+	var Request = __webpack_require__(221);
+	
+	/**
+	 * Branches actions
+	 */
+	var BranchesActions = Reflux.createActions({
+	    saveBranch:     {children: ['completed','failed']},
+	    loadBranch:     {children: ['completed','failed']},
+	    loadBranches:   {children: ['completed','failed']}
+	});
+	
+	BranchesActions.saveBranch.listen(function(data)
+	         {return Request.post('app_dev.php/api/branches', data, BranchesActions.saveBranch);}
+	);
+	
+	BranchesActions.loadBranch.listen(function(id)
+	     {return Request.get('app_dev.php/api/branches/'+ id, BranchesActions.loadBranch);}
+	);
+	
+	BranchesActions.loadBranches.listen(function()
+	     {return Request.get('app_dev.php/api/branches', BranchesActions.loadBranches);}
+	);
+	
+	module.exports = BranchesActions;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(157);
+	var Reflux = __webpack_require__(198);
+	
+	var BranchesStore = __webpack_require__(236);
+	var BranchesActions = __webpack_require__(237);
+	
+	/**
+	 * Branch details view
+	 */
+	module.exports = React.createClass({displayName: "module.exports",
+	
+	    mixins: [
+	        Reflux.listenTo(BranchesStore, '_onLoadBranch'),
+	        ReactRouter.Navigation,
+	        ReactRouter.State
+	    ],
+	
+	    componentDidMount:function() {
+	        if (!isNaN(this.getParams().id)) {
+	            BranchesActions.loadBranch(this.getParams().id)
+	        }
+	    },
+	
+	    getInitialState:function() {
+	        return {
+	            branch: BranchesStore.getBranch()
+	        }
+	    },
+	
+	    _onLoadBranch:function() {
+	        this.setState({
+	            branch: BranchesStore.getBranch()
+	        });
+	    },
+	
+	    render:function(){
+	        return (
+	            React.createElement("div", {key: "content"}, 
+	                (!isNaN(this.getParams().id))
+	                    ? this.state.branch.name+' => '+ this.state.branch.id
+	                    : 'branch not found'
+	                
+	            )
+	        )
+	    }
+	});
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(157);
+	var Reflux = __webpack_require__(198);
+	
+	var Form = __webpack_require__(227);
+	var TextInput = __webpack_require__(228);
+	var Checkbox = __webpack_require__(240);
+	var Submit = __webpack_require__(229);
+	
+	
+	var BranchesStore = __webpack_require__(236);
+	var BranchesActions = __webpack_require__(237);
+	
+	/**
+	 * Edit branch view
+	 */
+	module.exports = React.createClass({displayName: "module.exports",
+	
+	    mixins: [
+	        Reflux.listenTo(BranchesActions.saveBranch.completed, 'onSave'),
+	        Reflux.listenTo(BranchesStore, '_onLoadBranch'),
+	        ReactRouter.Navigation,
+	        ReactRouter.State
+	    ],
+	
+	    componentDidMount:function() {
+	        BranchesActions.loadBranch(this.getParams().id)
+	    },
+	
+	    getInitialState:function() {
+	        return {
+	            branch: BranchesStore.getBranch()
+	        }
+	    },
+	
+	    _onLoadBranch:function() {
+	        this.setState({
+	            branch: BranchesStore.getBranch()
+	        });
+	    },
+	
+	    onSubmit:function(form) {
+	        BranchesActions.saveBranch(Form.getFormData(form));
+	    },
+	
+	    onSave:function(data) {
+	        console.log('data', data);
+	    },
+	
+	    render:function(){
+	        if (!isNaN(this.state.branch.id)) {
+	            return (
+	                React.createElement("div", {key: "content"}, 
+	                    "edit", 
+	                    React.createElement("form", {onSubmit: this.onSubmit}, 
+	                        React.createElement(TextInput, {name: "name", label: "Name", value: this.state.branch.name}), 
+	                        React.createElement(Checkbox, {name: "active", label: "Active", value: this.state.branch.active}), 
+	                        React.createElement(TextInput, {name: "created_at", label: "created at", value: this.state.branch.created_at}), 
+	                        React.createElement(TextInput, {name: "updated_at", label: "updated at", value: this.state.branch.updated_at}), 
+	                        React.createElement(Submit, {label: "Save", name: "save"})
+	                    )
+	                )
+	            )
+	        }
+	        return (React.createElement("div", null, "wait"))
+	    }
+	});
+
+/***/ },
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -26785,18 +27223,17 @@
 	module.exports = React.createClass({displayName: "module.exports",
 	
 	    propTypes: {
-	        placeholder: React.PropTypes.string,
 	        label: React.PropTypes.string,
-	        value: React.PropTypes.string,
+	        value: React.PropTypes.bool,
 	        name: React.PropTypes.string
 	    },
 	
 	    getDefaultProps:function() {
 	        return {
-	            placeholder: false,
+	            placeholder: '',
 	            hideInput: false,
-	            label: '',
-	            name: ''
+	            value: 0,
+	            label: ''
 	        }
 	    },
 	
@@ -26816,101 +27253,179 @@
 	                React.createElement("label", {htmlFor: this.props.label}, 
 	                    this.props.label
 	                ), 
-	                React.createElement("input", {type: (this.props.hideInput) ? 'password' : 'text', 
-	                       name: this.props.name, 
-	                       id: this.props.name, 
-	                       placeholder: this.props.placeholder, 
-	                       value: this.state.value, 
-	                       onChange: this.handleChange, 
-	                       className: "form-control"}
+	                React.createElement("div", {className: "checkbox"}, 
+	                    React.createElement("input", {
+	                        type: "checkbox", 
+	                        name: this.props.name, 
+	                        key: this.props.name, 
+	                        placeholder: this.props.placeholder, 
+	                        value: (this.state.value) ? this.state.value : ' ', 
+	                        onChange: this.handleChange}
 	                    )
-	            )
-	        );
-	    }
-	});
-
-/***/ },
-/* 233 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	
-	/**
-	 * Submit input component
-	 */
-	var TextInput = React.createClass({displayName: "TextInput",
-	
-	    propTypes: {
-	        label: React.PropTypes.string,
-	        name: React.PropTypes.string
-	    },
-	
-	    getDefaultProps:function() {
-	        return {
-	            label: 'Submit',
-	            name: ''
-	        }
-	    },
-	
-	    render:function() {
-	        return (
-	            React.createElement("div", null, 
-	                React.createElement("input", React.__spread({},  this.props, 
-	                    {type: "submit", 
-	                    value: this.props.label, 
-	                    name: this.props.name, 
-	                    id: this.props.name})
 	                )
 	            )
 	        );
 	    }
 	});
-	
-	module.exports = TextInput;
 
 /***/ },
-/* 234 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
 	
-	var UserActions = __webpack_require__(222);
-	var UserStore = __webpack_require__(220);
+	var Form = __webpack_require__(227);
+	var TextInput = __webpack_require__(228);
+	var Submit = __webpack_require__(229);
 	
-	var Form = __webpack_require__(231);
-	var TextInput = __webpack_require__(232);
-	var Submit = __webpack_require__(233);
+	var BranchesStore = __webpack_require__(236);
+	var BranchesActions = __webpack_require__(237);
 	
+	/**
+	 * New branch view
+	 */
 	module.exports = React.createClass({displayName: "module.exports",
+	
+	    mixins: [
+	        Reflux.listenTo(BranchesActions.saveBranch.completed, 'onSave')
+	    ],
 	
 	    getInitialState:function() {
 	        return {
-	            user: {}
+	            branch: {}
 	        }
 	    },
 	
-	    onLoadUser:function() {
-	        this.setState({
-	            user: UserStore.getUser()
-	        });
+	    onSubmit:function(form) {
+	        BranchesActions.saveBranch(Form.getFormData(form));
 	    },
 	
-	    onSubmit:function(form) {
-	        UserActions.postUser(Form.getFormData(form));
+	    onSave:function(data) {
+	        console.log('data', data);
 	    },
 	
 	    render:function(){
 	        return (
 	            React.createElement("div", {key: "content"}, 
+	                "new", 
 	                React.createElement("form", {onSubmit: this.onSubmit}, 
-	                    React.createElement(TextInput, {name: "username", label: "Username", value: "germain", placeholder: "..."}), 
-	                    React.createElement(TextInput, {name: "password", label: "Password", hideInput: true, value: "test", placeholder: "..."}), 
-	                    React.createElement(TextInput, {name: "email", label: "Email", value: "test", placeholder: "..."}), 
-	                    React.createElement(Submit, {label: "Login", name: "login"})
+	                    React.createElement(TextInput, {name: "active", label: "Active", value: ""}), 
+	                    React.createElement(TextInput, {name: "name", label: "Name", value: ""}), 
+	                    React.createElement(TextInput, {name: "created_at", label: "created at", value: ""}), 
+	                    React.createElement(TextInput, {name: "updated_at", label: "updated at", value: ""}), 
+	                    React.createElement(Submit, {label: "Save", name: "save"})
 	                )
 	            )
 	        )
+	    }
+	});
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(198);
+	var NotificationStore = __webpack_require__(244);
+	
+	/**
+	 * Notification component
+	 */
+	module.exports = React.createClass({displayName: "module.exports",
+	
+	    mixins: [
+	        Reflux.listenTo(NotificationStore, '_onLoadMessage')
+	    ],
+	
+	    getInitialState:function() {
+	        return {
+	            message: NotificationStore.getMessage()
+	        };
+	    },
+	
+	    _onLoadMessage:function() {
+	        this.setState({
+	            message: NotificationStore.getMessage()
+	        });
+	    },
+	
+	    _onLoad:function() {
+	      return (
+	          React.createElement("div", {class: "progress"}, 
+	              React.createElement("div", {class: "progress-bar", role: "progressbar", "aria-valuenow": "60", "aria-valuemin": "0", "aria-valuemax": "100", style: "width: 60%;"}, 
+	                  "60%"
+	              )
+	          )
+	      );
+	    },
+	
+	    render:function() {
+	        if (typeof this.state.message != 'undefined') {
+	            return (
+	                React.createElement("div", {className: (typeof this.state.message.status == 'undefined') ? 'alert alert-success' : 'alert alert-danger'}, 
+	                    "notification message"
+	                )
+	            );
+	        }
+	
+	        return (React.createElement("div", null));
+	    }
+	})
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(198);
+	
+	/**
+	 * Notification actions
+	 */
+	module.exports = Reflux.createActions(['show', 'hide']);
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(198);
+	var Storage = __webpack_require__(226);
+	var NotificationActions = __webpack_require__(243);
+	
+	module.exports = Reflux.createStore({
+	
+	    _message: {},
+	
+	    /**
+	     * Event listeners
+	     */
+	    init: function() {
+	        this.listenTo(NotificationActions.show, '_onShow');
+	        this.listenTo(NotificationActions.hide, '_onHide');
+	    },
+	
+	    _onShow: function(message) {
+	        this._setMessage(message);
+	    },
+	
+	    _onHide: function() {
+	        this._unsetNotification();
+	    },
+	
+	    _setMessage: function(message) {
+	        this._message = message;
+	        this.trigger();
+	    },
+	
+	    _unsetNotification: function() {
+	        this._message = {};
+	        this.trigger();
+	    },
+	
+	    getMessage: function() {
+	        return this._message;
 	    }
 	});
 

@@ -3,7 +3,7 @@ var Reflux = require('reflux');
 var Request = require('services/request');
 
 /**
- * User Reflux actions
+ * User actions
  */
 var UserActions = Reflux.createActions({
     loadUser: {children: ['completed','failed']},

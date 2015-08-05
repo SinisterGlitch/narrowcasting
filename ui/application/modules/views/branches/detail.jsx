@@ -37,7 +37,10 @@ module.exports = React.createClass({
     render(){
         return (
             <div key="content">
-                {(this.state.branch.id) ? this.state.branch.name+' => '+ this.state.branch.id: 'branch not found'}
+                {(!isNaN(this.getParams().id))
+                    ? this.state.branch.name+' => '+ this.state.branch.id
+                    : 'branch not found'
+                }
             </div>
         )
     }
