@@ -12,7 +12,7 @@ var BranchesActions = Reflux.createActions({
 });
 
 BranchesActions.saveBranch.listen((data)
-        => Request.post('app_dev.php/api/branches', data, BranchesActions.saveBranch)
+    => Request.post('app_dev.php/api/branches', data, BranchesActions.saveBranch)
 );
 
 BranchesActions.loadBranch.listen((id)

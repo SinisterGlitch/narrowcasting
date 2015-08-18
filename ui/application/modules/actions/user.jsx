@@ -7,7 +7,7 @@ var Request = require('services/request');
  */
 var UserActions = Reflux.createActions({
     loadUser: {children: ['completed','failed']},
-    postUser: {children: ['completed','failed']},
+    postUser: {children: ['completed','failed']}
 });
 
 UserActions.loadUser.listen((data)

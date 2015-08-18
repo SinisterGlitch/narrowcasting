@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 class BranchController extends BaseController
 {
     /**
+     * TODO: check if id doest not exist
+     *
      * @Get("/branches/{id}")
      * @param int $id
      * @return Branch
@@ -32,6 +34,8 @@ class BranchController extends BaseController
     }
 
     /**
+     * TODO: add validator
+     *
      * @param Request $request
      * @return Branch
      */
@@ -45,20 +49,10 @@ class BranchController extends BaseController
     }
 
     /**
-     * @param Request $request
-     * @return Branch
-     */
-    public function putAction(Request $request)
-    {
-        $formData = $request->get('data');
-
-        $entity = new Branch();
-
-        return $entity;
-    }
-
-    /**
-     * @param $id
+     * TODO: add success response
+     *
+     * @param int $id
+     * @return void
      */
     public function deleteAction($id)
     {
