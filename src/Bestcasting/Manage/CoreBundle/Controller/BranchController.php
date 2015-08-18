@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class BranchController extends BaseController
 {
     /**
-     * TODO: check if id doest not exist
+     * TODO: check for when id doest not exist
      *
      * @Get("/branches/{id}")
      * @param int $id
@@ -25,6 +25,8 @@ class BranchController extends BaseController
     }
 
     /**
+     * TODO: check for nothing is found
+     *
      * @Get("/branches")
      * @return Branch[]
      */
