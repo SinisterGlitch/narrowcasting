@@ -7,6 +7,9 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
+ * TODO: add entity validator
+ * TODO: add proper response annotations
+ *
  * Class BaseController
  * @package Bestcasting\Manage\CoreBundle\Controller
  */
@@ -26,6 +29,11 @@ abstract class BaseController extends controller implements ControllerInterface
      * {@inheritdoc}
      */
     abstract function postAction(Request $request);
+
+    /**
+     * {@inheritdoc}
+     */
+    abstract function putAction(Request $request);
 
     /**
      * {@inheritdoc}

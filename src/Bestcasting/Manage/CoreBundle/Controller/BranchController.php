@@ -51,6 +51,21 @@ class BranchController extends BaseController
     }
 
     /**
+     * TODO: add validator
+     *
+     * @param Request $request
+     * @return Branch
+     */
+    public function putAction(Request $request)
+    {
+        $formData = $request->get('data');
+
+        $entity = new Branch();
+
+        return $entity;
+    }
+
+    /**
      * TODO: add success response
      *
      * @param int $id

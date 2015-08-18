@@ -34,6 +34,14 @@ Interface ControllerInterface
     public function postAction(Request $request);
 
     /**
+     * Update single object
+     *
+     * @param Request $request
+     * @return null|Object
+     */
+    public function putAction(Request $request);
+
+    /**
      * Delete object with given id
      *
      * @param int $id
