@@ -3,7 +3,10 @@
 namespace Bestcasting\Manage\CoreBundle\Controller;
 
 use Bestcasting\Manage\CoreBundle\Entity\Branch;
+use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Put;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -38,6 +41,7 @@ class BranchController extends BaseController
     /**
      * TODO: add validator
      *
+     * @Post("/branches")
      * @param Request $request
      * @return Branch
      */
@@ -53,6 +57,7 @@ class BranchController extends BaseController
     /**
      * TODO: add validator
      *
+     * @Put("/branches")
      * @param Request $request
      * @return Branch
      */
@@ -68,6 +73,7 @@ class BranchController extends BaseController
     /**
      * TODO: add success response
      *
+     * @Delete("/branches")
      * @param int $id
      * @return void
      */

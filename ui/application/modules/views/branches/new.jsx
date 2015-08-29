@@ -14,7 +14,7 @@ var BranchesActions = require('modules/actions/branches');
 module.exports = React.createClass({
 
     mixins: [
-        Reflux.listenTo(BranchesActions.saveBranch.completed, 'onSave')
+        Reflux.listenTo(BranchesActions.saveBranches.completed, 'onSave')
     ],
 
     getInitialState() {
@@ -24,7 +24,7 @@ module.exports = React.createClass({
     },
 
     onSubmit(form) {
-        BranchesActions.saveBranch(Form.getFormData(form));
+        BranchesActions.saveBranches(Form.getFormData(form));
     },
 
     onSave(data) {

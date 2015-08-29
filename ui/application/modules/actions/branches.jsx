@@ -6,13 +6,23 @@ var Request = require('services/request');
  * Branches actions
  */
 var BranchesActions = Reflux.createActions({
-    saveBranch:     {children: ['completed','failed']},
-    loadBranch:     {children: ['completed','failed']},
-    loadBranches:   {children: ['completed','failed']}
+    saveBranches:   {children: ['completed','failed']},
+    updateBranches: {children: ['completed','failed']},
+    deleteBranches: {children: ['completed','failed']},
+    loadBranches:   {children: ['completed','failed']},
+    loadBranch:     {children: ['completed','failed']}
 });
 
-BranchesActions.saveBranch.listen((data)
-    => Request.post('app_dev.php/api/branches', data, BranchesActions.saveBranch)
+BranchesActions.saveBranches.listen((data)
+    => Request.post('app_dev.php/api/branches', data, BranchesActions.saveBranches)
+);
+
+BranchesActions.updateBranches.listen((data)
+        => Request.put('app_dev.php/api/branches', data, BranchesActions.updateBranches)
+);
+
+BranchesActions.deleteBranches.listen((data)
+        => Request.del('app_dev.php/api/branches', data, BranchesActions.deleteBranches)
 );
 
 BranchesActions.loadBranch.listen((id)
