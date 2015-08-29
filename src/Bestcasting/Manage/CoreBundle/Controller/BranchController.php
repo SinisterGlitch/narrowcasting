@@ -3,6 +3,7 @@
 namespace Bestcasting\Manage\CoreBundle\Controller;
 
 use Bestcasting\Manage\CoreBundle\Entity\Branch;
+use Bestcasting\Manage\CoreBundle\Entity\BranchRepository;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
@@ -29,14 +30,12 @@ class BranchController extends BaseController
     }
 
     /**
-     * TODO: check for nothing is found
-     *
      * @Get("/branches")
      * @return Branch[]
      */
     public function getCollectionAction()
     {
-        return $this->getRepository('Branch')->findAll();
+        return $this->getBranchRepository()->getCollection();
     }
 
     /**
@@ -72,7 +71,7 @@ class BranchController extends BaseController
     }
 
     /**
-     * TODO: add success response
+     * TODO: check success response
      *
      * @Delete("/branches")
      * @param int $id
@@ -82,5 +81,13 @@ class BranchController extends BaseController
     {
         $entity = $this->getRepository('Branch')->find($id);
         $this->getDoctrine()->getManager()->remove($entity);
+    }
+
+    /**
+     * @return BranchRepository
+     */
+    private function getBranchRepository()
+    {
+        return $this->getDoctrine()->getRepository('ManageCoreBundle:Branch');
     }
 }
