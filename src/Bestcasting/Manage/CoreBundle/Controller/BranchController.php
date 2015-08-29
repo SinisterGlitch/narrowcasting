@@ -7,6 +7,7 @@ use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Put;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -16,15 +17,15 @@ use Symfony\Component\HttpFoundation\Request;
 class BranchController extends BaseController
 {
     /**
-     * TODO: check for when id doest not exist
-     *
      * @Get("/branches/{id}")
-     * @param int $id
+     * @ParamConverter("branch", class="ManageCoreBundle:Branch")
+     *
+     * @param Branch $branch
      * @return Branch
      */
-    public function getAction($id)
+    public function getAction($branch)
     {
-        return $this->getRepository('Branch')->find($id);
+        return $branch;
     }
 
     /**
@@ -33,7 +34,7 @@ class BranchController extends BaseController
      * @Get("/branches")
      * @return Branch[]
      */
-    public function getAllAction()
+    public function getCollectionAction()
     {
         return $this->getRepository('Branch')->findAll();
     }

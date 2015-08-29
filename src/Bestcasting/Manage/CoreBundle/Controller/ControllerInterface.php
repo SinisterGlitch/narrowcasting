@@ -11,19 +11,19 @@ use Symfony\Component\HttpFoundation\Request;
 Interface ControllerInterface
 {
     /**
-     * Return object with given id
+     * Return object with given id by using ParamConverter()
      *
-     * @param int $id
+     * @param object $entity
      * @return null|Object
      */
-    public function getAction($id);
+    public function getAction($entity);
 
     /**
      * Return all objects
      *
      * @return null|Object[]
      */
-    public function getAllAction();
+    public function getCollectionAction();
 
     /**
      * Create new object

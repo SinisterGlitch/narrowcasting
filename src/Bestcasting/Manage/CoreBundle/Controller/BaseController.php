@@ -18,12 +18,12 @@ abstract class BaseController extends controller implements ControllerInterface
     /**
      * {@inheritdoc}
      */
-    abstract function getAction($id);
+    abstract function getAction($entity);
 
     /**
      * {@inheritdoc}
      */
-    abstract function getAllAction();
+    abstract function getCollectionAction();
 
     /**
      * {@inheritdoc}
