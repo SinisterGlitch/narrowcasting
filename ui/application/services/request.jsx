@@ -2,13 +2,11 @@ var SuperAgent = require('superagent');
 var NotificationActions = require('components/actions/notification');
 
 /**
- * XHR Request service
+ * AJAX Request service
  */
 module.exports = {
 
     /**
-     * Initiate GET Request
-     *
      * @param {string} url
      * @param {func} callback
      */
@@ -19,8 +17,6 @@ module.exports = {
     },
 
     /**
-     * Initiate POST request
-     *
      * @param {string} url
      * @param {array} data
      * @param {func} callback
@@ -28,21 +24,50 @@ module.exports = {
     post(url, data, callback) {
         SuperAgent.post(url, data).end(
             (err, res) => this.responseHandler(res, callback)
-        )
+        );
     },
 
     /**
-     * XHR Response handler
-     *
+     * @param {string} url
+     * @param {array} data
+     * @param {func} callback
+     */
+    put(url, data, callback) {
+        SuperAgent.put(url, data).end(
+            (err, res) => this.responseHandler(res, callback)
+        );
+    },
+
+    /**
+     * @param {string} url
+     * @param {array} data
+     * @param {func} callback
+     */
+    patch(url, data, callback) {
+        SuperAgent.put(url, data).end(
+            (err, res) => this.responseHandler(res, callback)
+        );
+    },
+
+    /**
+     * @param {string} url
+     * @param {array} data
+     * @param {func} callback
+     */
+    delete(url, data, callback) {
+        SuperAgent.del(url, data).end(
+            (err, res) => this.responseHandler(res, callback)
+        );
+    },
+
+    /**
      * @param {object} response
      * @param {func} callback
      */
     responseHandler(response, callback) {
-        if (response.ok) {
-            callback.completed(response.body);
-        } else {
-            callback.failed(response.text);
-        }
+        (response.ok)
+            ? callback.completed(response.body)
+            : callback.failed(response.text);
 
         NotificationActions.show(response.body, response.status);
     }
