@@ -2,13 +2,13 @@
 
 namespace Bestcasting\Manage\CoreBundle\Controller;
 
-use Bestcasting\Manage\CoreBundle\Entity\Branch;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Bestcasting\Manage\CoreBundle\Entity\BranchRepository;
+use Bestcasting\Manage\CoreBundle\Entity\Branch;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Put;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class BranchController extends BaseController
 {
+    const CLASS_NAME = 'Bestcasting\Manage\CoreBundle\Entity\Branch';
+
     /**
      * @Get("/branches/{id}")
      * @ParamConverter("branch", class="ManageCoreBundle:Branch")
@@ -39,48 +41,35 @@ class BranchController extends BaseController
     }
 
     /**
-     * TODO: add validator
-     *
      * @Post("/branches")
      * @param Request $request
      * @return Branch
      */
     public function postAction(Request $request)
     {
-        $formData = $request->get('data');
-
-        $entity = new Branch();
-
-        return $entity;
+        return $this->getModelManager()->save($request->get('data'), self::CLASS_NAME);
     }
 
     /**
-     * TODO: add validator
-     *
      * @Put("/branches")
      * @param Request $request
      * @return Branch
      */
     public function putAction(Request $request)
     {
-        $formData = $request->get('data');
-
-        $entity = new Branch();
-
-        return $entity;
+        return $this->getModelManager()->save($request->get('data'), self::CLASS_NAME);
     }
 
     /**
-     * TODO: check success response
-     *
      * @Delete("/branches")
-     * @param int $id
-     * @return void
+     * @ParamConverter("branch", class="ManageCoreBundle:Branch")
+     *
+     * @param object $branch
+     * @return Branch
      */
-    public function deleteAction($id)
+    public function deleteAction($branch)
     {
-        $entity = $this->getRepository('Branch')->find($id);
-        $this->getDoctrine()->getManager()->remove($entity);
+        return $this->getModelManager()->remove($branch);
     }
 
     /**

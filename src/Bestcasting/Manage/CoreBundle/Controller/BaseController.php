@@ -2,13 +2,11 @@
 
 namespace Bestcasting\Manage\CoreBundle\Controller;
 
+use Bestcasting\Manage\CoreBundle\ModelManager\ModelManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * TODO: add entity validator
- * TODO: add proper response annotations
  *
  * Class BaseController
  * @package Bestcasting\Manage\CoreBundle\Controller
@@ -41,13 +39,10 @@ abstract class BaseController extends controller implements ControllerInterface
     abstract function deleteAction($id);
 
     /**
-     * Fetches repository by entity name
-     *
-     * @param string $entityName
-     * @return ObjectRepository
+     * @return ModelManager
      */
-    public function getRepository($entityName)
+    public function getModelManager()
     {
-        return $this->getDoctrine()->getManager()->getRepository('ManageCoreBundle:'.$entityName);
+        return $this->get('manage_model_manager');
     }
 }

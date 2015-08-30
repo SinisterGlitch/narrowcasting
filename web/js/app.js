@@ -23548,16 +23548,16 @@
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(157);
 	var Route = ReactRouter.Route;
-	var App = __webpack_require__(230);
+	var App = __webpack_require__(231);
 	
-	var dashboardIndexView = __webpack_require__ (233);
-	var dashboardLoginView = __webpack_require__ (234);
+	var dashboardIndexView = __webpack_require__ (236);
+	var dashboardLoginView = __webpack_require__ (237);
 	var dashboardRegisterView = __webpack_require__ (197);
 	
-	var branchesListView = __webpack_require__ (235);
-	var branchesDetailView = __webpack_require__ (238);
-	var branchesEditView = __webpack_require__ (239);
-	var branchesNewView = __webpack_require__ (241);
+	var branchesListView = __webpack_require__ (238);
+	var branchesDetailView = __webpack_require__ (241);
+	var branchesEditView = __webpack_require__ (242);
+	var branchesNewView = __webpack_require__ (244);
 	
 	module.exports = (
 	    React.createElement(Route, {handler: App, path: "/"}, 
@@ -23583,11 +23583,11 @@
 	var Reflux = __webpack_require__(198);
 	
 	var UserActions = __webpack_require__(220);
-	var UserStore = __webpack_require__(225);
+	var UserStore = __webpack_require__(226);
 	
-	var Form = __webpack_require__(227);
-	var TextInput = __webpack_require__(228);
-	var Submit = __webpack_require__(229);
+	var Form = __webpack_require__(228);
+	var TextInput = __webpack_require__(229);
+	var Submit = __webpack_require__(230);
 	
 	/**
 	 * Register user view
@@ -25149,7 +25149,7 @@
 	 */
 	var UserActions = Reflux.createActions({
 	    loadUser: {children: ['completed','failed']},
-	    postUser: {children: ['completed','failed']},
+	    postUser: {children: ['completed','failed']}
 	});
 	
 	UserActions.loadUser.listen(function(data)
@@ -25167,16 +25167,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var SuperAgent = __webpack_require__(222);
-	var NotificationActions = __webpack_require__(243);
+	var NotificationActions = __webpack_require__(225);
 	
 	/**
-	 * XHR Request service
+	 * AJAX Request service
 	 */
 	module.exports = {
 	
 	    /**
-	     * Initiate GET Request
-	     *
 	     * @param {string} url
 	     * @param {func} callback
 	     */
@@ -25187,8 +25185,6 @@
 	    },
 	
 	    /**
-	     * Initiate POST request
-	     *
 	     * @param {string} url
 	     * @param {array} data
 	     * @param {func} callback
@@ -25196,21 +25192,50 @@
 	    post:function(url, data, callback) {
 	        SuperAgent.post(url, data).end(
 	            function(err, res)  {return this.responseHandler(res, callback);}.bind(this)
-	        )
+	        );
 	    },
 	
 	    /**
-	     * XHR Response handler
-	     *
+	     * @param {string} url
+	     * @param {array} data
+	     * @param {func} callback
+	     */
+	    put:function(url, data, callback) {
+	        SuperAgent.put(url, {'data' : data}).end(
+	            function(err, res)  {return this.responseHandler(res, callback);}.bind(this)
+	        );
+	    },
+	
+	    /**
+	     * @param {string} url
+	     * @param {array} data
+	     * @param {func} callback
+	     */
+	    patch:function(url, data, callback) {
+	        SuperAgent.put(url, data).end(
+	            function(err, res)  {return this.responseHandler(res, callback);}.bind(this)
+	        );
+	    },
+	
+	    /**
+	     * @param {string} url
+	     * @param {array} data
+	     * @param {func} callback
+	     */
+	    "delete":function(url, data, callback) {
+	        SuperAgent.del(url, data).end(
+	            function(err, res)  {return this.responseHandler(res, callback);}.bind(this)
+	        );
+	    },
+	
+	    /**
 	     * @param {object} response
 	     * @param {func} callback
 	     */
 	    responseHandler:function(response, callback) {
-	        if (response.ok) {
-	            callback.completed(response.body);
-	        } else {
-	            callback.failed(response.text);
-	        }
+	        (response.ok)
+	            ? callback.completed(response.body)
+	            : callback.failed(response.text);
 	
 	        NotificationActions.show(response.body, response.status);
 	    }
@@ -26508,7 +26533,19 @@
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
-	var Storage = __webpack_require__(226);
+	
+	/**
+	 * Notification actions
+	 */
+	module.exports = Reflux.createActions(['show', 'hide']);
+
+/***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(198);
+	var Storage = __webpack_require__(227);
 	var UserActions = __webpack_require__(220);
 	
 	module.exports = Reflux.createStore({
@@ -26553,7 +26590,7 @@
 	});
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports) {
 
 	/**
@@ -26590,7 +26627,7 @@
 	};
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports) {
 
 	/**
@@ -26616,7 +26653,7 @@
 	};
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -26672,7 +26709,7 @@
 	});
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -26713,20 +26750,20 @@
 	module.exports = TextInput;
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(157);
 	var RouteHandler = ReactRouter.RouteHandler;
 	
-	var Notification = __webpack_require__(242);
-	var Header = __webpack_require__(231);
+	var Notification = __webpack_require__(232);
+	var Header = __webpack_require__(234);
 	
 	/**
 	 * App component
 	 */
-	var ____ClassI=React.Component;for(var ____ClassI____Key in ____ClassI){if(____ClassI.hasOwnProperty(____ClassI____Key)){App[____ClassI____Key]=____ClassI[____ClassI____Key];}}var ____SuperProtoOf____ClassI=____ClassI===null?null:____ClassI.prototype;App.prototype=Object.create(____SuperProtoOf____ClassI);App.prototype.constructor=App;App.__superConstructor__=____ClassI;function App(){"use strict";if(____ClassI!==null){____ClassI.apply(this,arguments);}}
+	var ____Class0=React.Component;for(var ____Class0____Key in ____Class0){if(____Class0.hasOwnProperty(____Class0____Key)){App[____Class0____Key]=____Class0[____Class0____Key];}}var ____SuperProtoOf____Class0=____Class0===null?null:____Class0.prototype;App.prototype=Object.create(____SuperProtoOf____Class0);App.prototype.constructor=App;App.__superConstructor__=____Class0;function App(){"use strict";if(____Class0!==null){____Class0.apply(this,arguments);}}
 	
 	    /**
 	     * Render application
@@ -26747,20 +26784,116 @@
 	module.exports = App;
 
 /***/ },
-/* 231 */
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(198);
+	var NotificationStore = __webpack_require__(233);
+	
+	/**
+	 * Notification component
+	 */
+	module.exports = React.createClass({displayName: "module.exports",
+	
+	    mixins: [
+	        Reflux.listenTo(NotificationStore, '_onLoadMessage')
+	    ],
+	
+	    getInitialState:function() {
+	        return {
+	            message: NotificationStore.getMessage()
+	        };
+	    },
+	
+	    _onLoadMessage:function() {
+	        this.setState({
+	            message: NotificationStore.getMessage()
+	        });
+	    },
+	
+	    _onLoad:function() {
+	      return (
+	          React.createElement("div", {class: "progress"}, 
+	              React.createElement("div", {class: "progress-bar", role: "progressbar", "aria-valuenow": "60", "aria-valuemin": "0", "aria-valuemax": "100", style: "width: 60%;"}, 
+	                  "60%"
+	              )
+	          )
+	      );
+	    },
+	
+	    render:function() {
+	        if (typeof this.state.message != 'undefined') {
+	            return (
+	                React.createElement("div", {className: (typeof this.state.message.status == 'undefined') ? 'alert alert-success' : 'alert alert-danger'}, 
+	                    "notification message"
+	                )
+	            );
+	        }
+	
+	        return (React.createElement("div", null));
+	    }
+	});
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Reflux = __webpack_require__(198);
+	var Storage = __webpack_require__(227);
+	var NotificationActions = __webpack_require__(225);
+	
+	module.exports = Reflux.createStore({
+	
+	    _message: {},
+	
+	    /**
+	     * Event listeners
+	     */
+	    init: function() {
+	        this.listenTo(NotificationActions.show, '_onShow');
+	        this.listenTo(NotificationActions.hide, '_onHide');
+	    },
+	
+	    _onShow: function(message) {
+	        this._setMessage(message);
+	    },
+	
+	    _onHide: function() {
+	        this._unsetNotification();
+	    },
+	
+	    _setMessage: function(message) {
+	        this._message = message;
+	        this.trigger();
+	    },
+	
+	    _unsetNotification: function() {
+	        this._message = {};
+	        this.trigger();
+	    },
+	
+	    getMessage: function() {
+	        return this._message;
+	    }
+	});
+
+/***/ },
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(157);
 	var Link = ReactRouter.Link;
 	
-	var Notification = __webpack_require__(242);
-	var Login = __webpack_require__(232);
+	var Notification = __webpack_require__(232);
+	var Login = __webpack_require__(235);
 	
 	/**
 	 * Header component
 	 */
-	var ____ClassH=React.Component;for(var ____ClassH____Key in ____ClassH){if(____ClassH.hasOwnProperty(____ClassH____Key)){Header[____ClassH____Key]=____ClassH[____ClassH____Key];}}var ____SuperProtoOf____ClassH=____ClassH===null?null:____ClassH.prototype;Header.prototype=Object.create(____SuperProtoOf____ClassH);Header.prototype.constructor=Header;Header.__superConstructor__=____ClassH;function Header(){"use strict";if(____ClassH!==null){____ClassH.apply(this,arguments);}}
+	var ____Class1=React.Component;for(var ____Class1____Key in ____Class1){if(____Class1.hasOwnProperty(____Class1____Key)){Header[____Class1____Key]=____Class1[____Class1____Key];}}var ____SuperProtoOf____Class1=____Class1===null?null:____Class1.prototype;Header.prototype=Object.create(____SuperProtoOf____Class1);Header.prototype.constructor=Header;Header.__superConstructor__=____Class1;function Header(){"use strict";if(____Class1!==null){____Class1.apply(this,arguments);}}
 	
 	    Object.defineProperty(Header.prototype,"mainMenu",{writable:true,configurable:true,value:function() {"use strict";
 	        var items = [
@@ -26825,7 +26958,7 @@
 	module.exports = Header;
 
 /***/ },
-/* 232 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -26846,13 +26979,13 @@
 	module.exports = Login;
 
 /***/ },
-/* 233 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
 	
-	var UserStore = __webpack_require__(225);
+	var UserStore = __webpack_require__(226);
 	
 	/**
 	 * Dashboard view
@@ -26887,18 +27020,18 @@
 	});
 
 /***/ },
-/* 234 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
 	
 	var UserActions = __webpack_require__(220);
-	var UserStore = __webpack_require__(225);
+	var UserStore = __webpack_require__(226);
 	
-	var Form = __webpack_require__(227);
-	var TextInput = __webpack_require__(228);
-	var Submit = __webpack_require__(229);
+	var Form = __webpack_require__(228);
+	var TextInput = __webpack_require__(229);
+	var Submit = __webpack_require__(230);
 	
 	/**
 	 * Login user view
@@ -26935,7 +27068,7 @@
 	});
 
 /***/ },
-/* 235 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -26944,8 +27077,8 @@
 	var Link = ReactRouter.Link;
 	
 	
-	var BranchesStore = __webpack_require__(236);
-	var BranchesActions = __webpack_require__(237);
+	var BranchesStore = __webpack_require__(239);
+	var BranchesActions = __webpack_require__(240);
 	
 	/**
 	 * List branches view
@@ -26993,13 +27126,13 @@
 	});
 
 /***/ },
-/* 236 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
 	
-	var BranchesActions = __webpack_require__(237);
+	var BranchesActions = __webpack_require__(240);
 	
 	module.exports = Reflux.createStore({
 	
@@ -27057,7 +27190,7 @@
 	});
 
 /***/ },
-/* 237 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -27068,13 +27201,23 @@
 	 * Branches actions
 	 */
 	var BranchesActions = Reflux.createActions({
-	    saveBranch:     {children: ['completed','failed']},
-	    loadBranch:     {children: ['completed','failed']},
-	    loadBranches:   {children: ['completed','failed']}
+	    saveBranches:   {children: ['completed','failed']},
+	    updateBranches: {children: ['completed','failed']},
+	    deleteBranches: {children: ['completed','failed']},
+	    loadBranches:   {children: ['completed','failed']},
+	    loadBranch:     {children: ['completed','failed']}
 	});
 	
-	BranchesActions.saveBranch.listen(function(data)
-	         {return Request.post('app_dev.php/api/branches', data, BranchesActions.saveBranch);}
+	BranchesActions.saveBranches.listen(function(data)
+	     {return Request.post('app_dev.php/api/branches', data, BranchesActions.saveBranches);}
+	);
+	
+	BranchesActions.updateBranches.listen(function(data)
+	         {return Request.put('app_dev.php/api/branches', data, BranchesActions.updateBranches);}
+	);
+	
+	BranchesActions.deleteBranches.listen(function(data)
+	         {return Request.del('app_dev.php/api/branches', data, BranchesActions.deleteBranches);}
 	);
 	
 	BranchesActions.loadBranch.listen(function(id)
@@ -27088,15 +27231,15 @@
 	module.exports = BranchesActions;
 
 /***/ },
-/* 238 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(157);
 	var Reflux = __webpack_require__(198);
 	
-	var BranchesStore = __webpack_require__(236);
-	var BranchesActions = __webpack_require__(237);
+	var BranchesStore = __webpack_require__(239);
+	var BranchesActions = __webpack_require__(240);
 	
 	/**
 	 * Branch details view
@@ -27140,21 +27283,21 @@
 	});
 
 /***/ },
-/* 239 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(157);
 	var Reflux = __webpack_require__(198);
 	
-	var Form = __webpack_require__(227);
-	var TextInput = __webpack_require__(228);
-	var Checkbox = __webpack_require__(240);
-	var Submit = __webpack_require__(229);
+	var Form = __webpack_require__(228);
+	var TextInput = __webpack_require__(229);
+	var Checkbox = __webpack_require__(243);
+	var Submit = __webpack_require__(230);
 	
 	
-	var BranchesStore = __webpack_require__(236);
-	var BranchesActions = __webpack_require__(237);
+	var BranchesStore = __webpack_require__(239);
+	var BranchesActions = __webpack_require__(240);
 	
 	/**
 	 * Edit branch view
@@ -27162,7 +27305,7 @@
 	module.exports = React.createClass({displayName: "module.exports",
 	
 	    mixins: [
-	        Reflux.listenTo(BranchesActions.saveBranch.completed, 'onSave'),
+	        Reflux.listenTo(BranchesActions.saveBranches.completed, 'onSave'),
 	        Reflux.listenTo(BranchesStore, '_onLoadBranch'),
 	        ReactRouter.Navigation,
 	        ReactRouter.State
@@ -27185,7 +27328,7 @@
 	    },
 	
 	    onSubmit:function(form) {
-	        BranchesActions.saveBranch(Form.getFormData(form));
+	        BranchesActions.updateBranches(Form.getFormData(form));
 	    },
 	
 	    onSave:function(data) {
@@ -27198,6 +27341,7 @@
 	                React.createElement("div", {key: "content"}, 
 	                    "edit", 
 	                    React.createElement("form", {onSubmit: this.onSubmit}, 
+	                        React.createElement("input", {type: "hidden", name: "id", value: this.state.branch.id}), 
 	                        React.createElement(TextInput, {name: "name", label: "Name", value: this.state.branch.name}), 
 	                        React.createElement(Checkbox, {name: "active", label: "Active", value: this.state.branch.active}), 
 	                        React.createElement(TextInput, {name: "created_at", label: "created at", value: this.state.branch.created_at}), 
@@ -27212,7 +27356,7 @@
 	});
 
 /***/ },
-/* 240 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -27269,18 +27413,18 @@
 	});
 
 /***/ },
-/* 241 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(198);
 	
-	var Form = __webpack_require__(227);
-	var TextInput = __webpack_require__(228);
-	var Submit = __webpack_require__(229);
+	var Form = __webpack_require__(228);
+	var TextInput = __webpack_require__(229);
+	var Submit = __webpack_require__(230);
 	
-	var BranchesStore = __webpack_require__(236);
-	var BranchesActions = __webpack_require__(237);
+	var BranchesStore = __webpack_require__(239);
+	var BranchesActions = __webpack_require__(240);
 	
 	/**
 	 * New branch view
@@ -27288,7 +27432,7 @@
 	module.exports = React.createClass({displayName: "module.exports",
 	
 	    mixins: [
-	        Reflux.listenTo(BranchesActions.saveBranch.completed, 'onSave')
+	        Reflux.listenTo(BranchesActions.saveBranches.completed, 'onSave')
 	    ],
 	
 	    getInitialState:function() {
@@ -27298,7 +27442,7 @@
 	    },
 	
 	    onSubmit:function(form) {
-	        BranchesActions.saveBranch(Form.getFormData(form));
+	        BranchesActions.saveBranches(Form.getFormData(form));
 	    },
 	
 	    onSave:function(data) {
@@ -27318,114 +27462,6 @@
 	                )
 	            )
 	        )
-	    }
-	});
-
-/***/ },
-/* 242 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Reflux = __webpack_require__(198);
-	var NotificationStore = __webpack_require__(244);
-	
-	/**
-	 * Notification component
-	 */
-	module.exports = React.createClass({displayName: "module.exports",
-	
-	    mixins: [
-	        Reflux.listenTo(NotificationStore, '_onLoadMessage')
-	    ],
-	
-	    getInitialState:function() {
-	        return {
-	            message: NotificationStore.getMessage()
-	        };
-	    },
-	
-	    _onLoadMessage:function() {
-	        this.setState({
-	            message: NotificationStore.getMessage()
-	        });
-	    },
-	
-	    _onLoad:function() {
-	      return (
-	          React.createElement("div", {class: "progress"}, 
-	              React.createElement("div", {class: "progress-bar", role: "progressbar", "aria-valuenow": "60", "aria-valuemin": "0", "aria-valuemax": "100", style: "width: 60%;"}, 
-	                  "60%"
-	              )
-	          )
-	      );
-	    },
-	
-	    render:function() {
-	        if (typeof this.state.message != 'undefined') {
-	            return (
-	                React.createElement("div", {className: (typeof this.state.message.status == 'undefined') ? 'alert alert-success' : 'alert alert-danger'}, 
-	                    "notification message"
-	                )
-	            );
-	        }
-	
-	        return (React.createElement("div", null));
-	    }
-	})
-
-/***/ },
-/* 243 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Reflux = __webpack_require__(198);
-	
-	/**
-	 * Notification actions
-	 */
-	module.exports = Reflux.createActions(['show', 'hide']);
-
-/***/ },
-/* 244 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Reflux = __webpack_require__(198);
-	var Storage = __webpack_require__(226);
-	var NotificationActions = __webpack_require__(243);
-	
-	module.exports = Reflux.createStore({
-	
-	    _message: {},
-	
-	    /**
-	     * Event listeners
-	     */
-	    init: function() {
-	        this.listenTo(NotificationActions.show, '_onShow');
-	        this.listenTo(NotificationActions.hide, '_onHide');
-	    },
-	
-	    _onShow: function(message) {
-	        this._setMessage(message);
-	    },
-	
-	    _onHide: function() {
-	        this._unsetNotification();
-	    },
-	
-	    _setMessage: function(message) {
-	        this._message = message;
-	        this.trigger();
-	    },
-	
-	    _unsetNotification: function() {
-	        this._message = {};
-	        this.trigger();
-	    },
-	
-	    getMessage: function() {
-	        return this._message;
 	    }
 	});
 

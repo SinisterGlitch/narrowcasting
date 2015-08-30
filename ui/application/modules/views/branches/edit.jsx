@@ -40,7 +40,7 @@ module.exports = React.createClass({
     },
 
     onSubmit(form) {
-        BranchesActions.saveBranches(Form.getFormData(form));
+        BranchesActions.updateBranches(Form.getFormData(form));
     },
 
     onSave(data) {
@@ -53,6 +53,7 @@ module.exports = React.createClass({
                 <div key="content">
                     edit
                     <form onSubmit={this.onSubmit}>
+                        <input type="hidden" name="id" value={this.state.branch.id} />
                         <TextInput name="name" label="Name" value={this.state.branch.name} />
                         <Checkbox name="active" label="Active" value={this.state.branch.active} />
                         <TextInput name="created_at" label="created at" value={this.state.branch.created_at} />

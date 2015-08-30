@@ -33,7 +33,7 @@ module.exports = {
      * @param {func} callback
      */
     put(url, data, callback) {
-        SuperAgent.put(url, data).end(
+        SuperAgent.put(url, {'data' : data}).end(
             (err, res) => this.responseHandler(res, callback)
         );
     },
