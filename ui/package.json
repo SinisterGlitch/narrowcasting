@@ -1,6 +1,6 @@
 {
   "name": "BestCasting",
-  "version": "0.3.0",
+  "version": "0.3.5",
   "description": "BestCasting narrowcasting platform",
   "private": true,
   "main": "main.js",

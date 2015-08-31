@@ -3,7 +3,7 @@ var React = require('react');
 /**
  * Login component
  */
-class Login extends React.Component {
+module.exports = React.createClass({
 
     /**
      * Render component
@@ -11,6 +11,4 @@ class Login extends React.Component {
     render(){
         return (<div></div>);
     }
-}
-
-module.exports = Login;
+});
