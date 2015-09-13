@@ -44,7 +44,7 @@ module.exports = {
      * @param {func} callback
      */
     patch(url, data, callback) {
-        SuperAgent.put(url, data).end(
+        SuperAgent.patch(url, data).end(
             (err, res) => this.responseHandler(res, callback)
         );
     },
@@ -69,6 +69,6 @@ module.exports = {
             ? callback.completed(response.body)
             : callback.failed(response.text);
 
-        NotificationActions.show(response.body, response.status);
+        NotificationActions.show(response.oke ? '' : response.body.error.message, response.ok);
     }
 };

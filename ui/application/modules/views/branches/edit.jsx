@@ -7,7 +7,6 @@ var TextInput = require('components/form/text-input');
 var Checkbox = require('components/form/checkbox-input');
 var Submit = require('components/form/submit-button');
 
-
 var BranchesStore = require('modules/stores/branches');
 var BranchesActions = require('modules/actions/branches');
 

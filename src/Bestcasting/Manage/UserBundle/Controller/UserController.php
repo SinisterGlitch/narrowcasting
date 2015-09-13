@@ -3,12 +3,13 @@
 namespace Bestcasting\Manage\UserBundle\Controller;
 
 use Bestcasting\Manage\UserBundle\Entity\User;
+use Bestcasting\Manage\UserBundle\UserManager\UserManager;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\Controller\Annotations\View;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * Class UserController
@@ -17,8 +18,18 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends Controller
 {
     /**
+     * @Get("/users/{id}")
+     *
+     * @param User $user
+     * @return User
+     */
+    public function getUsersAction(User $user)
+    {
+        return $this->validateUser($user);
+    }
+
+    /**
      * @Post("/users")
-     * @View()
      *
      * @param Request $request
      * @return Response|User
@@ -28,12 +39,14 @@ class UserController extends Controller
         $formData = $request->get('data');
 
         try {
-            $user = $this->container
-                ->get('manage_user_manager')
-                ->create($formData['username'], $formData['password'], $formData['email']);
+            $user = $this->getUserManager()->create(
+                    $formData['username'],
+                    $formData['password'],
+                    $formData['email']
+                );
 
         } catch (\Exception $e) {
-            return new Response($e->getMessage(), $e->getCode());
+            throw new BadRequestHttpException($e->getMessage());
         }
 
         return $user;
@@ -41,41 +54,37 @@ class UserController extends Controller
 
     /**
      * @Post("/users/login")
-     * @View()
      *
      * @param Request $request
-     * @return Response|User
+     * @throws \Exception
+     * @return User
      */
     public function postLoginAction(Request $request)
     {
         $formData = $request->get('data');
 
-        $user = $this->container
-            ->get('manage_user_manager')
-            ->login($formData['username'], $formData['password']);
+        return $this->validateUser($this->getUserManager()
+            ->login($formData['username'], $formData['password']));
+    }
 
+    /**
+     * @param User $user
+     * @return bool
+     */
+    private function validateUser(User $user)
+    {
         if (!$user instanceof User) {
-            return new Response('Wrong password or username', 400);
+            throw new BadRequestHttpException('User not found');
         }
 
         return $user;
     }
 
     /**
-     * @Get("/users/{id}")
-     *
-     * @param $id
-     * @return User
-     * @throws Response
+     * @return UserManager
      */
-    public function getUsersAction($id = null)
+    private function getUserManager()
     {
-        $user = $this->container->get('manage_user_manager')->getUser($id);
-
-        if (!$user instanceof User) {
-            return new Response('User not found with given id', 500);
-        }
-
-        return $user;
+        return $this->container->get('manage_user_manager');
     }
 }

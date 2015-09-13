@@ -44,9 +44,9 @@ module.exports = React.createClass({
         return (
             <div key={branch.id}>
                 <div>{branch.name}</div>
-                <Link key="detail" to={'/branches/:id'} params={{id: branch.id}}>detail</Link>
+                <Link key="detail" to="/branches/:id" params={{id: branch.id}}>detail</Link>
                 -
-                <Link key="edit" to={'/branches/edit/:id'} params={{id: branch.id}}>edit</Link>
+                <Link key="edit" to="/branches/edit/:id" params={{id: branch.id}}>edit</Link>
             </div>
         )
     }

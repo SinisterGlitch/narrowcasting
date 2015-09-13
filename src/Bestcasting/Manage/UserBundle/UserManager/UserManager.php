@@ -9,6 +9,7 @@ use Bestcasting\Manage\UserBundle\Entity\User;
 use FOS\UserBundle\Security\LoginManager;
 use FOS\UserBundle\Util\TokenGenerator;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 /**
  * Class UserManager
@@ -35,19 +36,21 @@ class UserManager
      * @param $username
      * @param $password
      * @throws \Exception
-     * @return array
+     * @return User
      */
     public function login($username, $password)
     {
         $user = $this->findUserBy(['username' => $username]);
-        if ($user instanceof User && $this->validateUser($user, $password)) {
-            $user->setToken($this->createToken());
 
-            $this->getEntityManager()->flush($user);
-            $this->getLoginManager()->loginUser('main', $user);
-
-            return $user;
+        if (!$user instanceof User || !$this->validateUser($user, $password)) {
+            throw new BadCredentialsException();
         }
+
+        $user->setToken($this->createToken());
+        $this->getEntityManager()->flush($user);
+        $this->getLoginManager()->loginUser('main', $user);
+
+        return $user;
     }
 
     /**
@@ -62,11 +65,11 @@ class UserManager
     public function create($username, $password, $email)
     {
         if ($this->getUserManager()->findUserBy(['username' => $username])) {
-            throw new \Exception('Username already exists', 400);
+            throw new \Exception('Username already exists');
         }
 
         if ($this->getUserManager()->findUserBy(['email' => $email])) {
-            throw new \Exception('Email already exists', 400);
+            throw new \Exception('Email already exists');
         }
 
         $user = new User();

@@ -2,7 +2,6 @@
 
 namespace Bestcasting\Manage\CoreBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Bestcasting\Manage\CoreBundle\Entity\BranchRepository;
 use Bestcasting\Manage\CoreBundle\Entity\Branch;
 use FOS\RestBundle\Controller\Annotations\Delete;
@@ -21,12 +20,11 @@ class BranchController extends BaseController
 
     /**
      * @Get("/branches/{id}")
-     * @ParamConverter("branch", class="ManageCoreBundle:Branch")
      *
      * @param Branch $branch
      * @return Branch
      */
-    public function getAction($branch)
+    public function getAction(Branch $branch)
     {
         return $branch;
     }
@@ -62,12 +60,11 @@ class BranchController extends BaseController
 
     /**
      * @Delete("/branches")
-     * @ParamConverter("branch", class="ManageCoreBundle:Branch")
      *
-     * @param object $branch
+     * @param Branch $branch
      * @return Branch
      */
-    public function deleteAction($branch)
+    public function deleteAction(Branch $branch)
     {
         return $this->getModelManager()->remove($branch);
     }

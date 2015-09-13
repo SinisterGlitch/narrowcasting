@@ -31,7 +31,10 @@ module.exports = React.createClass({
 
     render(){
         return (
-            <div key="content">
+            <div key="row">
+                <div class="page-header">
+                    <h1>Users <small>Register</small></h1>
+                </div>
                 <form onSubmit={this.onSubmit}>
                     <TextInput name="username" label="Username" value="germain" placeholder="..." />
                     <TextInput name="password" label="Password" hideInput={true} value="test" placeholder="..." />

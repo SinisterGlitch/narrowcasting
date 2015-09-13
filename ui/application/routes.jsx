@@ -1,7 +1,7 @@
 var React = require('react');
+var App = require('components/layout/app');
 var ReactRouter = require('react-router');
 var Route = ReactRouter.Route;
-var App = require('components/layout/app');
 
 var dashboardIndexView = require ('modules/views/dashboard/index');
 var dashboardLoginView = require ('modules/views/dashboard/login');
@@ -11,6 +11,8 @@ var branchesListView = require ('modules/views/branches/list');
 var branchesDetailView = require ('modules/views/branches/detail');
 var branchesEditView = require ('modules/views/branches/edit');
 var branchesNewView = require ('modules/views/branches/new');
+
+//<Route path="*" component={NoMatch}/>
 
 module.exports = (
     <Route handler={App} path="/">

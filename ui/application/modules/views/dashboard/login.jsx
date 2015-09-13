@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactRouter = require('react-router');
 var Reflux = require('reflux');
 
 var UserActions = require('modules/actions/user');
@@ -12,6 +13,12 @@ var Submit = require('components/form/submit-button');
  * Login user view
  */
 module.exports = React.createClass({
+
+    mixins: [
+        ReactRouter.Navigation,
+        Reflux.listenTo(UserActions.loadUser.completed, 'onRegister'),
+        Reflux.listenTo(UserActions.loadUser.error, 'onError')
+    ],
 
     getInitialState() {
         return {
@@ -27,6 +34,15 @@ module.exports = React.createClass({
 
     onSubmit(form) {
         UserActions.loadUser(Form.getFormData(form));
+    },
+
+    onError() {
+        console.log('error');
+    },
+
+    onRegister() {
+        console.log('test');
+        this.transitionTo('branches-list');
     },
 
     render(){

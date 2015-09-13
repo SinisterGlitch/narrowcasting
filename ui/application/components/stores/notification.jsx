@@ -5,7 +5,9 @@ var NotificationActions = require('components/actions/notification');
 
 module.exports = Reflux.createStore({
 
-    _message: {},
+    _message: '',
+
+    _status: '',
 
     /**
      * Event listeners
@@ -15,25 +17,31 @@ module.exports = Reflux.createStore({
         this.listenTo(NotificationActions.hide, '_onHide');
     },
 
-    _onShow: function(message) {
+    _onShow: function(message, status) {
         this._setMessage(message);
+        this._setStatus(status);
+        this.trigger();
     },
 
     _onHide: function() {
-        this._unsetNotification();
+        this._setMessage('');
+        this._setStatus('');
+        this.trigger();
+    },
+
+    _setStatus: function(status) {
+        this._status = status;
     },
 
     _setMessage: function(message) {
         this._message = message;
-        this.trigger();
-    },
-
-    _unsetNotification: function() {
-        this._message = {};
-        this.trigger();
     },
 
     getMessage: function() {
         return this._message;
+    },
+
+    getStatus: function() {
+        return this._status;
     }
 });
