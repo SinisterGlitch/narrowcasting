@@ -5,7 +5,6 @@ var Link = ReactRouter.Link;
 
 // components
 var Notification = require('components/layout/notification');
-var Login = require('components/layout/login');
 
 /**
  * Navigation component
@@ -48,7 +47,7 @@ module.exports = React.createClass({
 
     render() {
         return (
-            <div id="header" className="navbar navbar-default navbar-fixed-top">
+            <div id="header" className="navbar navbar-default navbar-static-top">
                 <div className="navbar-header">
                     <button className="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                         <i className="icon-reorder"></i>

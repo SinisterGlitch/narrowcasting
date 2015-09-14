@@ -16,8 +16,7 @@ module.exports = React.createClass({
 
     mixins: [
         ReactRouter.Navigation,
-        Reflux.listenTo(UserActions.loadUser.completed, 'onRegister'),
-        Reflux.listenTo(UserActions.loadUser.error, 'onError')
+        Reflux.listenTo(UserActions.loadUser.completed, 'onLogin')
     ],
 
     getInitialState() {
@@ -36,13 +35,8 @@ module.exports = React.createClass({
         UserActions.loadUser(Form.getFormData(form));
     },
 
-    onError() {
-        console.log('error');
-    },
-
-    onRegister() {
-        console.log('test');
-        this.transitionTo('branches-list');
+    onLogin() {
+        this.transitionTo('dashboard-index');
     },
 
     render(){

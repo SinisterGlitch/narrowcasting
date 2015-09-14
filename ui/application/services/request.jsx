@@ -69,6 +69,6 @@ module.exports = {
             ? callback.completed(response.body)
             : callback.failed(response.text);
 
-        NotificationActions.show(response.oke ? '' : response.body.error.message, response.ok);
+        NotificationActions.show((response.ok) ? '' : response.body.error.message, response.ok);
     }
 };

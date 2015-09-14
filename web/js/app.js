@@ -23588,7 +23588,7 @@
 	
 	// core
 	var Notification = __webpack_require__(198);
-	var Navigation = __webpack_require__(243);
+	var Navigation = __webpack_require__(222);
 	
 	module.exports = React.createClass({displayName: "module.exports",
 	
@@ -23597,12 +23597,8 @@
 	            React.createElement("div", null, 
 	                React.createElement(Navigation, null), 
 	                React.createElement(Notification, null), 
-	                React.createElement("div", {id: "wrapper"}, 
-	                    React.createElement("div", {id: "main-wrapper", className: "col-md-11 pull-right"}, 
-	                        React.createElement("div", {id: "main"}, 
-	                            React.createElement(RouteHandler, null)
-	                        )
-	                    )
+	                React.createElement("div", {className: "container"}, 
+	                    React.createElement(RouteHandler, null)
 	                )
 	            )
 	        );
@@ -25361,27 +25357,82 @@
 	module.exports = Reflux.createActions(['show', 'hide']);
 
 /***/ },
-/* 222 */,
-/* 223 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
+	// vendor
 	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(157);
+	var Link = ReactRouter.Link;
+	
+	// components
+	var Notification = __webpack_require__(198);
 	
 	/**
-	 * Login component
+	 * Navigation component
 	 */
 	module.exports = React.createClass({displayName: "module.exports",
 	
-	    /**
-	     * Render component
-	     */
-	    render:function(){
-	        return (React.createElement("div", null));
+	    mixins: [
+	        ReactRouter.State
+	    ],
+	
+	    menuItems: [
+	        {label: 'home', route: 'dashboard-index'},
+	        {label: 'branches', route: [
+	            {label: 'browse', route: 'branches-list'},
+	            {label: 'create', route: 'branches-new'}
+	        ]}
+	    ],
+	
+	    loginItems: [
+	        {label: 'User', route: [
+	            {label: 'login', route: 'dashboard-login'},
+	            {label: 'register', route: 'dashboard-register'}
+	        ]}
+	    ],
+	
+	    renderItem:function(item) {
+	        if (typeof item.route != 'object') {
+	            return React.createElement("li", null, React.createElement(Link, {key: item.route, className: this.isActive(item.route ? 'active' : ''), to: item.route}, item.label))
+	        }
+	
+	        return (
+	            React.createElement("li", {className: "dropdown"}, 
+	                React.createElement("a", {href: "#", className: "dropdown-toggle", "data-toggle": "dropdown"}, item.label, React.createElement("b", {className: "caret"})), 
+	                React.createElement("ul", {className: "dropdown-menu"}, 
+	                    item.route.map(function(item)  {return this.renderItem(item);}.bind(this))
+	                )
+	            )
+	        );
+	    },
+	
+	    render:function() {
+	        return (
+	            React.createElement("div", {id: "header", className: "navbar navbar-default navbar-static-top"}, 
+	                React.createElement("div", {className: "navbar-header"}, 
+	                    React.createElement("button", {className: "navbar-toggle collapsed", type: "button", "data-toggle": "collapse", "data-target": ".navbar-collapse"}, 
+	                        React.createElement("i", {className: "icon-reorder"})
+	                    ), 
+	                    React.createElement("a", {className: "navbar-brand", href: "#"}, 
+	                        "BestCasting"
+	                    )
+	                ), 
+	                React.createElement("nav", {className: "collapse navbar-collapse"}, 
+	                    React.createElement("ul", {className: "nav navbar-nav"}, 
+	                        this.menuItems.map(function(item)  {return this.renderItem(item);}.bind(this))
+	                    ), 
+	                    React.createElement("ul", {className: "nav navbar-nav pull-right"}, 
+	                        this.loginItems.map(function(item)  {return this.renderItem(item);}.bind(this))
+	                    )
+	                )
+	            )
+	        );
 	    }
 	});
 
-
 /***/ },
+/* 223 */,
 /* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -25573,7 +25624,7 @@
 	            ? callback.completed(response.body)
 	            : callback.failed(response.text);
 	
-	        NotificationActions.show(response.oke ? '' : response.body.error.message, response.ok);
+	        NotificationActions.show((response.ok) ? '' : response.body.error.message, response.ok);
 	    }
 	};
 
@@ -26885,8 +26936,7 @@
 	
 	    mixins: [
 	        ReactRouter.Navigation,
-	        Reflux.listenTo(UserActions.loadUser.completed, 'onRegister'),
-	        Reflux.listenTo(UserActions.loadUser.error, 'onError')
+	        Reflux.listenTo(UserActions.loadUser.completed, 'onLogin')
 	    ],
 	
 	    getInitialState:function() {
@@ -26905,13 +26955,8 @@
 	        UserActions.loadUser(Form.getFormData(form));
 	    },
 	
-	    onError:function() {
-	        console.log('error');
-	    },
-	
-	    onRegister:function() {
-	        console.log('test');
-	        this.transitionTo('branches-list');
+	    onLogin:function() {
+	        this.transitionTo('dashboard-index');
 	    },
 	
 	    render:function(){
@@ -27054,12 +27099,16 @@
 /* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
+	// vendor
 	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(157);
 	var Reflux = __webpack_require__(199);
 	
+	// module
 	var UserActions = __webpack_require__(226);
 	var UserStore = __webpack_require__(225);
 	
+	// components
 	var Form = __webpack_require__(232);
 	var TextInput = __webpack_require__(233);
 	var Submit = __webpack_require__(234);
@@ -27068,6 +27117,11 @@
 	 * Register user view
 	 */
 	module.exports = React.createClass({displayName: "module.exports",
+	
+	    mixins: [
+	        ReactRouter.Navigation,
+	        Reflux.listenTo(UserActions.postUser.completed, 'onRegister')
+	    ],
 	
 	    getInitialState:function() {
 	        return {
@@ -27085,12 +27139,13 @@
 	        UserActions.postUser(Form.getFormData(form));
 	    },
 	
+	    onRegister:function() {
+	        this.transitionTo('dashboard-index');
+	    },
+	
 	    render:function(){
 	        return (
-	            React.createElement("div", {key: "row"}, 
-	                React.createElement("div", {class: "page-header"}, 
-	                    React.createElement("h1", null, "Users ", React.createElement("small", null, "Register"))
-	                ), 
+	            React.createElement("div", {class: "test", key: "row"}, 
 	                React.createElement("form", {onSubmit: this.onSubmit}, 
 	                    React.createElement(TextInput, {name: "username", label: "Username", value: "germain", placeholder: "..."}), 
 	                    React.createElement(TextInput, {name: "password", label: "Password", hideInput: true, value: "test", placeholder: "..."}), 
@@ -27496,82 +27551,6 @@
 	                )
 	            )
 	        )
-	    }
-	});
-
-/***/ },
-/* 243 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// vendor
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(157);
-	var Link = ReactRouter.Link;
-	
-	// components
-	var Notification = __webpack_require__(198);
-	var Login = __webpack_require__(223);
-	
-	/**
-	 * Navigation component
-	 */
-	module.exports = React.createClass({displayName: "module.exports",
-	
-	    mixins: [
-	        ReactRouter.State
-	    ],
-	
-	    menuItems: [
-	        {label: 'home', route: 'dashboard-index'},
-	        {label: 'branches', route: [
-	            {label: 'browse', route: 'branches-list'},
-	            {label: 'create', route: 'branches-new'}
-	        ]}
-	    ],
-	
-	    loginItems: [
-	        {label: 'User', route: [
-	            {label: 'login', route: 'dashboard-login'},
-	            {label: 'register', route: 'dashboard-register'}
-	        ]}
-	    ],
-	
-	    renderItem:function(item) {
-	        if (typeof item.route != 'object') {
-	            return React.createElement("li", null, React.createElement(Link, {key: item.route, className: this.isActive(item.route ? 'active' : ''), to: item.route}, item.label))
-	        }
-	
-	        return (
-	            React.createElement("li", {className: "dropdown"}, 
-	                React.createElement("a", {href: "#", className: "dropdown-toggle", "data-toggle": "dropdown"}, item.label, React.createElement("b", {className: "caret"})), 
-	                React.createElement("ul", {className: "dropdown-menu"}, 
-	                    item.route.map(function(item)  {return this.renderItem(item);}.bind(this))
-	                )
-	            )
-	        );
-	    },
-	
-	    render:function() {
-	        return (
-	            React.createElement("div", {id: "header", className: "navbar navbar-default navbar-fixed-top"}, 
-	                React.createElement("div", {className: "navbar-header"}, 
-	                    React.createElement("button", {className: "navbar-toggle collapsed", type: "button", "data-toggle": "collapse", "data-target": ".navbar-collapse"}, 
-	                        React.createElement("i", {className: "icon-reorder"})
-	                    ), 
-	                    React.createElement("a", {className: "navbar-brand", href: "#"}, 
-	                        "BestCasting"
-	                    )
-	                ), 
-	                React.createElement("nav", {className: "collapse navbar-collapse"}, 
-	                    React.createElement("ul", {className: "nav navbar-nav"}, 
-	                        this.menuItems.map(function(item)  {return this.renderItem(item);}.bind(this))
-	                    ), 
-	                    React.createElement("ul", {className: "nav navbar-nav pull-right"}, 
-	                        this.loginItems.map(function(item)  {return this.renderItem(item);}.bind(this))
-	                    )
-	                )
-	            )
-	        );
 	    }
 	});
 

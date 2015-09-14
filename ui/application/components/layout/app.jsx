@@ -14,12 +14,8 @@ module.exports = React.createClass({
             <div>
                 <Navigation />
                 <Notification/>
-                <div id="wrapper">
-                    <div id="main-wrapper" className="col-md-11 pull-right">
-                        <div id="main">
-                            <RouteHandler />
-                        </div>
-                    </div>
+                <div className="container">
+                    <RouteHandler />
                 </div>
             </div>
         );

@@ -1,21 +1,26 @@
 html,body {
-  background-color:#cccccc !important;
+    background-color:#cccccc !important;
 }
 
 .navbar-default .navbar-nav>li>a {
-  color: white;
+    color: white;
 }
 
 .navbar {
-  background-color:black !important;
-  color:white !important;
+    background-color:black !important;
+    color:white !important;
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
-  background-color:black !important;
-  color:white !important;
+    background-color:black !important;
+    color:white !important;
 }
 
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
-  border-color: black;
+    border-color: black;
+}
+
+.container {
+    background-color:white !important;
+    padding:20px;
 }
