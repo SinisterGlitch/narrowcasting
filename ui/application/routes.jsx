@@ -23,7 +23,7 @@ module.exports = (
         </Route>
         <Route name="branches">
             <Route name="branches-list" handler={branchesListView} path="/branches" />
-            <Route name="branches-detail" handler={branchesDetailView} path="/branches/:id" />
+            <Route name="branches-detail" handler={branchesDetailView} path="/branches/detail/:id" />
             <Route name="branches-edit" handler={branchesEditView} path="/branches/edit/:id" />
             <Route name="branches-new" handler={branchesNewView} path="/branches/new" />
         </Route>

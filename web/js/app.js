@@ -23570,7 +23570,7 @@
 	        ), 
 	        React.createElement(Route, {name: "branches"}, 
 	            React.createElement(Route, {name: "branches-list", handler: branchesListView, path: "/branches"}), 
-	            React.createElement(Route, {name: "branches-detail", handler: branchesDetailView, path: "/branches/:id"}), 
+	            React.createElement(Route, {name: "branches-detail", handler: branchesDetailView, path: "/branches/detail/:id"}), 
 	            React.createElement(Route, {name: "branches-edit", handler: branchesEditView, path: "/branches/edit/:id"}), 
 	            React.createElement(Route, {name: "branches-new", handler: branchesNewView, path: "/branches/new"})
 	        )
@@ -27197,21 +27197,31 @@
 	
 	    render:function(){
 	        return (
-	            React.createElement("div", {key: "content", key: "content"}, 
-	                (this.state.branches) ? this.state.branches.map(this.renderRow) : ''
+	            React.createElement("div", {key: "content"}, 
+	                React.createElement("table", {className: "table table-hover"}, 
+	                    React.createElement("thead", null, 
+	                    React.createElement("tr", null, 
+	                        React.createElement("th", null, "Name"), 
+	                        React.createElement("th", null), 
+	                        React.createElement("th", null)
+	                    )
+	                    ), 
+	                    React.createElement("tbody", null, 
+	                        (this.state.branches) ? this.state.branches.map(this.renderRow) : ''
+	                    )
+	                )
 	            )
 	        )
 	    },
 	
 	    renderRow:function(branch) {
 	        return (
-	            React.createElement("div", {key: branch.id}, 
-	                React.createElement("div", null, branch.name), 
-	                React.createElement(Link, {key: "detail", to: "/branches/:id", params: {id: branch.id}}, "detail"), 
-	                "-", 
-	                React.createElement(Link, {key: "edit", to: "/branches/edit/:id", params: {id: branch.id}}, "edit")
+	            React.createElement("tr", {key: branch.id}, 
+	                React.createElement("td", null, branch.name), 
+	                React.createElement("td", null, React.createElement(Link, {key: "detail", to: "branches-detail", params: {id: branch.id}}, "detail")), 
+	                React.createElement("td", null, React.createElement(Link, {key: "edit", to: "branches-edit", params: {id: branch.id}}, "edit"))
 	            )
-	        )
+	        );
 	    }
 	});
 

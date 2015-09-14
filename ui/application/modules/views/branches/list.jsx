@@ -34,20 +34,30 @@ module.exports = React.createClass({
 
     render(){
         return (
-            <div key="content" key="content">
-                {(this.state.branches) ? this.state.branches.map(this.renderRow) : ''}
+            <div key="content">
+                <table className="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {(this.state.branches) ? this.state.branches.map(this.renderRow) : ''}
+                    </tbody>
+                </table>
             </div>
         )
     },
 
     renderRow(branch) {
         return (
-            <div key={branch.id}>
-                <div>{branch.name}</div>
-                <Link key="detail" to="/branches/:id" params={{id: branch.id}}>detail</Link>
-                -
-                <Link key="edit" to="/branches/edit/:id" params={{id: branch.id}}>edit</Link>
-            </div>
-        )
+            <tr key={branch.id}>
+                <td>{branch.name}</td>
+                <td><Link key="detail" to="branches-detail" params={{id: branch.id}}>detail</Link></td>
+                <td><Link key="edit" to="branches-edit" params={{id: branch.id}}>edit</Link></td>
+            </tr>
+        );
     }
 });
