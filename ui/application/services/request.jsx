@@ -22,7 +22,7 @@ module.exports = {
      * @param {func} callback
      */
     post(url, data, callback) {
-        SuperAgent.post(url, data).end(
+        SuperAgent.post(url, {'data' : data}).end(
             (err, res) => this.responseHandler(res, callback)
         );
     },
@@ -33,7 +33,7 @@ module.exports = {
      * @param {func} callback
      */
     put(url, data, callback) {
-        SuperAgent.put(url, {'data' : data}).end(
+        SuperAgent.put(url, data).end(
             (err, res) => this.responseHandler(res, callback)
         );
     },
@@ -44,7 +44,7 @@ module.exports = {
      * @param {func} callback
      */
     patch(url, data, callback) {
-        SuperAgent.patch(url, data).end(
+        SuperAgent.patch(url, {'data' : data}).end(
             (err, res) => this.responseHandler(res, callback)
         );
     },

@@ -12,6 +12,11 @@ use JMS\Serializer\Serializer;
 class ModelManager
 {
     /**
+     * Default serializer type
+     */
+    const DESERIALIZE_TYPE = 'json';
+
+    /**
      * @var EntityManager
      */
     private $entityManager;
@@ -42,13 +47,11 @@ class ModelManager
     }
 
     /**
-     * @param array $entity
-     * @param string $classDir
+     * @param  $entity
      * @return object
      */
-    public function save(array $entity, $classDir)
+    public function save($entity)
     {
-        $entity = $this->deserialize($entity, $classDir);
         $em = $this->getEntityManager();
 
         if ($entity->getId()) {
@@ -69,7 +72,7 @@ class ModelManager
      */
     public function deserialize(array $entity, $class)
     {
-        return $this->getSerializer()->deserialize(json_encode($entity), $class, 'json');
+        return $this->getSerializer()->deserialize(json_encode($entity), $class, self::DESERIALIZE_TYPE);
     }
 
     /**

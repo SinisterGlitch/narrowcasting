@@ -12,6 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class BranchRepository extends EntityRepository
 {
+    public function test($test)
+    {
+        return $this->find(1);
+    }
+
     /**
      * @return array
      */

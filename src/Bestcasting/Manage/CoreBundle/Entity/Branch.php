@@ -98,7 +98,7 @@ class Branch
      *
      * @return Branch
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
 
@@ -122,7 +122,7 @@ class Branch
      *
      * @return Branch
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
@@ -176,9 +176,9 @@ class Branch
     /**
      * Set address
      *
-     * @param mixed $address
+     * @param Address $address
      */
-    public function setAddress($address)
+    public function setAddress(Address $address)
     {
         $this->address = $address;
     }

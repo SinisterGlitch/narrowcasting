@@ -23550,14 +23550,14 @@
 	var ReactRouter = __webpack_require__(157);
 	var Route = ReactRouter.Route;
 	
-	var dashboardIndexView = __webpack_require__ (224);
-	var dashboardLoginView = __webpack_require__ (231);
-	var dashboardRegisterView = __webpack_require__ (235);
+	var dashboardIndexView = __webpack_require__ (223);
+	var dashboardLoginView = __webpack_require__ (230);
+	var dashboardRegisterView = __webpack_require__ (234);
 	
-	var branchesListView = __webpack_require__ (236);
-	var branchesDetailView = __webpack_require__ (239);
-	var branchesEditView = __webpack_require__ (240);
-	var branchesNewView = __webpack_require__ (242);
+	var branchesListView = __webpack_require__ (235);
+	var branchesDetailView = __webpack_require__ (238);
+	var branchesEditView = __webpack_require__ (239);
+	var branchesNewView = __webpack_require__ (241);
 	
 	//<Route path="*" component={NoMatch}/>
 	
@@ -25432,14 +25432,13 @@
 	});
 
 /***/ },
-/* 223 */,
-/* 224 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(199);
 	
-	var UserStore = __webpack_require__(225);
+	var UserStore = __webpack_require__(224);
 	
 	/**
 	 * Dashboard view
@@ -25474,13 +25473,13 @@
 	});
 
 /***/ },
-/* 225 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(199);
 	var Storage = __webpack_require__(220);
-	var UserActions = __webpack_require__(226);
+	var UserActions = __webpack_require__(225);
 	
 	module.exports = Reflux.createStore({
 	
@@ -25524,12 +25523,12 @@
 	});
 
 /***/ },
-/* 226 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(199);
-	var Request = __webpack_require__(227);
+	var Request = __webpack_require__(226);
 	
 	/**
 	 * User actions
@@ -25550,10 +25549,10 @@
 	module.exports = UserActions;
 
 /***/ },
-/* 227 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SuperAgent = __webpack_require__(228);
+	var SuperAgent = __webpack_require__(227);
 	var NotificationActions = __webpack_require__(221);
 	
 	/**
@@ -25577,7 +25576,7 @@
 	     * @param {func} callback
 	     */
 	    post:function(url, data, callback) {
-	        SuperAgent.post(url, data).end(
+	        SuperAgent.post(url, {'data' : data}).end(
 	            function(err, res)  {return this.responseHandler(res, callback);}.bind(this)
 	        );
 	    },
@@ -25588,7 +25587,7 @@
 	     * @param {func} callback
 	     */
 	    put:function(url, data, callback) {
-	        SuperAgent.put(url, {'data' : data}).end(
+	        SuperAgent.put(url, data).end(
 	            function(err, res)  {return this.responseHandler(res, callback);}.bind(this)
 	        );
 	    },
@@ -25599,7 +25598,7 @@
 	     * @param {func} callback
 	     */
 	    patch:function(url, data, callback) {
-	        SuperAgent.patch(url, data).end(
+	        SuperAgent.patch(url, {'data' : data}).end(
 	            function(err, res)  {return this.responseHandler(res, callback);}.bind(this)
 	        );
 	    },
@@ -25629,15 +25628,15 @@
 	};
 
 /***/ },
-/* 228 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 	
-	var Emitter = __webpack_require__(229);
-	var reduce = __webpack_require__(230);
+	var Emitter = __webpack_require__(228);
+	var reduce = __webpack_require__(229);
 	
 	/**
 	 * Root reference for iframes.
@@ -26716,7 +26715,7 @@
 
 
 /***/ },
-/* 229 */
+/* 228 */
 /***/ function(module, exports) {
 
 	
@@ -26886,7 +26885,7 @@
 
 
 /***/ },
-/* 230 */
+/* 229 */
 /***/ function(module, exports) {
 
 	
@@ -26915,19 +26914,19 @@
 	};
 
 /***/ },
-/* 231 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(157);
 	var Reflux = __webpack_require__(199);
 	
-	var UserActions = __webpack_require__(226);
-	var UserStore = __webpack_require__(225);
+	var UserActions = __webpack_require__(225);
+	var UserStore = __webpack_require__(224);
 	
-	var Form = __webpack_require__(232);
-	var TextInput = __webpack_require__(233);
-	var Submit = __webpack_require__(234);
+	var Form = __webpack_require__(231);
+	var TextInput = __webpack_require__(232);
+	var Submit = __webpack_require__(233);
 	
 	/**
 	 * Login user view
@@ -26973,7 +26972,7 @@
 	});
 
 /***/ },
-/* 232 */
+/* 231 */
 /***/ function(module, exports) {
 
 	/**
@@ -26999,7 +26998,7 @@
 	};
 
 /***/ },
-/* 233 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -27055,7 +27054,7 @@
 	});
 
 /***/ },
-/* 234 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -27096,7 +27095,7 @@
 	module.exports = TextInput;
 
 /***/ },
-/* 235 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// vendor
@@ -27105,13 +27104,13 @@
 	var Reflux = __webpack_require__(199);
 	
 	// module
-	var UserActions = __webpack_require__(226);
-	var UserStore = __webpack_require__(225);
+	var UserActions = __webpack_require__(225);
+	var UserStore = __webpack_require__(224);
 	
 	// components
-	var Form = __webpack_require__(232);
-	var TextInput = __webpack_require__(233);
-	var Submit = __webpack_require__(234);
+	var Form = __webpack_require__(231);
+	var TextInput = __webpack_require__(232);
+	var Submit = __webpack_require__(233);
 	
 	/**
 	 * Register user view
@@ -27158,7 +27157,7 @@
 	});
 
 /***/ },
-/* 236 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -27167,8 +27166,8 @@
 	var Link = ReactRouter.Link;
 	
 	
-	var BranchesStore = __webpack_require__(237);
-	var BranchesActions = __webpack_require__(238);
+	var BranchesStore = __webpack_require__(236);
+	var BranchesActions = __webpack_require__(237);
 	
 	/**
 	 * List branches view
@@ -27226,13 +27225,13 @@
 	});
 
 /***/ },
-/* 237 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(199);
 	
-	var BranchesActions = __webpack_require__(238);
+	var BranchesActions = __webpack_require__(237);
 	
 	module.exports = Reflux.createStore({
 	
@@ -27290,12 +27289,12 @@
 	});
 
 /***/ },
-/* 238 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(199);
-	var Request = __webpack_require__(227);
+	var Request = __webpack_require__(226);
 	
 	/**
 	 * Branches actions
@@ -27331,15 +27330,15 @@
 	module.exports = BranchesActions;
 
 /***/ },
-/* 239 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(157);
 	var Reflux = __webpack_require__(199);
 	
-	var BranchesStore = __webpack_require__(237);
-	var BranchesActions = __webpack_require__(238);
+	var BranchesStore = __webpack_require__(236);
+	var BranchesActions = __webpack_require__(237);
 	
 	/**
 	 * Branch details view
@@ -27383,20 +27382,20 @@
 	});
 
 /***/ },
-/* 240 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(157);
 	var Reflux = __webpack_require__(199);
 	
-	var Form = __webpack_require__(232);
-	var TextInput = __webpack_require__(233);
-	var Checkbox = __webpack_require__(241);
-	var Submit = __webpack_require__(234);
+	var Form = __webpack_require__(231);
+	var TextInput = __webpack_require__(232);
+	var Checkbox = __webpack_require__(240);
+	var Submit = __webpack_require__(233);
 	
-	var BranchesStore = __webpack_require__(237);
-	var BranchesActions = __webpack_require__(238);
+	var BranchesStore = __webpack_require__(236);
+	var BranchesActions = __webpack_require__(237);
 	
 	/**
 	 * Edit branch view
@@ -27435,27 +27434,28 @@
 	    },
 	
 	    render:function(){
-	        if (!isNaN(this.state.branch.id)) {
-	            return (
-	                React.createElement("div", {key: "content"}, 
-	                    "edit", 
-	                    React.createElement("form", {onSubmit: this.onSubmit}, 
-	                        React.createElement("input", {type: "hidden", name: "id", value: this.state.branch.id}), 
-	                        React.createElement(TextInput, {name: "name", label: "Name", value: this.state.branch.name}), 
-	                        React.createElement(Checkbox, {name: "active", label: "Active", value: this.state.branch.active}), 
-	                        React.createElement(TextInput, {name: "created_at", label: "created at", value: this.state.branch.created_at}), 
-	                        React.createElement(TextInput, {name: "updated_at", label: "updated at", value: this.state.branch.updated_at}), 
-	                        React.createElement(Submit, {label: "Save", name: "save"})
-	                    )
+	        if (isNaN(this.state.branch.id)) {
+	            return React.createElement("div", null, "wait")
+	        }
+	
+	        return (
+	            React.createElement("div", {key: "content"}, 
+	                "edit", 
+	                React.createElement("form", {onSubmit: this.onSubmit}, 
+	                    React.createElement("input", {type: "hidden", name: "id", value: this.state.branch.id}), 
+	                    React.createElement(TextInput, {name: "name", label: "Name", value: this.state.branch.name}), 
+	                    React.createElement(Checkbox, {name: "active", label: "Active", value: this.state.branch.active}), 
+	                    React.createElement(TextInput, {name: "created_at", label: "created at", value: this.state.branch.created_at}), 
+	                    React.createElement(TextInput, {name: "updated_at", label: "updated at", value: this.state.branch.updated_at}), 
+	                    React.createElement(Submit, {label: "Save", name: "save"})
 	                )
 	            )
-	        }
-	        return (React.createElement("div", null, "wait"))
+	        )
 	    }
 	});
 
 /***/ },
-/* 241 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -27512,18 +27512,19 @@
 	});
 
 /***/ },
-/* 242 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Reflux = __webpack_require__(199);
 	
-	var Form = __webpack_require__(232);
-	var TextInput = __webpack_require__(233);
-	var Submit = __webpack_require__(234);
+	var Form = __webpack_require__(231);
+	var Checkbox = __webpack_require__(240);
+	var TextInput = __webpack_require__(232);
+	var Submit = __webpack_require__(233);
 	
-	var BranchesStore = __webpack_require__(237);
-	var BranchesActions = __webpack_require__(238);
+	var BranchesStore = __webpack_require__(236);
+	var BranchesActions = __webpack_require__(237);
 	
 	/**
 	 * New branch view
@@ -27553,10 +27554,10 @@
 	            React.createElement("div", {key: "content"}, 
 	                "new", 
 	                React.createElement("form", {onSubmit: this.onSubmit}, 
-	                    React.createElement(TextInput, {name: "active", label: "Active", value: ""}), 
-	                    React.createElement(TextInput, {name: "name", label: "Name", value: ""}), 
-	                    React.createElement(TextInput, {name: "created_at", label: "created at", value: ""}), 
-	                    React.createElement(TextInput, {name: "updated_at", label: "updated at", value: ""}), 
+	                    React.createElement(TextInput, {name: "name", label: "Name"}), 
+	                    React.createElement(Checkbox, {name: "active", label: "Active"}), 
+	                    React.createElement(TextInput, {name: "created_at", label: "created at"}), 
+	                    React.createElement(TextInput, {name: "updated_at", label: "updated at"}), 
 	                    React.createElement(Submit, {label: "Save", name: "save"})
 	                )
 	            )

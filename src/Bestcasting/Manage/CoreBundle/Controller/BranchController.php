@@ -2,13 +2,13 @@
 
 namespace Bestcasting\Manage\CoreBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Bestcasting\Manage\CoreBundle\Entity\BranchRepository;
 use Bestcasting\Manage\CoreBundle\Entity\Branch;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Put;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class BranchController
@@ -16,8 +16,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class BranchController extends BaseController
 {
-    const CLASS_NAME = 'Bestcasting\Manage\CoreBundle\Entity\Branch';
-
     /**
      * @Get("/branches/{id}")
      *
@@ -40,22 +38,26 @@ class BranchController extends BaseController
 
     /**
      * @Post("/branches")
-     * @param Request $request
+     * @ParamConverter("branch", converter="fos_rest.request_body", options={"repository_method" = "test"})
+     *
+     * @param Branch $branch
      * @return Branch
      */
-    public function postAction(Request $request)
+    public function postAction(Branch $branch)
     {
-        return $this->getModelManager()->save($request->get('data'), self::CLASS_NAME);
+        return $this->getModelManager()->save($branch);
     }
 
     /**
      * @Put("/branches")
-     * @param Request $request
+     * @ParamConverter("branch", converter="fos_rest.request_body")
+     *
+     * @param Branch $branch
      * @return Branch
      */
-    public function putAction(Request $request)
+    public function putAction(Branch $branch)
     {
-        return $this->getModelManager()->save($request->get('data'), self::CLASS_NAME);
+        return $this->getModelManager()->save($branch);
     }
 
     /**

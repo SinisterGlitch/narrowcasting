@@ -79,20 +79,14 @@ fos_user:
 fos_rest:
     routing_loader:
         default_format: json
-    param_fetcher_listener: true
-    body_listener: true
-    format_listener: true
+    body_converter:
+        enabled: true
     view:
         view_response_listener: 'force'
-        formats:
-            xml: true
-            json : true
-        templating_formats:
-            html: true
-        force_redirects:
-            html: true
-        failed_validation: HTTP_BAD_REQUEST
-        default_engine: twig
+
+# Sensio Configuration
+sensio_framework_extra:
+    request: { converters: true }
 
 
 # Services Configuration

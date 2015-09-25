@@ -47,21 +47,22 @@ module.exports = React.createClass({
     },
 
     render(){
-        if (!isNaN(this.state.branch.id)) {
-            return (
-                <div key="content">
-                    edit
-                    <form onSubmit={this.onSubmit}>
-                        <input type="hidden" name="id" value={this.state.branch.id} />
-                        <TextInput name="name" label="Name" value={this.state.branch.name} />
-                        <Checkbox name="active" label="Active" value={this.state.branch.active} />
-                        <TextInput name="created_at" label="created at" value={this.state.branch.created_at} />
-                        <TextInput name="updated_at" label="updated at" value={this.state.branch.updated_at} />
-                        <Submit label="Save" name="save" />
-                    </form>
-                </div>
-            )
+        if (isNaN(this.state.branch.id)) {
+            return <div>wait</div>
         }
-        return (<div>wait</div>)
+
+        return (
+            <div key="content">
+                edit
+                <form onSubmit={this.onSubmit}>
+                    <input type="hidden" name="id" value={this.state.branch.id} />
+                    <TextInput name="name" label="Name" value={this.state.branch.name} />
+                    <Checkbox name="active" label="Active" value={this.state.branch.active} />
+                    <TextInput name="created_at" label="created at" value={this.state.branch.created_at} />
+                    <TextInput name="updated_at" label="updated at" value={this.state.branch.updated_at} />
+                    <Submit label="Save" name="save" />
+                </form>
+            </div>
+        )
     }
 });
