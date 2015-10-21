@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react';
 import App from 'components/layout/app';
 import ReactRouter from 'react-router';

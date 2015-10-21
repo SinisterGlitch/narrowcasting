@@ -1,9 +1,8 @@
+'use strict';
+
 import SuperAgent from 'superagent';
 import NotificationActions from 'components/actions/notification';
 
-/**
- * AJAX Request service
- */
 export default {
 
     /**

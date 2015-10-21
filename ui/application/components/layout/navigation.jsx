@@ -1,15 +1,10 @@
-// vendor
-var React = require('react');
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
+'use strict';
 
-// components
-var Notification = require('components/layout/notification');
+import React from 'react';
+import ReactRouter from 'react-router';
+let Link = ReactRouter.Link;
 
-/**
- * Navigation component
- */
-module.exports = React.createClass({
+export default React.createClass({
 
     mixins: [
         ReactRouter.State

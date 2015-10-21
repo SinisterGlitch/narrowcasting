@@ -1,7 +1,5 @@
-var React = require('react');
-var Reflux = require('reflux');
+'use strict';
 
-/**
- * Notification actions
- */
-module.exports = Reflux.createActions(['show', 'hide']);
+import Reflux from 'reflux';
+
+export default Reflux.createActions(['show', 'hide']);

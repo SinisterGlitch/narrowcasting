@@ -1,9 +1,8 @@
-var React = require('react');
+'use strict';
 
-/**
- * Text input component
- */
-module.exports = React.createClass({
+import React from 'react';
+
+export default React.createClass({
 
     propTypes: {
         label: React.PropTypes.string,

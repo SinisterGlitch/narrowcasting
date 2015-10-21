@@ -1,9 +1,8 @@
-var React = require('react');
+'use strict';
 
-/**
- * Submit input component
- */
-var TextInput = React.createClass({
+import React from 'react';
+
+export default React.createClass({
 
     propTypes: {
         label: React.PropTypes.string,
@@ -32,5 +31,3 @@ var TextInput = React.createClass({
         );
     }
 });
-
-module.exports = TextInput;

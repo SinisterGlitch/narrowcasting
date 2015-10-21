@@ -1,11 +1,7 @@
-/**
- * Form service
- */
+'use strict';
+
 export default {
 
-    /**
-     * Get input values from form
-     */
     getFormData(e) {
         e.preventDefault();
 

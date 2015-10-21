@@ -1,6 +1,5 @@
-/**
- * Add local storage support
- */
+'use strict';
+
 export default {
 
     write(key, value) {
@@ -13,7 +12,7 @@ export default {
         }
     },
 
-    clear: function(key) {
+    clear(key) {
         if (typeof localStorage === 'object') {
             localStorage.setItem(key, undefined);
         }

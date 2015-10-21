@@ -1,6 +1,6 @@
-var CompressionPlugin = require("compression-webpack-plugin");
+import CompressionPlugin from 'compression-webpack-plugin';
 
-module.exports = {
+export default {
     plugins: [
         new CompressionPlugin({
             asset: "{file}.gz",
@@ -20,7 +20,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx?$/,
-                exclude:  /(node_modules|bower_components|generated)/,
+                exclude:  /(node_modules)/,
                 loaders: ['babel-loader?optional=es7.objectRestSpread']
             }
         ]

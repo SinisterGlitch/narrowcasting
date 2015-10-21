@@ -1,13 +1,13 @@
-// vendor
-var React = require('react');
-var ReactRouter = require('react-router');
-var RouteHandler = ReactRouter.RouteHandler;
+'use strict';
 
-// core
-var Notification = require('components/layout/notification');
-var Navigation = require('components/layout/navigation');
+import React from 'react';
+import ReactRouter from 'react-router';
+let RouteHandler = ReactRouter.RouteHandler;
 
-module.exports = React.createClass({
+import Notification from 'components/layout/notification';
+import Navigation from 'components/layout/navigation';
+
+export default React.createClass({
 
     render() {
         return (

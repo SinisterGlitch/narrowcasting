@@ -1,11 +1,10 @@
+'use strict';
+
 import React from 'react';
 import Reflux from 'reflux';
 import NotificationStore from 'components/stores/notification';
 import NotificationActions from 'components/actions/notification';
 
-/**
- * Notification component
- */
 export default React.createClass({
 
     mixins: [
@@ -17,7 +16,7 @@ export default React.createClass({
 
         if (status >= 400 && status < 500) {
             return 'error';
-        } else if (status => 200 && status < 300) {
+        } else if (status >= 200 && status < 300) {
             return 'success';
         }
     },
@@ -27,7 +26,7 @@ export default React.createClass({
 
         if (status >= 400 && status < 500) {
             return 'alert alert-danger';
-        } else if (status => 200 && status < 300) {
+        } else if (status >= 200 && status < 300) {
             return 'alert alert-success';
         }
     },
