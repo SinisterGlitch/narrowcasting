@@ -13,7 +13,6 @@ import BranchesActions from 'modules/actions/branches';
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(BranchesActions.saveBranches.completed, 'onSave'),
         Reflux.listenTo(BranchesStore, 'onLoadBranch'),
         ReactRouter.Navigation,
         ReactRouter.State
@@ -25,22 +24,18 @@ export default React.createClass({
 
     getInitialState() {
         return {
-            branch: BranchesStore.getBranch()
+            branch: BranchesStore.getBranch(this.getParams().id)
         }
     },
 
     onLoadBranch() {
         this.setState({
-            branch: BranchesStore.getBranch()
+            branch: BranchesStore.getBranch(this.getParams().id)
         });
     },
 
     onSubmit(form) {
         BranchesActions.updateBranches(Form.getFormData(form));
-    },
-
-    onSave(data) {
-        console.log('data', data);
     },
 
     render(){
@@ -50,7 +45,6 @@ export default React.createClass({
 
         return (
             <div key="content">
-                edit
                 <form onSubmit={this.onSubmit}>
                     <input type="hidden" name="id" value={this.state.branch.id} />
                     <TextInput name="name" label="Name" value={this.state.branch.name} />

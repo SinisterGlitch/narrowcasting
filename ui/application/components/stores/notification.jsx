@@ -1,47 +1,36 @@
-var React = require('react');
-var Reflux = require('reflux');
-var Storage = require('services/storage');
-var NotificationActions = require('components/actions/notification');
+'use strict';
+
+import React from 'react';
+import Reflux from 'reflux';
+import Storage from 'services/storage';
+import NotificationActions from 'components/actions/notification';
 
 export default Reflux.createStore({
-
-    _message: '',
-
-    _status: '',
+    listenables: NotificationActions,
 
     /**
-     * Event listeners
+     * @import {int}
      */
-    init: function() {
-        this.listenTo(NotificationActions.show, '_onShow');
-        this.listenTo(NotificationActions.hide, '_onHide');
-    },
+    status: null,
 
-    _onShow: function(message, status) {
-        this._setMessage(message);
-        this._setStatus(status);
+    /**
+     * @param {string} status
+     */
+    onShow(status) {
+        this.status = status;
+        setTimeout(NotificationActions.hide, 3000);
         this.trigger();
     },
 
-    _onHide: function() {
-        this._setMessage('');
-        this._setStatus('');
+    onHide() {
+        this.status = null;
         this.trigger();
     },
 
-    _setStatus: function(status) {
-        this._status = status;
-    },
-
-    _setMessage: function(message) {
-        this._message = message;
-    },
-
-    getMessage: function() {
-        return this._message;
-    },
-
-    getStatus: function() {
-        return this._status;
+    /**
+     * @return {int}
+     */
+    getStatus() {
+        return this.status;
     }
 });

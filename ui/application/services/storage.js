@@ -1,9 +1,9 @@
 /**
- * Add locale storage support
+ * Add local storage support
  */
 export default {
 
-    write: function (key, value) {
+    write(key, value) {
         if (!value) {
             return;
         }
@@ -19,7 +19,7 @@ export default {
         }
     },
 
-    read: function (key, defaultValue) {
+    read(key, defaultValue) {
         if (typeof localStorage === 'object') {
             var value = localStorage.getItem(key);
             if (value) {

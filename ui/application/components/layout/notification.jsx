@@ -1,25 +1,46 @@
-var React = require('react');
-var Reflux = require('reflux');
-var NotificationStore = require('components/stores/notification');
+import React from 'react';
+import Reflux from 'reflux';
+import NotificationStore from 'components/stores/notification';
+import NotificationActions from 'components/actions/notification';
 
 /**
  * Notification component
  */
-module.exports = React.createClass({
+export default React.createClass({
 
     mixins: [
         Reflux.listenTo(NotificationStore, 'forceUpdate')
     ],
 
+    getMessage() {
+        let status = NotificationStore.getStatus();
+
+        if (status >= 400 && status < 500) {
+            return 'error';
+        } else if (status => 200 && status < 300) {
+            return 'success';
+        }
+    },
+
+    getClassName() {
+        let status = NotificationStore.getStatus();
+
+        if (status >= 400 && status < 500) {
+            return 'alert alert-danger';
+        } else if (status => 200 && status < 300) {
+            return 'alert alert-success';
+        }
+    },
+
     render() {
-        if (NotificationStore.getMessage()) {
-            return (
-                <div className={NotificationStore.getStatus() ? 'alert alert-success' : 'alert alert-danger'}>
-                    {NotificationStore.getMessage()}
-                </div>
-            );
+        if (!_.isNumber(NotificationStore.getStatus())) {
+            return null;
         }
 
-        return (<div/>);
+        return (
+            <div className={this.getClassName()}>
+                {this.getMessage()} <span style={{cursor:'pointer'}} onClick={NotificationActions.hide}>[x]</span>
+            </div>
+        );
     }
 });

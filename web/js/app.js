@@ -23657,30 +23657,79 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(1);
-	var Reflux = __webpack_require__(199);
-	var NotificationStore = __webpack_require__(219);
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reflux = __webpack_require__(199);
+	
+	var _reflux2 = _interopRequireDefault(_reflux);
+	
+	var _componentsStoresNotification = __webpack_require__(219);
+	
+	var _componentsStoresNotification2 = _interopRequireDefault(_componentsStoresNotification);
+	
+	var _componentsActionsNotification = __webpack_require__(221);
+	
+	var _componentsActionsNotification2 = _interopRequireDefault(_componentsActionsNotification);
 	
 	/**
 	 * Notification component
 	 */
-	module.exports = React.createClass({
-	    displayName: 'exports',
+	exports['default'] = _react2['default'].createClass({
+	    displayName: 'notification',
 	
-	    mixins: [Reflux.listenTo(NotificationStore, 'forceUpdate')],
+	    mixins: [_reflux2['default'].listenTo(_componentsStoresNotification2['default'], 'forceUpdate')],
+	
+	    getMessage: function getMessage() {
+	        var status = _componentsStoresNotification2['default'].getStatus();
+	
+	        if (status >= 400 && status < 500) {
+	            return 'error';
+	        } else if (function (status) {
+	            return 200 && status < 300;
+	        }) {
+	            return 'success';
+	        }
+	    },
+	
+	    getClassName: function getClassName() {
+	        var status = _componentsStoresNotification2['default'].getStatus();
+	
+	        if (status >= 400 && status < 500) {
+	            return 'alert alert-danger';
+	        } else if (function (status) {
+	            return 200 && status < 300;
+	        }) {
+	            return 'alert alert-success';
+	        }
+	    },
 	
 	    render: function render() {
-	        if (NotificationStore.getMessage()) {
-	            return React.createElement(
-	                'div',
-	                { className: NotificationStore.getStatus() ? 'alert alert-success' : 'alert alert-danger' },
-	                NotificationStore.getMessage()
-	            );
+	        if (!_.isNumber(_componentsStoresNotification2['default'].getStatus())) {
+	            return null;
 	        }
 	
-	        return React.createElement('div', null);
+	        return _react2['default'].createElement(
+	            'div',
+	            { className: this.getClassName() },
+	            this.getMessage(),
+	            ' ',
+	            _react2['default'].createElement(
+	                'span',
+	                { style: { cursor: 'pointer' }, onClick: _componentsActionsNotification2['default'].hide },
+	                '[x]'
+	            )
+	        );
 	    }
 	});
+	module.exports = exports['default'];
 
 /***/ },
 /* 199 */
@@ -25311,51 +25360,52 @@
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	var React = __webpack_require__(1);
-	var Reflux = __webpack_require__(199);
-	var Storage = __webpack_require__(220);
-	var NotificationActions = __webpack_require__(221);
 	
-	exports['default'] = Reflux.createStore({
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	    _message: '',
+	var _react = __webpack_require__(1);
 	
-	    _status: '',
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reflux = __webpack_require__(199);
+	
+	var _reflux2 = _interopRequireDefault(_reflux);
+	
+	var _servicesStorage = __webpack_require__(220);
+	
+	var _servicesStorage2 = _interopRequireDefault(_servicesStorage);
+	
+	var _componentsActionsNotification = __webpack_require__(221);
+	
+	var _componentsActionsNotification2 = _interopRequireDefault(_componentsActionsNotification);
+	
+	exports['default'] = _reflux2['default'].createStore({
+	    listenables: _componentsActionsNotification2['default'],
 	
 	    /**
-	     * Event listeners
+	     * @import {int}
 	     */
-	    init: function init() {
-	        this.listenTo(NotificationActions.show, '_onShow');
-	        this.listenTo(NotificationActions.hide, '_onHide');
-	    },
+	    status: null,
 	
-	    _onShow: function _onShow(message, status) {
-	        this._setMessage(message);
-	        this._setStatus(status);
+	    /**
+	     * @param {string} status
+	     */
+	    onShow: function onShow(status) {
+	        this.status = status;
+	        setTimeout(_componentsActionsNotification2['default'].hide, 3000);
 	        this.trigger();
 	    },
 	
-	    _onHide: function _onHide() {
-	        this._setMessage('');
-	        this._setStatus('');
+	    onHide: function onHide() {
+	        this.status = null;
 	        this.trigger();
 	    },
 	
-	    _setStatus: function _setStatus(status) {
-	        this._status = status;
-	    },
-	
-	    _setMessage: function _setMessage(message) {
-	        this._message = message;
-	    },
-	
-	    getMessage: function getMessage() {
-	        return this._message;
-	    },
-	
+	    /**
+	     * @return {int}
+	     */
 	    getStatus: function getStatus() {
-	        return this._status;
+	        return this.status;
 	    }
 	});
 	module.exports = exports['default'];
@@ -25365,7 +25415,7 @@
 /***/ function(module, exports) {
 
 	/**
-	 * Add locale storage support
+	 * Add local storage support
 	 */
 	'use strict';
 	
@@ -25774,7 +25824,7 @@
 	    responseHandler: function responseHandler(response, callback) {
 	        response.ok ? callback.completed(response.body) : callback.failed(response.text);
 	
-	        _componentsActionsNotification2['default'].show(response.ok ? '' : response.body.error.message, response.ok);
+	        _componentsActionsNotification2['default'].show(response.status);
 	    }
 	};
 	module.exports = exports['default'];
@@ -40122,7 +40172,7 @@
 	exports['default'] = _react2['default'].createClass({
 	    displayName: 'edit',
 	
-	    mixins: [_reflux2['default'].listenTo(_modulesActionsBranches2['default'].saveBranches.completed, 'onSave'), _reflux2['default'].listenTo(_modulesStoresBranches2['default'], 'onLoadBranch'), _reactRouter2['default'].Navigation, _reactRouter2['default'].State],
+	    mixins: [_reflux2['default'].listenTo(_modulesStoresBranches2['default'], 'onLoadBranch'), _reactRouter2['default'].Navigation, _reactRouter2['default'].State],
 	
 	    componentDidMount: function componentDidMount() {
 	        _modulesActionsBranches2['default'].loadBranch(this.getParams().id);
@@ -40130,22 +40180,18 @@
 	
 	    getInitialState: function getInitialState() {
 	        return {
-	            branch: _modulesStoresBranches2['default'].getBranch()
+	            branch: _modulesStoresBranches2['default'].getBranch(this.getParams().id)
 	        };
 	    },
 	
 	    onLoadBranch: function onLoadBranch() {
 	        this.setState({
-	            branch: _modulesStoresBranches2['default'].getBranch()
+	            branch: _modulesStoresBranches2['default'].getBranch(this.getParams().id)
 	        });
 	    },
 	
 	    onSubmit: function onSubmit(form) {
 	        _modulesActionsBranches2['default'].updateBranches(_servicesForm2['default'].getFormData(form));
-	    },
-	
-	    onSave: function onSave(data) {
-	        console.log('data', data);
 	    },
 	
 	    render: function render() {
@@ -40160,7 +40206,6 @@
 	        return _react2['default'].createElement(
 	            'div',
 	            { key: 'content' },
-	            'edit',
 	            _react2['default'].createElement(
 	                'form',
 	                { onSubmit: this.onSubmit },

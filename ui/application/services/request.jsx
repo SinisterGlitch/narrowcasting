@@ -65,10 +65,10 @@ export default {
      * @param {func} callback
      */
     responseHandler(response, callback) {
-        (response.ok)
+        response.ok
             ? callback.completed(response.body)
             : callback.failed(response.text);
 
-        NotificationActions.show((response.ok) ? '' : response.body.error.message, response.ok);
+        NotificationActions.show(response.status);
     }
 };
