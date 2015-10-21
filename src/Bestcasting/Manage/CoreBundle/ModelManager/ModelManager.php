@@ -20,6 +20,7 @@ class ModelManager
      * @var EntityManager
      */
     private $entityManager;
+
     /**
      * @var Serializer
      */

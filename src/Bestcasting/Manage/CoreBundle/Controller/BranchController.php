@@ -38,7 +38,7 @@ class BranchController extends BaseController
 
     /**
      * @Post("/branches")
-     * @ParamConverter("branch", converter="fos_rest.request_body", options={"repository_method" = "test"})
+     * @ParamConverter("branch", converter="fos_rest.request_body")
      *
      * @param Branch $branch
      * @return Branch

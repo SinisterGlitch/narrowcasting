@@ -1,45 +1,37 @@
-var React = require('react');
-var Reflux = require('reflux');
-var Storage = require('services/storage');
-var UserActions = require('modules/actions/user');
+import React from 'react';
+import Reflux from 'reflux';
+import Storage from 'services/storage';
+import UserActions from 'modules/actions/user';
 
-module.exports = Reflux.createStore({
+export default Reflux.createStore({
+    listenables: UserActions,
 
     /**
-     * User storage
+     * @var {Object}
      */
     _user: {},
 
-    /**
-     * Event listeners
-     */
-    init: function() {
+    init() {
         this._user = Storage.read('user', {});
-        this.listenTo(UserActions.loadUser.completed, this._onLoadUser);
     },
 
     /**
-     * Load user
-     *
-     * @param user
+     * @param {Object} user
      */
-    _onLoadUser(user) {
+    onLoadUser(user) {
         this._user = user;
         Storage.write('user', this._user);
         this.trigger();
     },
 
     /**
-     * Get user
+     * @return {Object}
      */
     getUser() {
         return this._user;
     },
 
-    /**
-     * unset user on logout
-     */
-    onLogout: function () {
-        this._onLoadUser({});
+    onLogout() {
+        this.onLoadUser({});
     }
 });

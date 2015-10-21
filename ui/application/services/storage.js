@@ -1,7 +1,7 @@
 /**
  * Add locale storage support
  */
-module.exports = {
+export default {
 
     write: function (key, value) {
         if (!value) {

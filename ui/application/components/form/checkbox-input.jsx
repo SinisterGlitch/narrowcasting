@@ -15,6 +15,7 @@ module.exports = React.createClass({
         return {
             placeholder: '',
             hideInput: false,
+            name: 'test',
             value: 0,
             label: ''
         }
@@ -37,8 +38,7 @@ module.exports = React.createClass({
                     {this.props.label}
                 </label>
                 <div className="checkbox">
-                    <input
-                        type="checkbox"
+                    <input type="checkbox"
                         name={this.props.name}
                         key={this.props.name}
                         placeholder={this.props.placeholder}

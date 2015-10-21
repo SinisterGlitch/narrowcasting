@@ -1,12 +1,9 @@
-var React = require('react');
-var Reflux = require('reflux');
+import React from 'react';
+import Reflux from 'reflux';
 
-var UserStore = require('modules/stores/user');
+import UserStore from 'modules/stores/user';
 
-/**
- * Dashboard view
- */
-module.exports = React.createClass({
+export default React.createClass({
 
     mixins: [
         Reflux.listenTo(UserStore, 'onLoadUser')

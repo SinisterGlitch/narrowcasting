@@ -1,7 +1,7 @@
 /**
  * Form service
  */
-module.exports = {
+export default {
 
     /**
      * Get input values from form

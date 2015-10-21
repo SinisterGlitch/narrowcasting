@@ -1,23 +1,20 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Reflux = require('reflux');
+import React from 'react';
+import ReactRouter from 'react-router';
+import Reflux from 'reflux';
 
-var Form = require('services/form');
-var TextInput = require('components/form/text-input');
-var Checkbox = require('components/form/checkbox-input');
-var Submit = require('components/form/submit-button');
+import Form from 'services/form';
+import TextInput from 'components/form/text-input';
+import Checkbox from 'components/form/checkbox-input';
+import Submit from 'components/form/submit-button';
 
-var BranchesStore = require('modules/stores/branches');
-var BranchesActions = require('modules/actions/branches');
+import BranchesStore from 'modules/stores/branches';
+import BranchesActions from 'modules/actions/branches';
 
-/**
- * Edit branch view
- */
-module.exports = React.createClass({
+export default React.createClass({
 
     mixins: [
         Reflux.listenTo(BranchesActions.saveBranches.completed, 'onSave'),
-        Reflux.listenTo(BranchesStore, '_onLoadBranch'),
+        Reflux.listenTo(BranchesStore, 'onLoadBranch'),
         ReactRouter.Navigation,
         ReactRouter.State
     ],
@@ -32,7 +29,7 @@ module.exports = React.createClass({
         }
     },
 
-    _onLoadBranch() {
+    onLoadBranch() {
         this.setState({
             branch: BranchesStore.getBranch()
         });

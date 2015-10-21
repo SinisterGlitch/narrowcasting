@@ -1,59 +1,44 @@
-var React = require('react');
-var Reflux = require('reflux');
+import React from 'react';
+import Reflux from'reflux';
+import _ from 'lodash';
 
-var BranchesActions = require('modules/actions/branches');
+import BranchesActions from 'modules/actions/branches';
 
-module.exports = Reflux.createStore({
-
-    /**
-     * branch storage
-     */
-    _branch: [],
+export default Reflux.createStore({
+    listenables: BranchesActions,
 
     /**
-     * branches list storage
+     * @var {Array}
      */
     _branches: [],
 
     /**
-     * Event listeners
+     * @param {Array} branches
      */
-    init: function() {
-        this.listenTo(BranchesActions.loadBranch.completed, this._onLoadBranch);
-        this.listenTo(BranchesActions.loadBranches.completed, this._onLoadBranches);
-    },
-
-    /**
-     * Load branches
-     *
-     * @param branches
-     */
-    _onLoadBranches(branches) {
-        this._branches = branches;
+    loadBranchesCompleted(branches) {
+        _.forEach(branches, branch => this._branches[branch.id] = branch);
         this.trigger();
     },
 
     /**
-     * Load branch
-     *
-     * @param branch
+     * @param {Object} branch
      */
-    _onLoadBranch(branch) {
-        this._branch = branch;
+    loadBranchCompleted(branch) {
+        this._branches[branch.id] = branch;
         this.trigger();
     },
 
     /**
-     * Get branches
+     * @return {Array}
      */
     getBranches() {
         return this._branches;
     },
 
     /**
-     * Get branches
+     * @return {Object}
      */
-    getBranch() {
-        return this._branch;
+    getBranch(id) {
+        return _.has(this._branches, id) ? this._branches[id] : '';
     }
 });

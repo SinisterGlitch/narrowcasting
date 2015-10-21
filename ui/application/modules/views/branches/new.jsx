@@ -1,18 +1,15 @@
-var React = require('react');
-var Reflux = require('reflux');
+import React from 'react';
+import Reflux from 'reflux';
 
-var Form = require('services/form');
-var Checkbox = require('components/form/checkbox-input');
-var TextInput = require('components/form/text-input');
-var Submit = require('components/form/submit-button');
+import Form from 'services/form';
+import Checkbox from 'components/form/checkbox-input';
+import TextInput from 'components/form/text-input';
+import Submit from 'components/form/submit-button';
 
-var BranchesStore = require('modules/stores/branches');
-var BranchesActions = require('modules/actions/branches');
+import BranchesStore from 'modules/stores/branches';
+import BranchesActions from 'modules/actions/branches';
 
-/**
- * New branch view
- */
-module.exports = React.createClass({
+export default React.createClass({
 
     mixins: [
         Reflux.listenTo(BranchesActions.saveBranches.completed, 'onSave')

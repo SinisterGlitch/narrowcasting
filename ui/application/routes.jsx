@@ -1,20 +1,18 @@
-var React = require('react');
-var App = require('components/layout/app');
-var ReactRouter = require('react-router');
-var Route = ReactRouter.Route;
+import React from 'react';
+import App from 'components/layout/app';
+import ReactRouter from 'react-router';
+let Route = ReactRouter.Route;
 
-var dashboardIndexView = require ('modules/views/dashboard/index');
-var dashboardLoginView = require ('modules/views/dashboard/login');
-var dashboardRegisterView = require ('modules/views/dashboard/register');
+import dashboardIndexView from 'modules/views/dashboard/index';
+import dashboardLoginView from 'modules/views/dashboard/login';
+import dashboardRegisterView from 'modules/views/dashboard/register';
 
-var branchesListView = require ('modules/views/branches/list');
-var branchesDetailView = require ('modules/views/branches/detail');
-var branchesEditView = require ('modules/views/branches/edit');
-var branchesNewView = require ('modules/views/branches/new');
+import branchesListView from 'modules/views/branches/list';
+import branchesDetailView from 'modules/views/branches/detail';
+import branchesEditView from 'modules/views/branches/edit';
+import branchesNewView from 'modules/views/branches/new';
 
-//<Route path="*" component={NoMatch}/>
-
-module.exports = (
+export default (
     <Route handler={App} path="/">
         <Route name="dashboard">
             <Route name="dashboard-index" handler={dashboardIndexView} path="/dashboard" />

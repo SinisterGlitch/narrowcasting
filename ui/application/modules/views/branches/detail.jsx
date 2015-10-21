@@ -1,46 +1,41 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Reflux = require('reflux');
+import React from 'react';
+import ReactRouter from 'react-router';
+import Reflux from 'reflux';
+import _ from 'lodash';
 
-var BranchesStore = require('modules/stores/branches');
-var BranchesActions = require('modules/actions/branches');
+import BranchesStore from 'modules/stores/branches';
+import BranchesActions from 'modules/actions/branches';
 
-/**
- * Branch details view
- */
-module.exports = React.createClass({
+export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(BranchesStore, '_onLoadBranch'),
+        Reflux.listenTo(BranchesStore, 'onLoadBranch'),
         ReactRouter.Navigation,
         ReactRouter.State
     ],
 
     componentDidMount() {
-        if (!isNaN(this.getParams().id)) {
-            BranchesActions.loadBranch(this.getParams().id)
+        if (_.isEmpty(BranchesStore.getBranch(this.getParams().id))) {
+            BranchesActions.loadBranch(this.getParams().id);
         }
     },
 
     getInitialState() {
         return {
-            branch: BranchesStore.getBranch()
+            branch: BranchesStore.getBranch(this.getParams().id)
         }
     },
 
-    _onLoadBranch() {
+    onLoadBranch() {
         this.setState({
-            branch: BranchesStore.getBranch()
+            branch: BranchesStore.getBranch(this.getParams().id)
         });
     },
 
     render(){
         return (
             <div key="content">
-                {(!isNaN(this.getParams().id))
-                    ? this.state.branch.name+' => '+ this.state.branch.id
-                    : 'branch not found'
-                }
+                {!_.isEmpty(this.state.branch) ? this.state.branch.id+' | '+this.state.branch.name : ''}
             </div>
         )
     }

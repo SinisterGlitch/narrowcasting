@@ -1,21 +1,15 @@
-// vendor
-var React = require('react');
-var ReactRouter = require('react-router');
-var Reflux = require('reflux');
+import React from 'react';
+import ReactRouter from 'react-router';
+import Reflux from 'reflux';
 
-// module
-var UserActions = require('modules/actions/user');
-var UserStore = require('modules/stores/user');
+import UserActions from 'modules/actions/user';
+import UserStore from 'modules/stores/user';
 
-// components
-var Form = require('services/form');
-var TextInput = require('components/form/text-input');
-var Submit = require('components/form/submit-button');
+import Form from 'services/form';
+import TextInput from 'components/form/text-input';
+import Submit from 'components/form/submit-button';
 
-/**
- * Register user view
- */
-module.exports = React.createClass({
+export default React.createClass({
 
     mixins: [
         ReactRouter.Navigation,

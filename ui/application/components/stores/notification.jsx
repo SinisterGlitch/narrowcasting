@@ -3,7 +3,7 @@ var Reflux = require('reflux');
 var Storage = require('services/storage');
 var NotificationActions = require('components/actions/notification');
 
-module.exports = Reflux.createStore({
+export default Reflux.createStore({
 
     _message: '',
 

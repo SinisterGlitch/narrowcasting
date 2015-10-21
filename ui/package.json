@@ -12,11 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jsx-loader": "^0.13.*",
+    "babel-loader": "5.3.*",
     "lodash": "^3.2.0",
     "react": "^0.13.*",
     "react-router": "^0.13.*",
-    "react-bootstrap": "^0.13.*",
     "reflux": "^0.2.5",
     "superagent": "^0.21.0",
     "compression-webpack-plugin": "0.2.0",

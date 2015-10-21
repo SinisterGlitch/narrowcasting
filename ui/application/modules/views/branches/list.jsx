@@ -1,19 +1,16 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Reflux = require('reflux');
-var Link = ReactRouter.Link;
+import React from 'react';
+import ReactRouter from 'react-router';
+import Reflux from 'reflux';
+import _ from 'lodash';
+let Link = ReactRouter.Link;
 
+import BranchesStore from 'modules/stores/branches';
+import BranchesActions from 'modules/actions/branches';
 
-var BranchesStore = require('modules/stores/branches');
-var BranchesActions = require('modules/actions/branches');
-
-/**
- * List branches view
- */
-module.exports = React.createClass({
+export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(BranchesStore, '_onLoadBranches')
+        Reflux.listenTo(BranchesStore, 'onLoadBranches')
     ],
 
     componentDidMount() {
@@ -26,7 +23,7 @@ module.exports = React.createClass({
         }
     },
 
-    _onLoadBranches() {
+    onLoadBranches() {
         this.setState({
             branches: BranchesStore.getBranches()
         });
@@ -44,7 +41,7 @@ module.exports = React.createClass({
                     </tr>
                     </thead>
                     <tbody>
-                        {(this.state.branches) ? this.state.branches.map(this.renderRow) : ''}
+                        {_.map(this.state.branches, this.renderRow)}
                     </tbody>
                 </table>
             </div>
@@ -52,6 +49,10 @@ module.exports = React.createClass({
     },
 
     renderRow(branch) {
+        if (_.isUndefined(branch)) {
+            return;
+        }
+
         return (
             <tr key={branch.id}>
                 <td>{branch.name}</td>

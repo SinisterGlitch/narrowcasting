@@ -1,10 +1,7 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Routes = require('routes');
+import React from 'react';
+import ReactRouter from 'react-router';
+import Routes from 'routes';
 
-/**
- * Build Application
- */
-ReactRouter.run(Routes, function (Handler) {
-    React.render(<Handler/>, document.getElementById('container'));
-});
+ReactRouter.run(Routes,
+    Handler => React.render(<Handler/>, document.getElementById('container'))
+);

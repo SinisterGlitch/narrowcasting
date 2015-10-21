@@ -19,9 +19,9 @@ module.exports = {
     module: {
         loaders: [
             {
-                //tell webpack to use jsx-loader for all *.jsx files
-                test: /\.jsx$/,
-                loader: 'jsx-loader?harmony'
+                test: /\.jsx?$/,
+                exclude:  /(node_modules|bower_components|generated)/,
+                loaders: ['babel-loader?optional=es7.objectRestSpread']
             }
         ]
     },

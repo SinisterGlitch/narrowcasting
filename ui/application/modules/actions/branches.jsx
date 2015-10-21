@@ -1,11 +1,8 @@
-var React = require('react');
-var Reflux = require('reflux');
-var Request = require('services/request');
+import React from 'react';
+import Reflux from 'reflux';
+import Request from 'services/request';
 
-/**
- * Branches actions
- */
-var BranchesActions = Reflux.createActions({
+let BranchesActions = Reflux.createActions({
     saveBranches:   {children: ['completed','failed']},
     updateBranches: {children: ['completed','failed']},
     deleteBranches: {children: ['completed','failed']},
@@ -13,24 +10,24 @@ var BranchesActions = Reflux.createActions({
     loadBranch:     {children: ['completed','failed']}
 });
 
-BranchesActions.saveBranches.listen((data)
-    => Request.post('app_dev.php/api/branches', data, BranchesActions.saveBranches)
+BranchesActions.saveBranches.listen(
+    data => Request.post('app_dev.php/api/branches', data, BranchesActions.saveBranches)
 );
 
-BranchesActions.updateBranches.listen((data)
-        => Request.put('app_dev.php/api/branches', data, BranchesActions.updateBranches)
+BranchesActions.updateBranches.listen(
+    data => Request.put('app_dev.php/api/branches', data, BranchesActions.updateBranches)
 );
 
-BranchesActions.deleteBranches.listen((data)
-        => Request.del('app_dev.php/api/branches', data, BranchesActions.deleteBranches)
+BranchesActions.deleteBranches.listen(
+    data => Request.del('app_dev.php/api/branches', data, BranchesActions.deleteBranches)
 );
 
-BranchesActions.loadBranch.listen((id)
-    => Request.get('app_dev.php/api/branches/'+ id, BranchesActions.loadBranch)
+BranchesActions.loadBranch.listen(
+    id => Request.get('app_dev.php/api/branches/' + id, BranchesActions.loadBranch)
 );
 
 BranchesActions.loadBranches.listen(()
     => Request.get('app_dev.php/api/branches', BranchesActions.loadBranches)
 );
 
-module.exports = BranchesActions;
+export default BranchesActions;
