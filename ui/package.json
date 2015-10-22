@@ -5,8 +5,7 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --progress --colors --watch --debug --devtool source-map",
+    "dev": "webpack --progress --colors --watch --debug --devtool eval",
     "build": "webpack --progress --colors --optimize-minimize"
   },
   "author": "",

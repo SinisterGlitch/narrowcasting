@@ -24,9 +24,5 @@ export default {
                 loaders: ['babel-loader?optional=es7.objectRestSpread']
             }
         ]
-    },
-    resolve: {
-        modulesDirectories: ['node_modules', 'application', 'generated'],
-        extensions: ['', '.js', '.jsx']
     }
 };
