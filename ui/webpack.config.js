@@ -1,27 +1,15 @@
-import CompressionPlugin from 'compression-webpack-plugin';
-
-export default {
-    plugins: [
-        new CompressionPlugin({
-            asset: "{file}.gz",
-            algorithm: "gzip",
-            regExp: /\.js$|\.html$/,
-            threshold: 10240,
-            minRatio: 0.8
-        })
-    ],
+module.exports = {
     entry: "./application/main.jsx",
     output: {
         path: __dirname + '/../web/',
-        filename: "js/app.js",
-        devtoolModuleFilenameTemplate: '../ui/[resource-path]'
+        filename: "js/app.js"
     },
     module: {
         loaders: [
             {
                 test: /\.jsx?$/,
-                exclude:  /(node_modules)/,
-                loaders: ['babel-loader?optional=es7.objectRestSpread']
+                exclude: /(node_modules)/,
+                loader: 'babel-loader?optional=es7.objectRestSpread'
             }
         ]
     }

@@ -42,6 +42,7 @@ export default {
      * @param {array} data
      * @param {func} callback
      */
+
     patch(url, data, callback) {
         SuperAgent.patch(url, {'data' : data}).end(
             (err, res) => this.responseHandler(res, callback)

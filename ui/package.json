@@ -5,19 +5,19 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-    "dev": "webpack --progress --colors --watch --debug --devtool eval",
+    "dev": "webpack --progress --colors --watch --debug --devtool eval --display-error-details",
     "build": "webpack --progress --colors --optimize-minimize"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "babel-loader": "5.3.*",
+    "babel-runtime": "^5.8.29",
     "lodash": "^3.2.0",
-    "react": "^0.13.*",
-    "react-router": "^0.13.*",
-    "reflux": "^0.2.5",
+    "react": "^0.14.0",
+    "react-router": "^1.0.0-rc3",
+    "reflux": "^0.3.0",
     "superagent": "^0.21.0",
-    "compression-webpack-plugin": "0.2.0",
-    "webpack": "^1.5.3"
+    "webpack": "^1.12.2"
   }
 }

@@ -1,9 +1,7 @@
 'use strict';
 
 import React from 'react';
-import ReactRouter from 'react-router';
-import Routes from 'routes';
+import ReactDom from 'react-dom';
+let Routes = require('routes');
 
-ReactRouter.run(Routes,
-    Handler => React.render(<Handler/>, document.getElementById('container'))
-);
+ReactDom.render(Routes, document.getElementById('container'));
