@@ -4,12 +4,14 @@ namespace Bestcasting\Manage\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Address
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Bestcasting\Manage\CoreBundle\Entity\AddressRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Address
 {
@@ -19,11 +21,14 @@ class Address
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Groups({"list", "details"})
      */
     private $id;
 
     /**
      * @var Branch
+     * @Groups({"details"})
      *
      * @ORM\OneToOne(targetEntity="Branch")
      * @JoinColumn(name="branch_id", referencedColumnName="id")
@@ -32,6 +37,7 @@ class Address
 
     /**
      * @var string
+     * @Groups({"details", "list"})
      *
      * @ORM\Column(name="street_name", type="string", length=50)
      */
@@ -39,6 +45,7 @@ class Address
 
     /**
      * @var string
+     * @Groups({"details", "list"})
      *
      * @ORM\Column(name="street_number", type="string", length=12)
      */
@@ -46,6 +53,7 @@ class Address
 
     /**
      * @var string
+     * @Groups({"details", "list"})
      *
      * @ORM\Column(name="zip_code", type="string", length=255)
      */
@@ -53,6 +61,7 @@ class Address
 
     /**
      * @var string
+     * @Groups({"details"})
      *
      * @ORM\Column(name="country", type="string", length=255)
      */
@@ -60,10 +69,19 @@ class Address
 
     /**
      * @var string
+     * @Groups({"details"})
      *
      * @ORM\Column(name="phone_number", type="string", length=32)
      */
     private $phoneNumber;
+
+    /**
+     * @var boolean
+     * @Groups({"details"})
+     *
+     * @ORM\Column(name="active", type="boolean")
+     */
+    private $active;
 
     /**
      * @var \DateTime
@@ -78,14 +96,6 @@ class Address
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="active", type="boolean")
-     */
-    private $active;
-
 
     /**
      * Get id
@@ -303,6 +313,20 @@ class Address
     public function setPhoneNumber($phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
+    }
+
+    /**
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps()
+    {
+        $this->setUpdatedAt(new \DateTime('now'));
+
+        if ($this->getCreatedAt() == null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
     }
 }
 
