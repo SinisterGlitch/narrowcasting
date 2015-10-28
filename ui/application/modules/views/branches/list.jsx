@@ -58,7 +58,7 @@ export default React.createClass({
             <tr key={branch.id}>
                 <td>{branch.name}</td>
                 <td><Link key="detail" to={'/branches/detail/'+branch.id}>detail</Link></td>
-                <td><Link key="edit" to={'/branches/edit'+branch.id}>edit</Link></td>
+                <td><Link key="edit" to={'/branches/edit/'+branch.id}>edit</Link></td>
             </tr>
         );
     }

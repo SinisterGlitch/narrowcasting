@@ -21,7 +21,7 @@ BranchesActions.updateBranches.listen(
 );
 
 BranchesActions.deleteBranches.listen(
-    data => Request.del('/app_dev.php/api/branches', data, BranchesActions.deleteBranches)
+    data => Request.delete('/app_dev.php/api/branches', data, BranchesActions.deleteBranches)
 );
 
 BranchesActions.loadBranch.listen(

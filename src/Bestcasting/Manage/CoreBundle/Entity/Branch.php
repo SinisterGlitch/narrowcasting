@@ -4,6 +4,7 @@ namespace Bestcasting\Manage\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Branch
@@ -15,6 +16,7 @@ class Branch
 {
     /**
      * @var integer
+     * @Groups({"list", "details"})
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -31,6 +33,7 @@ class Branch
 
     /**
      * @var string
+     * @Groups({"list", "details"})
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
@@ -53,6 +56,7 @@ class Branch
     /**
      * @var boolean
      *
+     * @Groups({"details"})
      * @ORM\Column(name="active", type="boolean")
      */
     private $active;

@@ -21,7 +21,7 @@ export default {
      * @param {func} callback
      */
     post(url, data, callback) {
-        SuperAgent.post(url, {'data' : data}).end(
+        SuperAgent.post(url, data).end(
             (err, res) => this.responseHandler(res, callback)
         );
     },

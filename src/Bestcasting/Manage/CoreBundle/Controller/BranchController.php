@@ -2,6 +2,7 @@
 
 namespace Bestcasting\Manage\CoreBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Bestcasting\Manage\CoreBundle\Entity\BranchRepository;
 use Bestcasting\Manage\CoreBundle\Entity\Branch;
@@ -18,6 +19,7 @@ class BranchController extends BaseController
 {
     /**
      * @Get("/branches/{id}")
+     * @View(serializerGroups={"details"})
      *
      * @param Branch $branch
      * @return Branch
@@ -29,6 +31,7 @@ class BranchController extends BaseController
 
     /**
      * @Get("/branches")
+     * @View(serializerGroups={"list"})
      * @return Branch[]
      */
     public function getCollectionAction()

@@ -21,18 +21,18 @@ export default React.createClass({
     ],
 
     componentDidMount() {
-        BranchesActions.loadBranch(this.getParams().id)
+        BranchesActions.loadBranch(this.props.params.id)
     },
 
     getInitialState() {
         return {
-            branch: BranchesStore.getBranch(this.getParams().id)
+            branch: BranchesStore.getBranch(this.props.params.id)
         }
     },
 
     onLoadBranch() {
         this.setState({
-            branch: BranchesStore.getBranch(this.getParams().id)
+            branch: BranchesStore.getBranch(this.props.params.id)
         });
     },
 
