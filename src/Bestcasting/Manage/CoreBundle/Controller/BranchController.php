@@ -41,7 +41,10 @@ class BranchController extends BaseController
 
     /**
      * @Post("/branches")
-     * @ParamConverter("branch", converter="fos_rest.request_body")
+     * @ParamConverter("branch",
+     *      converter="fos_rest.request_body",
+     *      options={"deserializationContext"={"groups"={"details"}}}
+     * )
      *
      * @param Branch $branch
      * @return Branch
@@ -53,7 +56,10 @@ class BranchController extends BaseController
 
     /**
      * @Put("/branches")
-     * @ParamConverter("branch", converter="fos_rest.request_body")
+     * @ParamConverter("branch",
+     *      converter="fos_rest.request_body",
+     *      options={"deserializationContext"={"groups"={"details"}}}
+     * )
      *
      * @param Branch $branch
      * @return Branch

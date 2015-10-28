@@ -51,8 +51,6 @@ export default React.createClass({
                     <input key="hidden" type="hidden" name="id" value={this.state.branch.id} />
                     <TextInput key="name" name="name" label="Name" value={this.state.branch.name} />
                     <Checkbox key="active" name="active" label="Active" value={this.state.branch.active} />
-                    <TextInput key="created_at" name="created_at" label="created at" value={this.state.branch.created_at} />
-                    <TextInput key="updated_at" name="updated_at" label="updated at" value={this.state.branch.updated_at} />
                     <Submit key="save" label="Save" name="save" />
                 </form>
             </div>

@@ -80,6 +80,7 @@ fos_rest:
     routing_loader:
         default_format: json
     body_converter:
+        validate: true
         enabled: true
     view:
         view_response_listener: 'force'

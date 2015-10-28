@@ -11,6 +11,7 @@ use JMS\Serializer\Annotation\Groups;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Bestcasting\Manage\CoreBundle\Entity\BranchRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Branch
 {
@@ -42,14 +43,14 @@ class Branch
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="created_at", type="date")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime")
+     * @ORM\Column(name="updated_at", type="date")
      */
     private $updatedAt;
 
@@ -116,7 +117,7 @@ class Branch
      */
     public function getCreatedAt()
     {
-        return $this->createdAt->format('Y-m-d');
+        return $this->createdAt;
     }
 
     /**
@@ -140,7 +141,7 @@ class Branch
      */
     public function getUpdatedAt()
     {
-        return $this->updatedAt->format('Y-m-d');
+        return $this->updatedAt;
     }
 
     /**
@@ -185,6 +186,20 @@ class Branch
     public function setAddress(Address $address)
     {
         $this->address = $address;
+    }
+
+    /**
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps()
+    {
+        $this->setUpdatedAt(new \DateTime('now'));
+
+        if ($this->getCreatedAt() == null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
     }
 }
 
