@@ -13,23 +13,23 @@ let BranchesActions = Reflux.createActions({
 });
 
 BranchesActions.saveBranches.listen(
-    data => Request.post('app_dev.php/api/branches', data, BranchesActions.saveBranches)
+    data => Request.post('/app_dev.php/api/branches', data, BranchesActions.saveBranches)
 );
 
 BranchesActions.updateBranches.listen(
-    data => Request.put('app_dev.php/api/branches', data, BranchesActions.updateBranches)
+    data => Request.put('/app_dev.php/api/branches', data, BranchesActions.updateBranches)
 );
 
 BranchesActions.deleteBranches.listen(
-    data => Request.del('app_dev.php/api/branches', data, BranchesActions.deleteBranches)
+    data => Request.del('/app_dev.php/api/branches', data, BranchesActions.deleteBranches)
 );
 
 BranchesActions.loadBranch.listen(
-    id => Request.get('app_dev.php/api/branches/' + id, BranchesActions.loadBranch)
+    id => Request.get('/app_dev.php/api/branches/' + id, BranchesActions.loadBranch)
 );
 
 BranchesActions.loadBranches.listen(()
-    => Request.get('app_dev.php/api/branches', BranchesActions.loadBranches)
+    => Request.get('/app_dev.php/api/branches', BranchesActions.loadBranches)
 );
 
 export default BranchesActions;

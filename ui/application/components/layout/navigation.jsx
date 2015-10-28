@@ -1,37 +1,32 @@
 'use strict';
 
 import React from 'react';
-import ReactRouter from 'react-router';
-let Link = ReactRouter.Link;
+import { Link } from 'react-router'
 
 export default React.createClass({
 
-    mixins: [
-        ReactRouter.State
-    ],
-
     menuItems: [
-        {label: 'home', route: 'dashboard-index'},
+        {label: 'home', route: '/dashboard'},
         {label: 'branches', route: [
-            {label: 'browse', route: 'branches-list'},
-            {label: 'create', route: 'branches-new'}
+            {label: 'browse', route: '/branches'},
+            {label: 'create', route: '/branches/new'}
         ]}
     ],
 
     loginItems: [
         {label: 'User', route: [
-            {label: 'login', route: 'dashboard-login'},
-            {label: 'register', route: 'dashboard-register'}
+            {label: 'login', route: '/dashboard/login'},
+            {label: 'register', route: '/dashboard/register'}
         ]}
     ],
 
     renderItem(item) {
         if (typeof item.route != 'object') {
-            return <li><Link key={item.route} className={this.isActive(item.route ? 'active' : '')} to={item.route}>{item.label}</Link></li>
+            return <li key={item.route}><Link activeClassName="active" to={item.route}>{item.label}</Link></li>
         }
 
         return (
-            <li className="dropdown">
+            <li key={item.label} className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">{item.label}<b className="caret"></b></a>
                 <ul className="dropdown-menu">
                     {item.route.map((item) => this.renderItem(item))}
@@ -52,10 +47,10 @@ export default React.createClass({
                     </a>
                 </div>
                 <nav className="collapse navbar-collapse">
-                    <ul className="nav navbar-nav">
+                    <ul key="navbar-left" className="nav navbar-nav">
                         {this.menuItems.map((item) => this.renderItem(item))}
                     </ul>
-                    <ul className="nav navbar-nav pull-right">
+                    <ul key="navbar-right" className="nav navbar-nav pull-right">
                         {this.loginItems.map((item) => this.renderItem(item))}
                     </ul>
                 </nav>

@@ -1,10 +1,9 @@
 'use strict';
 
 import React from 'react';
-import ReactRouter from 'react-router';
+import { Link } from 'react-router';
 import Reflux from 'reflux';
 import _ from 'lodash';
-let Link = ReactRouter.Link;
 
 import BranchesStore from 'modules/stores/branches';
 import BranchesActions from 'modules/actions/branches';
@@ -37,9 +36,9 @@ export default React.createClass({
                 <table className="table table-hover">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th></th>
-                        <th></th>
+                        <th key="1-1">Name</th>
+                        <th key="1-2"></th>
+                        <th key="1-3"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -58,8 +57,8 @@ export default React.createClass({
         return (
             <tr key={branch.id}>
                 <td>{branch.name}</td>
-                <td><Link key="detail" to="branches-detail" params={{id: branch.id}}>detail</Link></td>
-                <td><Link key="edit" to="branches-edit" params={{id: branch.id}}>edit</Link></td>
+                <td><Link key="detail" to={'/branches/detail/'+branch.id}>detail</Link></td>
+                <td><Link key="edit" to={'/branches/edit'+branch.id}>edit</Link></td>
             </tr>
         );
     }

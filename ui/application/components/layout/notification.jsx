@@ -32,10 +32,6 @@ export default React.createClass({
     },
 
     render() {
-        if (!_.isNumber(NotificationStore.getStatus())) {
-            return null;
-        }
-
         return (
             <div className={this.getClassName()}>
                 {this.getMessage()} <span style={{cursor:'pointer'}} onClick={NotificationActions.hide}>[x]</span>

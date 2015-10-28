@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import ReactRouter from 'react-router';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
@@ -11,26 +10,24 @@ import BranchesActions from 'modules/actions/branches';
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(BranchesStore, 'onLoadBranch'),
-        ReactRouter.Navigation,
-        ReactRouter.State
+        Reflux.listenTo(BranchesStore, 'onLoadBranch')
     ],
 
     componentDidMount() {
-        if (_.isEmpty(BranchesStore.getBranch(this.getParams().id))) {
-            BranchesActions.loadBranch(this.getParams().id);
+        if (_.isEmpty(BranchesStore.getBranch(this.props.params.id))) {
+            BranchesActions.loadBranch(this.props.params.id);
         }
     },
 
     getInitialState() {
         return {
-            branch: BranchesStore.getBranch(this.getParams().id)
+            branch: BranchesStore.getBranch(this.props.params.id)
         }
     },
 
     onLoadBranch() {
         this.setState({
-            branch: BranchesStore.getBranch(this.getParams().id)
+            branch: BranchesStore.getBranch(this.props.params.id)
         });
     },
 

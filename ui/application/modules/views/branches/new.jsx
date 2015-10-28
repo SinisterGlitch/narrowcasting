@@ -37,7 +37,7 @@ export default React.createClass({
                 new
                 <form onSubmit={this.onSubmit}>
                     <TextInput name="name" label="Name" />
-                    <Checkbox name="active" label="Active" />
+                    <Checkbox value={false} name="active" label="Active" />
                     <TextInput name="created_at" label="created at" />
                     <TextInput name="updated_at" label="updated at" />
                     <Submit label="Save" name="save" />

@@ -5,7 +5,7 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-    "dev": "webpack --progress --colors --watch --debug --devtool eval --display-error-details",
+    "dev": "webpack --progress --colors --watch --debug --devtool eval --display-error",
     "build": "webpack --progress --colors --optimize-minimize"
   },
   "author": "",
@@ -13,6 +13,7 @@
   "dependencies": {
     "babel-loader": "5.3.*",
     "babel-runtime": "^5.8.29",
+    "history": "^1.12.6",
     "lodash": "^3.2.0",
     "react": "^0.14.0",
     "react-router": "^1.0.0-rc3",

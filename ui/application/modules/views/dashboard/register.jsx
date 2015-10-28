@@ -42,9 +42,9 @@ export default React.createClass({
         return (
             <div class="test" key="row">
                 <form onSubmit={this.onSubmit}>
-                    <TextInput name="username" label="Username" value="germain" placeholder="..." />
-                    <TextInput name="password" label="Password" hideInput={true} value="test" placeholder="..." />
-                    <TextInput name="email" label="Email" value="test" placeholder="..." />
+                    <TextInput key="username" name="username" label="Username" value="germain" placeholder="..." />
+                    <TextInput key="password" name="password" label="Password" hideInput={true} value="test" placeholder="..." />
+                    <TextInput key="email" name="email" label="Email" value="test" placeholder="..." />
                     <Submit label="Login" name="login" />
                 </form>
             </div>

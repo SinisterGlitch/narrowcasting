@@ -1,9 +1,7 @@
 'use strict';
 
 import React from 'react';
-import ReactRouter from 'react-router';
-let RouteHandler = ReactRouter.RouteHandler;
-
+import Router from 'react-router';
 import Notification from 'components/layout/notification';
 import Navigation from 'components/layout/navigation';
 
@@ -15,7 +13,7 @@ export default React.createClass({
                 <Navigation />
                 <Notification/>
                 <div className="container">
-                    <RouteHandler />
+                    {this.props.children}
                 </div>
             </div>
         );

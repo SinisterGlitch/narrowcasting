@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import ReactDom from 'react-dom';
-let Routes = require('routes');
+import { render } from 'react-dom';
+import Routes from 'routes';
 
-ReactDom.render(Routes, document.getElementById('container'));
+render(Routes, document.getElementById('container'));
