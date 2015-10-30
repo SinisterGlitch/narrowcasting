@@ -2,7 +2,6 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
 
-
 framework:
     serializer:
         enabled: true
@@ -89,7 +88,17 @@ fos_rest:
 sensio_framework_extra:
     request: { converters: true }
 
-#services:
-#    apikey_authenticator:
-#        class: Bestcasting\Manage\UserBundle\Security\ApiKeyAuthenticator
-#        public: false
+
+# Auth Configuration
+security:
+    firewalls:
+        secured_area:
+            pattern: ^/api
+            stateless: true
+            simple_preauth:
+                authenticator: manage_user_authenticator
+            provider: manage_user_provider
+
+    providers:
+        manage_user_provider:
+            id: manage_user_provider
