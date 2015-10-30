@@ -4,7 +4,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import AuthStore from 'modules/stores/auth';
+import AuthStore from 'components/stores/auth';
 
 export default React.createClass({
 

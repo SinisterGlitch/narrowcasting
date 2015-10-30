@@ -2,7 +2,7 @@
 
 import SuperAgent from 'superagent';
 import NotificationActions from 'components/actions/notification';
-import AuthStore from 'modules/stores/auth';
+import AuthStore from 'components/stores/auth';
 
 export default {
 
@@ -11,9 +11,10 @@ export default {
      * @param {func} callback
      */
     get(url, callback) {
-        SuperAgent.get(url).set('X-API-Key', 'foobar').end(
-            (err, res) => this.responseHandler(res, callback)
-        );
+        SuperAgent
+            .get(url)
+            .set('X-API-Key', AuthStore.getToken())
+            .end((err, res) => this.responseHandler(res, callback));
     },
 
     /**
@@ -22,9 +23,10 @@ export default {
      * @param {func} callback
      */
     post(url, data, callback) {
-        SuperAgent.post(url, data).set('X-API-Key', 'foobar').end(
-            (err, res) => this.responseHandler(res, callback)
-        );
+        SuperAgent
+            .post(url, data)
+            .set('X-API-Key', AuthStore.getToken())
+            .end((err, res) => this.responseHandler(res, callback));
     },
 
     /**
@@ -33,9 +35,10 @@ export default {
      * @param {func} callback
      */
     put(url, data, callback) {
-        SuperAgent.put(url, data).end(
-            (err, res) => this.responseHandler(res, callback)
-        );
+        SuperAgent
+            .put(url, data)
+            .set('X-API-Key', AuthStore.getToken())
+            .end((err, res) => this.responseHandler(res, callback));
     },
 
     /**
@@ -45,9 +48,10 @@ export default {
      */
 
     patch(url, data, callback) {
-        SuperAgent.patch(url, {'data' : data}).end(
-            (err, res) => this.responseHandler(res, callback)
-        );
+        SuperAgent
+            .patch(url, data)
+            .set('X-API-Key', AuthStore.getToken())
+            .end((err, res) => this.responseHandler(res, callback));
     },
 
     /**
@@ -56,9 +60,10 @@ export default {
      * @param {func} callback
      */
     delete(url, data, callback) {
-        SuperAgent.del(url, data).end(
-            (err, res) => this.responseHandler(res, callback)
-        );
+        SuperAgent
+            .del(url, data)
+            .set('X-API-Key', AuthStore.getToken())
+            .end((err, res) => this.responseHandler(res, callback));
     },
 
     /**

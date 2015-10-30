@@ -1,3 +1,7 @@
 manage_user_user:
     type: rest
     resource: "ManageUserBundle:User"
+
+manage_user_auth:
+    type: rest
+    resource: "ManageUserBundle:Auth"

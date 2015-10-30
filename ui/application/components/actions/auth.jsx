@@ -10,11 +10,11 @@ let UserActions = Reflux.createActions({
 });
 
 UserActions.loadUser.listen(
-    data => Request.post('/app_dev.php/api/users/login', {data: data}, UserActions.loadUser)
+        data => Request.post('/app_dev.php/auth', data, UserActions.loadUser)
 );
 
 UserActions.postUser.listen(
-    data => Request.post('/app_dev.php/api/users', {data: data}, UserActions.postUser)
+    data => Request.post('/app_dev.php/users', data, UserActions.postUser)
 );
 
 export default UserActions;

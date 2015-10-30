@@ -2,8 +2,10 @@
 
 import React from 'react';
 import Reflux from 'reflux';
+import _ from 'lodash';
+
 import Storage from 'services/storage';
-import AuthActions from 'modules/actions/auth';
+import AuthActions from 'components/actions/auth';
 
 export default Reflux.createStore({
     listenables: AuthActions,
@@ -20,7 +22,7 @@ export default Reflux.createStore({
     /**
      * @param {Object} user
      */
-    onLoadUser(user) {
+    loadUserCompleted(user) {
         this._user = user;
         Storage.write('user', this._user);
         this.trigger();
@@ -31,6 +33,13 @@ export default Reflux.createStore({
      */
     getUser() {
         return this._user;
+    },
+
+    /**
+     * @return {String}
+     */
+    getToken() {
+        return _.has(this._user, 'token') ? this._user.token : null;
     },
 
     onLogout() {

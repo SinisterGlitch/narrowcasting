@@ -1,6 +1,6 @@
 <?php
 
-namespace Bestcasting\Manage\UserBundle\UserManager;
+namespace Bestcasting\Manage\UserBundle\User;
 
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use FOS\UserBundle\Doctrine\UserManager as FosUserManager;
@@ -36,7 +36,6 @@ class UserManager
      * @param $username
      * @param $password
      * @throws \Exception
-     * @return User
      */
     public function login($username, $password)
     {
@@ -49,8 +48,6 @@ class UserManager
         $user->setToken($this->createToken());
         $this->getEntityManager()->flush($user);
         $this->getLoginManager()->loginUser('main', $user);
-
-        return $user;
     }
 
     /**

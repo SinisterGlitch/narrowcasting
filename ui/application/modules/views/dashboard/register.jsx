@@ -4,8 +4,8 @@ import React from 'react';
 import ReactRouter from 'react-router';
 import Reflux from 'reflux';
 
-import AuthActions from 'modules/actions/auth';
-import UserStore from 'modules/stores/auth';
+import AuthActions from 'components/actions/auth';
+import UserStore from 'components/stores/auth';
 
 import Form from 'services/form';
 import TextInput from 'components/form/text-input';

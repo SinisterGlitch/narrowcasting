@@ -5,8 +5,8 @@ import LinkedStateMixin from 'react/lib/LinkedStateMixin';
 import {Router} from 'react-router';
 import Reflux from 'reflux';
 
-import AuthActions from 'modules/actions/auth';
-import AuthStore from 'modules/stores/auth';
+import AuthActions from 'components/actions/auth';
+import AuthStore from 'components/stores/auth';
 
 import FormMixin from 'mixins/form';
 import TextInput from 'components/form/text-input';
@@ -35,7 +35,6 @@ export default React.createClass({
     },
 
     render(){
-        console.log(this.state.user);
         return (
             <div key="content">
                 <form onSubmit={this.onSubmit}>

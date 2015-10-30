@@ -25,7 +25,7 @@ class UserAuthenticator implements SimplePreAuthenticatorInterface
     public function createToken(Request $request, $providerKey)
     {
         // look for an apikey query parameter
-        $apiKey = $request->query->get('apikey');
+        $apiKey = $request->query->get('X-API-key');
         // $apiKey = $request->headers->get('apikey');
 
         if (!$apiKey) {
