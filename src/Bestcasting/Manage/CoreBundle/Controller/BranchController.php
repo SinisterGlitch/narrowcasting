@@ -51,7 +51,9 @@ class BranchController extends BaseController
      */
     public function postAction(Branch $branch)
     {
-        return $this->getModelManager()->save($branch);
+        $this->saveEntity($branch);
+
+        return $branch;
     }
 
     /**
@@ -66,18 +68,18 @@ class BranchController extends BaseController
      */
     public function putAction(Branch $branch)
     {
-        return $this->getModelManager()->save($branch);
+        $this->saveEntity($branch);
+
+        return $branch;
     }
 
     /**
      * @Delete("/branches")
-     *
      * @param Branch $branch
-     * @return Branch
      */
     public function deleteAction(Branch $branch)
     {
-        return $this->getModelManager()->remove($branch);
+        $this->removeEntity($branch);
     }
 
     /**

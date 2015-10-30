@@ -41,7 +41,7 @@ export default React.createClass({
                         name={this.props.name}
                         key={this.props.name}
                         placeholder={this.props.placeholder}
-                        value={(this.state.value) ? this.state.value : ' '}
+                        checked={this.props.value ? 'checked' : ''}
                         onChange={this.handleChange}
                     />
                 </div>

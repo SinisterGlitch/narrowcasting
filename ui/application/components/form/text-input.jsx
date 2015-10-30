@@ -12,9 +12,9 @@ export default React.createClass({
 
     getDefaultProps() {
         return {
-            placeholder: '',
+            placeholder: '...',
             hideInput: false,
-            value:'',
+            value: '',
             label: '',
             name: ''
         }
@@ -43,7 +43,7 @@ export default React.createClass({
                        value={(this.state.value) ? this.state.value : ' '}
                        onChange={this.handleChange}
                        className="form-control"
-                    />
+                        />
             </div>
         );
     }

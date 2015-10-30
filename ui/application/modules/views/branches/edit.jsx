@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import ReactRouter from 'react-router';
 import Reflux from 'reflux';
 
 import Form from 'services/form';
@@ -15,9 +14,7 @@ import BranchesActions from 'modules/actions/branches';
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(BranchesStore, 'onLoadBranch'),
-        ReactRouter.Navigation,
-        ReactRouter.State
+        Reflux.listenTo(BranchesStore, 'onLoadBranch')
     ],
 
     componentDidMount() {

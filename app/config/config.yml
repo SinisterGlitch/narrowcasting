@@ -89,10 +89,7 @@ fos_rest:
 sensio_framework_extra:
     request: { converters: true }
 
-
-# Services Configuration
-services:
-     get_set_method_normalizer:
-        class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
-        tags:
-           - { name: serializer.normalizer }
+#services:
+#    apikey_authenticator:
+#        class: Bestcasting\Manage\UserBundle\Security\ApiKeyAuthenticator
+#        public: false

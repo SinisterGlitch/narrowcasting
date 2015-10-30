@@ -3,7 +3,6 @@
 namespace Bestcasting\Manage\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
 use JMS\Serializer\Annotation\Groups;
 
 /**

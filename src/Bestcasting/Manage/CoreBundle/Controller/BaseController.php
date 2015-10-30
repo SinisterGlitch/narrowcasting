@@ -3,20 +3,51 @@
 namespace Bestcasting\Manage\CoreBundle\Controller;
 
 use Bestcasting\Manage\CoreBundle\ModelManager\ModelManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\ORM\EntityManager;
+use FOS\RestBundle\Controller\FOSRestController;
 
 /**
  *
  * Class BaseController
  * @package Bestcasting\Manage\CoreBundle\Controller
  */
-abstract class BaseController extends controller
+abstract class BaseController extends FOSRestController
 {
     /**
-     * @return ModelManager
+     * @var EntityManager
      */
-    public function getModelManager()
+    private $entityManager;
+
+    /**
+     * @param  $entity
+     */
+    protected function saveEntity($entity)
     {
-        return $this->get('manage_model_manager');
+        $em = $this->getEntityManager();
+
+        if ($entity->getId()) {
+            $em->merge($entity);
+        } else {
+            $em->persist($entity);
+        }
+
+        $em->flush();
+    }
+
+    /**
+     * @param $entity
+     * @return Object
+     */
+    protected function removeEntity($entity)
+    {
+        $this->getEntityManager()->remove($entity);
+    }
+
+    /**
+     * @return EntityManager
+     */
+    protected function getEntityManager()
+    {
+        return $this->entityManager;
     }
 }

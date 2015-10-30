@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Reflux from 'reflux';
+import _ from 'lodash';
 
 import UserStore from 'modules/stores/user';
 
@@ -26,9 +27,8 @@ export default React.createClass({
     render(){
         return (
             <div key="content">
-                {(this.state.user.id) ? 'Welcome, ' + this.state.user.username : 'login to continue'}
-                <br />
-                {(this.state.user.id) ? <a onClick={UserStore.onLogout}>logoff</a> : ''}
+                <span>Welcome, {this.state.user.username}</span>
+                <a onClick={UserStore.onLogout}>logoff</a>
             </div>
         )
     }

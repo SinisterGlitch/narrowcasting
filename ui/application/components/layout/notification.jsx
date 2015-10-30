@@ -33,8 +33,10 @@ export default React.createClass({
 
     render() {
         return (
-            <div className={this.getClassName()}>
-                {this.getMessage()} <span style={{cursor:'pointer'}} onClick={NotificationActions.hide}>[x]</span>
+            <div onClick={NotificationActions.hide}
+                 style={{cursor:'pointer', display: !(NotificationStore.getStatus()) ? 'none' : 'block'}}
+                 className={this.getClassName()}>
+                    {this.getMessage()}
             </div>
         );
     }
