@@ -24,9 +24,7 @@ class UserAuthenticator implements SimplePreAuthenticatorInterface
      */
     public function createToken(Request $request, $providerKey)
     {
-        // look for an apikey query parameter
-        $apiKey = $request->query->get('X-API-key');
-        // $apiKey = $request->headers->get('apikey');
+        $apiKey = $request->headers->get('x-api-key');
 
         if (!$apiKey) {
             throw new BadCredentialsException('No API key found');
@@ -43,22 +41,15 @@ class UserAuthenticator implements SimplePreAuthenticatorInterface
      */
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {
-        if (!$userProvider instanceof ApiKeyUserProvider) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'The user provider must be an instance of ApiKeyUserProvider (%s was given).',
-                    get_class($userProvider)
-                )
-            );
+        if (!$userProvider instanceof UserProvider) {
+            throw new \InvalidArgumentException('The user provider must be an instance of UserProvider');
         }
 
         $apiKey = $token->getCredentials();
         $username = $userProvider->getUsernameForApiKey($apiKey);
 
         if (!$username) {
-            throw new AuthenticationException(
-                sprintf('API Key "%s" does not exist.', $apiKey)
-            );
+            throw new AuthenticationException('api key does not exist');
         }
 
         $user = $userProvider->loadUserByUsername($username);

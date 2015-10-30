@@ -82,17 +82,26 @@ class UserManager
     }
 
     /**
-     * Get user by id
+     * Get user by token
      *
-     * @param $id
+     * @param string $token
      * @return User
      * @throws \Exception
      */
-    public function getUser($id)
+    public function getUserByToken($token)
     {
-        $user = $this->findUserBy(['id' => $id]);
+        return $this->findUserBy(['token' => $token]);
+    }
 
-        return $user;
+    /**
+     * Get user by token
+     *
+     * @param string $username
+     * @return User
+     */
+    public function getUserByUsername($username)
+    {
+        return $this->findUserBy(['username' => $username]);
     }
 
     /**

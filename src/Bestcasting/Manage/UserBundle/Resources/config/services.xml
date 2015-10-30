@@ -15,7 +15,9 @@
             <argument type="service" id="service_container"/>
         </service>
 
-        <service id="manage_user_authenticator" class="%manage_user_authenticator.class%" />
-        <service id="manage_user_provider" class="%manage_user_provider.class%" />
+        <service id="manage_user_authenticator" class="%manage_user_authenticator.class%"/>
+        <service id="manage_user_provider" class="%manage_user_provider.class%" >
+            <argument type="service" id="manage_user_manager"/>
+        </service>
     </services>
 </container>
