@@ -87,18 +87,3 @@ fos_rest:
 # Sensio Configuration
 sensio_framework_extra:
     request: { converters: true }
-
-
-# Auth Configuration
-security:
-    firewalls:
-        secured_area:
-            pattern: ^/api
-            stateless: true
-            simple_preauth:
-                authenticator: manage_user_authenticator
-            provider: manage_user_provider
-
-    providers:
-        manage_user_provider:
-            id: manage_user_provider

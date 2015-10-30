@@ -3,10 +3,10 @@
 import React from 'react';
 import Reflux from 'reflux';
 import Storage from 'services/storage';
-import UserActions from 'modules/actions/user';
+import AuthActions from 'modules/actions/auth';
 
 export default Reflux.createStore({
-    listenables: UserActions,
+    listenables: AuthActions,
 
     /**
      * @var {Object}

@@ -4,23 +4,23 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import UserStore from 'modules/stores/user';
+import AuthStore from 'modules/stores/auth';
 
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(UserStore, 'onLoadUser')
+        Reflux.listenTo(AuthStore, 'onLoadUser')
     ],
 
     getInitialState() {
         return {
-            user: UserStore.getUser()
+            user: AuthStore.getUser()
         }
     },
 
     onLoadUser() {
         this.setState({
-            user: UserStore.getUser()
+            user: AuthStore.getUser()
         });
     },
 
@@ -28,7 +28,7 @@ export default React.createClass({
         return (
             <div key="content">
                 <span>Welcome, {this.state.user.username}</span>
-                <a onClick={UserStore.onLogout}>logoff</a>
+                <a onClick={AuthStore.onLogout}>logoff</a>
             </div>
         )
     }

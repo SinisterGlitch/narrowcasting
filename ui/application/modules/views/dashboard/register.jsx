@@ -4,8 +4,8 @@ import React from 'react';
 import ReactRouter from 'react-router';
 import Reflux from 'reflux';
 
-import UserActions from 'modules/actions/user';
-import UserStore from 'modules/stores/user';
+import AuthActions from 'modules/actions/auth';
+import UserStore from 'modules/stores/auth';
 
 import Form from 'services/form';
 import TextInput from 'components/form/text-input';
@@ -15,7 +15,7 @@ export default React.createClass({
 
     mixins: [
         ReactRouter.Navigation,
-        Reflux.listenTo(UserActions.postUser.completed, 'onRegister')
+        Reflux.listenTo(AuthActions.postUser.completed, 'onRegister')
     ],
 
     getInitialState() {
@@ -31,7 +31,7 @@ export default React.createClass({
     },
 
     onSubmit(form) {
-        UserActions.postUser(Form.getFormData(form));
+        AuthActions.postUser(Form.getFormData(form));
     },
 
     onRegister() {

@@ -5,8 +5,8 @@ import LinkedStateMixin from 'react/lib/LinkedStateMixin';
 import {Router} from 'react-router';
 import Reflux from 'reflux';
 
-import UserActions from 'modules/actions/user';
-import UserStore from 'modules/stores/user';
+import AuthActions from 'modules/actions/auth';
+import AuthStore from 'modules/stores/auth';
 
 import FormMixin from 'mixins/form';
 import TextInput from 'components/form/text-input';
@@ -15,7 +15,7 @@ import Submit from 'components/form/submit-button';
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(UserActions.loadUser.completed, 'onLogin'),
+        Reflux.listenTo(AuthActions.loadUser.completed, 'onLogin'),
         LinkedStateMixin,
         FormMixin
     ],
@@ -27,7 +27,7 @@ export default React.createClass({
     },
 
     onSubmit(form) {
-        UserActions.loadUser(this.getFormData(form));
+        AuthActions.loadUser(this.getFormData(form));
     },
 
     onLogin() {
