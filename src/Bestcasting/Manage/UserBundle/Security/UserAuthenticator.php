@@ -24,13 +24,13 @@ class UserAuthenticator implements SimplePreAuthenticatorInterface
      */
     public function createToken(Request $request, $providerKey)
     {
-        $apiKey = $request->headers->get('x-api-key');
+        $token = $request->headers->get('x-api-key');
 
-        if (!$apiKey) {
+        if (!$token) {
             throw new BadCredentialsException('No API key found');
         }
 
-        return new PreAuthenticatedToken('anon.', $apiKey, $providerKey);
+        return new PreAuthenticatedToken('anon.', $token, $providerKey);
     }
 
     /**

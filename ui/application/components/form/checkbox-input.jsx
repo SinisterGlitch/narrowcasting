@@ -6,28 +6,18 @@ export default React.createClass({
 
     propTypes: {
         label: React.PropTypes.string,
-        value: React.PropTypes.bool,
-        name: React.PropTypes.string
+        placeholder: React.PropTypes.string,
+        checkedLink: React.PropTypes.shape({
+            value: React.PropTypes.bool,
+            requestChange: React.PropTypes.func.isRequired
+        }).isRequired
     },
 
     getDefaultProps() {
         return {
             placeholder: '',
-            hideInput: false,
-            name: 'test',
-            value: 0,
             label: ''
         }
-    },
-
-    getInitialState() {
-        return {
-            value: this.props.value
-        }
-    },
-
-    handleChange(e) {
-        this.setState({value: e.target.value});
     },
 
     render() {
@@ -37,13 +27,12 @@ export default React.createClass({
                     {this.props.label}
                 </label>
                 <div className="checkbox">
-                    <input type="checkbox"
-                        name={this.props.name}
+                    <input
+                        type="checkbox"
                         key={this.props.name}
                         placeholder={this.props.placeholder}
-                        checked={this.props.value ? 'checked' : ''}
-                        onChange={this.handleChange}
-                    />
+                        checkedLink={this.props.checkedLink}
+                        />
                 </div>
             </div>
         );

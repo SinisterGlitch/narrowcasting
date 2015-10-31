@@ -8,7 +8,6 @@ import Reflux from 'reflux';
 import AuthActions from 'components/actions/auth';
 import AuthStore from 'components/stores/auth';
 
-import FormMixin from 'mixins/form';
 import TextInput from 'components/form/text-input';
 import Submit from 'components/form/submit-button';
 
@@ -16,8 +15,7 @@ export default React.createClass({
 
     mixins: [
         Reflux.listenTo(AuthActions.loadUser.completed, 'onLogin'),
-        LinkedStateMixin,
-        FormMixin
+        LinkedStateMixin
     ],
 
     getInitialState() {
@@ -27,7 +25,7 @@ export default React.createClass({
     },
 
     onSubmit(form) {
-        AuthActions.loadUser(this.getFormData(form));
+        AuthActions.loadUser();
     },
 
     onLogin() {
@@ -37,7 +35,7 @@ export default React.createClass({
     render(){
         return (
             <div key="content">
-                <form onSubmit={this.onSubmit}>
+                <form>
                     <TextInput name="username" label="Username" valueLink={this.linkState('user')} />
                     <TextInput name="password" label="Password" hideInput={true} valueLink={this.linkState('user')} />
                     <Submit label="Login" name="login" />

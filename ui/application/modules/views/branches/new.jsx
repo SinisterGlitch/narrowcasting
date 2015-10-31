@@ -3,7 +3,6 @@
 import React from 'react';
 import Reflux from 'reflux';
 
-import Form from 'services/form';
 import Checkbox from 'components/form/checkbox-input';
 import TextInput from 'components/form/text-input';
 import Submit from 'components/form/submit-button';
@@ -24,7 +23,7 @@ export default React.createClass({
     },
 
     onSubmit(form) {
-        BranchesActions.saveBranches(Form.getFormData(form));
+        BranchesActions.saveBranches();
     },
 
     onSave(data) {

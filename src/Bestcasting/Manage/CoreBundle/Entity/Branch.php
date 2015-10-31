@@ -43,6 +43,8 @@ class Branch
     private $name;
 
     /**
+     * @Groups({"list", "details"})
+     *
      * @ManyToOne(targetEntity="Bestcasting\Manage\UserBundle\Entity\User", inversedBy="branches")
      * @JoinColumn(name="user_id", referencedColumnName="id")
      **/

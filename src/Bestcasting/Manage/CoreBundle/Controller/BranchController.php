@@ -2,6 +2,7 @@
 
 namespace Bestcasting\Manage\CoreBundle\Controller;
 
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Bestcasting\Manage\CoreBundle\Entity\BranchRepository;
 use Bestcasting\Manage\CoreBundle\Entity\Branch;
@@ -10,7 +11,6 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * Class BranchController
@@ -87,14 +87,14 @@ class BranchController extends BaseController
 
     /**
      * @param Branch $branch
-     * @throws BadRequestHttpException
+     * @throws AuthenticationException
      * @return bool
      */
     private function isOwner(Branch $branch)
     {
-        if (!$branch->getUser() === $this->getUser()) {
-            throw new BadRequestHttpException();
-        }
+//        if (!$branch->getUser()->getId() === $this->getUser()->getId()) {
+//            throw new AuthenticationException();
+//        }
 
         return true;
     }

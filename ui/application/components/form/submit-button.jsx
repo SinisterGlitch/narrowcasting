@@ -22,7 +22,7 @@ export default React.createClass({
         return (
             <div>
                 <input {...this.props}
-                    type="submit"
+                    type="button"
                     value={this.props.label}
                     name={this.props.name}
                     key={this.props.name}

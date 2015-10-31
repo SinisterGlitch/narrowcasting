@@ -7,7 +7,6 @@ import Reflux from 'reflux';
 import AuthActions from 'components/actions/auth';
 import UserStore from 'components/stores/auth';
 
-import Form from 'services/form';
 import TextInput from 'components/form/text-input';
 import Submit from 'components/form/submit-button';
 
@@ -31,7 +30,7 @@ export default React.createClass({
     },
 
     onSubmit(form) {
-        AuthActions.postUser(Form.getFormData(form));
+        AuthActions.postUser();
     },
 
     onRegister() {
@@ -41,7 +40,7 @@ export default React.createClass({
     render(){
         return (
             <div class="test" key="row">
-                <form onSubmit={this.onSubmit}>
+                <form>
                     <TextInput key="username" name="username" label="Username" value="germain" placeholder="..." />
                     <TextInput key="password" name="password" label="Password" hideInput={true} value="test" placeholder="..." />
                     <TextInput key="email" name="email" label="Email" value="test" placeholder="..." />

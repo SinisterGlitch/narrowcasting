@@ -3,7 +3,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 
-import Form from 'services/form';
+import FormMixin from 'mixins/form-mixin';
 import TextInput from 'components/form/text-input';
 import Checkbox from 'components/form/checkbox-input';
 import Submit from 'components/form/submit-button';
@@ -14,6 +14,7 @@ import BranchesActions from 'modules/actions/branches';
 export default React.createClass({
 
     mixins: [
+        FormMixin,
         Reflux.listenTo(BranchesStore, 'onLoadBranch')
     ],
 
@@ -23,8 +24,8 @@ export default React.createClass({
 
     getInitialState() {
         return {
-            branch: BranchesStore.getBranch(this.props.params.id)
-        }
+            branch: {}
+        };
     },
 
     onLoadBranch() {
@@ -33,24 +34,17 @@ export default React.createClass({
         });
     },
 
-    onSubmit(form) {
-        BranchesActions.updateBranches(Form.getFormData(form));
+    onSubmit() {
+        BranchesActions.updateBranches(this.state.branch);
     },
 
     render(){
-        if (isNaN(this.state.branch.id)) {
-            return <div>wait</div>
-        }
-
         return (
             <div key="content">
-                <form onSubmit={this.onSubmit}>
-                    <input key="hidden" type="hidden" name="id" value={this.state.branch.id} />
-                    <TextInput key="name" name="name" label="Name" value={this.state.branch.name} />
-                    <Checkbox key="active" name="active" label="Active" value={this.state.branch.active} />
-                    <Submit key="save" label="Save" name="save" />
-                </form>
+                <TextInput name="name" label="Name" valueLink={this.linkState('branch.name')} />
+                <Checkbox name="active" label="Active" checkedLink={this.linkState('branch.active')} />
+                <Submit key="save" label="Save" name="save" onClick={this.onSubmit} />
             </div>
-        )
+        );
     }
 });

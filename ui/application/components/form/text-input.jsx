@@ -6,44 +6,29 @@ export default React.createClass({
 
     propTypes: {
         label: React.PropTypes.string,
-        value: React.PropTypes.string,
-        key: React.PropTypes.string
+        valueLink: React.PropTypes.shape({
+            value: React.PropTypes.string,
+            requestChange: React.PropTypes.func.isRequired
+        }).isRequired
     },
 
     getDefaultProps() {
         return {
-            placeholder: '...',
             hideInput: false,
-            value: '',
-            label: '',
-            name: ''
+            label: ''
         }
-    },
-
-    getInitialState() {
-        return {
-            value: this.props.value
-        }
-    },
-
-    handleChange(e) {
-        this.setState({value: e.target.value});
     },
 
     render() {
         return (
             <div className="form-inline">
-                <label htmlFor={this.props.label}>
-                    {this.props.label}
-                </label>
-                <input type={(this.props.hideInput) ? 'password' : 'text'}
-                       name={this.props.name}
-                       key={this.props.name}
-                       placeholder={this.props.placeholder}
-                       value={(this.state.value) ? this.state.value : ' '}
-                       onChange={this.handleChange}
-                       className="form-control"
-                        />
+                <label htmlFor={this.props.label}>{this.props.label}</label>
+                <input
+                    className="form-control"
+                    valueLink={this.props.valueLink}
+                    defaultValue={this.props.valueLink.value}
+                    type={this.props.hideInput ? 'password' : 'text'}
+                    />
             </div>
         );
     }
