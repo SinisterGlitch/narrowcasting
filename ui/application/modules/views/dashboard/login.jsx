@@ -32,8 +32,10 @@ export default React.createClass({
         return (
             <div className="content">
                 <TextInput label="Username" valueLink={this.linkState('user.username')} />
+                <br/>
                 <TextInput label="Password" hideInput={true} valueLink={this.linkState('user.password')} />
-                <Submit label="Login" name="login" onClick={AuthActions.loadUser.bind(this, this.state.user)} />
+                <br/>
+                <Submit value="login" onClick={AuthActions.loadUser.bind(this, this.state.user)} />
             </div>
         )
     }

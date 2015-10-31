@@ -5,28 +5,19 @@ import React from 'react';
 export default React.createClass({
 
     propTypes: {
-        label: React.PropTypes.string,
-        value: React.PropTypes.string,
-        name: React.PropTypes.string
+        value: React.PropTypes.string.isRequired
     },
 
     getDefaultProps() {
         return {
-            label: 'Submit',
-            value: 'submit',
-            name: ''
+            value: ''
         }
     },
 
     render() {
         return (
             <div>
-                <input {...this.props}
-                    type="button"
-                    value={this.props.label}
-                    name={this.props.name}
-                    key={this.props.name}
-                />
+                <input className="btn btn-default" type="button" {...this.props} />
             </div>
         );
     }

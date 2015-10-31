@@ -21,13 +21,13 @@ export default React.createClass({
 
     render() {
         return (
-            <div className="form-inline">
-                <label htmlFor={this.props.label}>{this.props.label}</label>
+            <div className="input-group">
+                <span className="input-group-addon">{this.props.label}</span>
                 <input
-                    className="form-control"
-                    valueLink={this.props.valueLink}
-                    defaultValue={this.props.valueLink.value}
-                    type={this.props.hideInput ? 'password' : 'text'}
+                       className="form-control"
+                       valueLink={this.props.valueLink}
+                       defaultValue={this.props.valueLink.value}
+                       type={this.props.hideInput ? 'password' : 'text'}
                     />
             </div>
         );

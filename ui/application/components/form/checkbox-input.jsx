@@ -6,7 +6,6 @@ export default React.createClass({
 
     propTypes: {
         label: React.PropTypes.string,
-        placeholder: React.PropTypes.string,
         checkedLink: React.PropTypes.shape({
             value: React.PropTypes.bool,
             requestChange: React.PropTypes.func.isRequired
@@ -15,23 +14,19 @@ export default React.createClass({
 
     getDefaultProps() {
         return {
-            placeholder: '',
             label: ''
         }
     },
 
     render() {
         return (
-            <div className="form-inline">
-                <label htmlFor={this.props.label}>
-                    {this.props.label}
-                </label>
-                <div className="checkbox">
+            <div className="input-group">
+                <span className="input-group-addon">{this.props.label}</span>
+                <div className="form-control">
                     <input
-                        type="checkbox"
-                        key={this.props.name}
-                        placeholder={this.props.placeholder}
                         checkedLink={this.props.checkedLink}
+                        defaultValue={this.props.checkedLink.value}
+                        type="checkbox"
                         />
                 </div>
             </div>

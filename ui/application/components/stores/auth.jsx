@@ -29,6 +29,15 @@ export default Reflux.createStore({
     },
 
     /**
+     * @param {Object} user
+     */
+    unLoadUser(user) {
+        this._user = {};
+        Storage.clear('user');
+        this.trigger();
+    },
+
+    /**
      * @return {Object}
      */
     getUser() {
