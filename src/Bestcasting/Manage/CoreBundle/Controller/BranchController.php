@@ -2,14 +2,15 @@
 
 namespace Bestcasting\Manage\CoreBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Bestcasting\Manage\CoreBundle\Entity\BranchRepository;
 use Bestcasting\Manage\CoreBundle\Entity\Branch;
 use FOS\RestBundle\Controller\Annotations\Delete;
-use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * Class BranchController
@@ -26,7 +27,7 @@ class BranchController extends BaseController
      */
     public function getAction(Branch $branch)
     {
-        return $branch;
+        return $this->isOwner($branch) ? $branch : [];
     }
 
     /**
@@ -68,6 +69,7 @@ class BranchController extends BaseController
      */
     public function putAction(Branch $branch)
     {
+        $this->isOwner($branch);
         $this->saveEntity($branch);
 
         return $branch;
@@ -79,7 +81,22 @@ class BranchController extends BaseController
      */
     public function deleteAction(Branch $branch)
     {
+        $this->isOwner($branch);
         $this->removeEntity($branch);
+    }
+
+    /**
+     * @param Branch $branch
+     * @throws BadRequestHttpException
+     * @return bool
+     */
+    private function isOwner(Branch $branch)
+    {
+        if (!$branch->getUser() === $this->getUser()) {
+            throw new BadRequestHttpException();
+        }
+
+        return true;
     }
 
     /**

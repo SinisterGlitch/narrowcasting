@@ -2,6 +2,7 @@
 
 namespace Bestcasting\Manage\CoreBundle\Entity;
 
+use Bestcasting\Manage\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -196,7 +197,7 @@ class Branch
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getUser()
     {
