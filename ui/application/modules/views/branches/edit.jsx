@@ -41,9 +41,9 @@ export default React.createClass({
     render(){
         return (
             <div key="content">
-                <TextInput name="name" label="Name" valueLink={this.linkState('branch.name')} />
-                <Checkbox name="active" label="Active" checkedLink={this.linkState('branch.active')} />
-                <Submit key="save" label="Save" name="save" onClick={this.onSubmit} />
+                <TextInput label="Name" valueLink={this.linkState('branch.name')} />
+                <Checkbox label="Active" checkedLink={this.linkState('branch.active')} />
+                <Submit label="Save" onClick={this.onSubmit} />
             </div>
         );
     }

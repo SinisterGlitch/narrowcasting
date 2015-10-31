@@ -26,7 +26,7 @@ export default React.createClass({
 
     render(){
         return (
-            <div key="content">
+            <div className="content">
                 <span>Welcome, {this.state.user.username}</span> |
                 <a onClick={AuthStore.onLogout}> logoff</a>
             </div>

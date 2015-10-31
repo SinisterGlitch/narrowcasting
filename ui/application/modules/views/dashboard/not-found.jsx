@@ -6,7 +6,7 @@ export default React.createClass({
 
     render(){
         return (
-            <div key="content">
+            <div className="content">
                Page not found
             </div>
         )

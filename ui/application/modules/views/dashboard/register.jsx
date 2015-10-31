@@ -4,6 +4,7 @@ import React from 'react';
 import ReactRouter from 'react-router';
 import Reflux from 'reflux';
 
+import FormMixin from 'mixins/form-mixin'
 import AuthActions from 'components/actions/auth';
 import UserStore from 'components/stores/auth';
 
@@ -13,8 +14,8 @@ import Submit from 'components/form/submit-button';
 export default React.createClass({
 
     mixins: [
-        ReactRouter.Navigation,
-        Reflux.listenTo(AuthActions.postUser.completed, 'onRegister')
+        Reflux.listenTo(AuthActions.postUser.completed, 'onRegister'),
+        FormMixin
     ],
 
     getInitialState() {
@@ -29,23 +30,17 @@ export default React.createClass({
         });
     },
 
-    onSubmit(form) {
-        AuthActions.postUser();
-    },
-
     onRegister() {
-        this.transitionTo('dashboard-index');
+        this.props.history.pushState('/dashboard');
     },
 
     render(){
         return (
-            <div class="test" key="row">
-                <form>
-                    <TextInput key="username" name="username" label="Username" value="germain" placeholder="..." />
-                    <TextInput key="password" name="password" label="Password" hideInput={true} value="test" placeholder="..." />
-                    <TextInput key="email" name="email" label="Email" value="test" placeholder="..." />
-                    <Submit label="Login" name="login" />
-                </form>
+            <div className="content">
+                <TextInput label="Username" valueLink={this.linkState('user.username')} />
+                <TextInput label="Password" hideInput={true} valueLink={this.linkState('user.password')}  />
+                <TextInput label="Email" valueLink={this.linkState('user.email')} />
+                <Submit label="Login" onClick={AuthActions.postUser.bind(this, this.state.user)} />
             </div>
         )
     }

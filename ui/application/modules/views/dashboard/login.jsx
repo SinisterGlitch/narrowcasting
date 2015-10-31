@@ -24,22 +24,16 @@ export default React.createClass({
         }
     },
 
-    onSubmit(form) {
-        AuthActions.loadUser();
-    },
-
     onLogin() {
         this.props.history.pushState('/dashboard');
     },
 
     render(){
         return (
-            <div key="content">
-                <form>
-                    <TextInput name="username" label="Username" valueLink={this.linkState('user')} />
-                    <TextInput name="password" label="Password" hideInput={true} valueLink={this.linkState('user')} />
-                    <Submit label="Login" name="login" />
-                </form>
+            <div className="content">
+                <TextInput label="Username" valueLink={this.linkState('user.username')} />
+                <TextInput label="Password" hideInput={true} valueLink={this.linkState('user.password')} />
+                <Submit label="Login" name="login" onClick={AuthActions.loadUser.bind(this, this.state.user)} />
             </div>
         )
     }
