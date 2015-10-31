@@ -25,7 +25,7 @@ class BranchController extends BaseController
      * @param Branch $branch
      * @return Branch
      */
-    public function getAction(Branch $branch)
+    public function getBranchAction(Branch $branch)
     {
         return $this->isOwner($branch) ? $branch : [];
     }
@@ -35,39 +35,33 @@ class BranchController extends BaseController
      * @View(serializerGroups={"list"})
      * @return Branch[]
      */
-    public function getCollectionAction()
+    public function getBranchCollectionAction()
     {
         return $this->getBranchRepository()->getCollection($this->getUser());
     }
 
     /**
      * @Post("/branches")
-     * @ParamConverter("branch",
-     *      converter="fos_rest.request_body",
-     *      options={"deserializationContext"={"groups"={"details"}}}
-     * )
+     * @ParamConverter("branch", converter="fos_rest.request_body")
      *
      * @param Branch $branch
      * @return Branch
      */
-    public function postAction(Branch $branch)
+    public function postBranchAction(Branch $branch)
     {
-        $this->saveEntity($branch);
+        $this->saveEntity($branch->setUser($this->getUser()));
 
         return $branch;
     }
 
     /**
      * @Put("/branches")
-     * @ParamConverter("branch",
-     *      converter="fos_rest.request_body",
-     *      options={"deserializationContext"={"groups"={"details"}}}
-     * )
+     * @ParamConverter("branch", converter="fos_rest.request_body")
      *
      * @param Branch $branch
      * @return Branch
      */
-    public function putAction(Branch $branch)
+    public function putBranchAction(Branch $branch)
     {
         $this->isOwner($branch);
         $this->saveEntity($branch);
@@ -79,7 +73,7 @@ class BranchController extends BaseController
      * @Delete("/branches")
      * @param Branch $branch
      */
-    public function deleteAction(Branch $branch)
+    public function deleteBranchAction(Branch $branch)
     {
         $this->isOwner($branch);
         $this->removeEntity($branch);
@@ -92,9 +86,9 @@ class BranchController extends BaseController
      */
     private function isOwner(Branch $branch)
     {
-//        if (!$branch->getUser()->getId() === $this->getUser()->getId()) {
-//            throw new AuthenticationException();
-//        }
+        if (!$branch->getUser()->getId() === $this->getUser()->getId()) {
+            throw new AuthenticationException();
+        }
 
         return true;
     }
