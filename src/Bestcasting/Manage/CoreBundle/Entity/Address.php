@@ -30,7 +30,7 @@ class Address
      * @var Branch
      * @Groups({"details"})
      *
-     * @ORM\OneToOne(targetEntity="Branch")
+     * @ORM\OneToOne(targetEntity="Branch", inversedBy="address")
      * @JoinColumn(name="branch_id", referencedColumnName="id")
      **/
     private $branch;
