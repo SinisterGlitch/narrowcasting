@@ -5,9 +5,8 @@ import Reflux from 'reflux';
 import Request from 'services/request';
 
 let UserActions = Reflux.createActions({
-    loadUser: {children: ['completed','failed']},
-    unLoadUser: {children: ['completed','failed']},
-    postUser: {children: ['completed','failed']}
+    loadUser:   {children: ['completed','failed']},
+    postUser:   {children: ['completed','failed']},
 });
 
 UserActions.loadUser.listen(

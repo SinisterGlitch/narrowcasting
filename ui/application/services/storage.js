@@ -14,7 +14,7 @@ export default {
 
     clear(key) {
         if (typeof localStorage === 'object') {
-            localStorage.setItem(key, undefined);
+            localStorage.removeItem(key);
         }
     },
 

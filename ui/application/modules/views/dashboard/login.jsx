@@ -1,10 +1,9 @@
 'use strict';
 
 import React from 'react';
-import LinkedStateMixin from 'react/lib/LinkedStateMixin';
-import {Router} from 'react-router';
 import Reflux from 'reflux';
 
+import FormMixin from 'mixins/form-mixin'
 import AuthActions from 'components/actions/auth';
 import AuthStore from 'components/stores/auth';
 
@@ -14,8 +13,8 @@ import Submit from 'components/form/submit-button';
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(AuthActions.loadUser.completed, 'onLogin'),
-        LinkedStateMixin
+        Reflux.listenTo(AuthActions.loadUser, 'onLogin'),
+        FormMixin
     ],
 
     getInitialState() {

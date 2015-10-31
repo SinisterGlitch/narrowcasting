@@ -11,7 +11,7 @@ export default React.createClass({
 
     mixins: [
         Reflux.listenTo(AuthStore, 'onLoadUser'),
-        Reflux.listenTo(AuthActions.unLoadUser.completed, 'onLogoff')
+        Reflux.listenTo(AuthActions.unLoadUser, 'onLogoff')
     ],
 
     getInitialState() {

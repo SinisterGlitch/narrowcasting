@@ -75,6 +75,6 @@ export default {
             ? callback.completed(response.body)
             : callback.failed(response.text);
 
-        //NotificationActions.show(response.status);
+        NotificationActions.show(response.status);
     }
 };
