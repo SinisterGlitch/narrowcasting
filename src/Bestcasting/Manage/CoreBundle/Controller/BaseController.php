@@ -2,21 +2,24 @@
 
 namespace Bestcasting\Manage\CoreBundle\Controller;
 
-use Bestcasting\Manage\CoreBundle\ModelManager\ModelManager;
+use Bestcasting\Manage\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
-use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  *
  * Class BaseController
  * @package Bestcasting\Manage\CoreBundle\Controller
  */
-abstract class BaseController extends FOSRestController
+abstract class BaseController extends Controller
 {
     /**
-     * @var EntityManager
+     * @return User
      */
-    private $entityManager;
+    public function getUser()
+    {
+        return parent::getUser();
+    }
 
     /**
      * @param  $entity
@@ -48,6 +51,6 @@ abstract class BaseController extends FOSRestController
      */
     protected function getEntityManager()
     {
-        return $this->entityManager;
+        return $this->getDoctrine()->getManager();
     }
 }

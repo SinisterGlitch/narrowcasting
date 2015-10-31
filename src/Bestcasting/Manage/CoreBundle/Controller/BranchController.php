@@ -36,7 +36,7 @@ class BranchController extends BaseController
      */
     public function getCollectionAction()
     {
-        return $this->getBranchRepository()->getCollection();
+        return $this->getBranchRepository()->getCollection($this->getUser());
     }
 
     /**

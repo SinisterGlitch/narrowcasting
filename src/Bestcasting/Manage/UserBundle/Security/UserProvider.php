@@ -28,12 +28,12 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
-     * @param string $apiKey
+     * @param string $token
      * @return string
      */
-    public function getUsernameForApiKey($apiKey)
+    public function getUsernameByToken($token)
     {
-       $user = $this->userManager->getUserByToken($apiKey);
+       $user = $this->userManager->getUserByToken($token);
 
         return $user instanceof User ? $user->getUsername() : '';
     }

@@ -45,8 +45,8 @@ class UserAuthenticator implements SimplePreAuthenticatorInterface
             throw new \InvalidArgumentException('The user provider must be an instance of UserProvider');
         }
 
-        $apiKey = $token->getCredentials();
-        $username = $userProvider->getUsernameForApiKey($apiKey);
+        $token = $token->getCredentials();
+        $username = $userProvider->getUsernameByToken($token);
 
         if (!$username) {
             throw new AuthenticationException('api key does not exist');
@@ -56,7 +56,7 @@ class UserAuthenticator implements SimplePreAuthenticatorInterface
 
         return new PreAuthenticatedToken(
             $user,
-            $apiKey,
+            $token,
             $providerKey,
             $user->getRoles()
         );

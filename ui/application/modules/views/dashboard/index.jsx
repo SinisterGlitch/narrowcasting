@@ -27,8 +27,8 @@ export default React.createClass({
     render(){
         return (
             <div key="content">
-                <span>Welcome, {this.state.user.username}</span>
-                <a onClick={AuthStore.onLogout}>logoff</a>
+                <span>Welcome, {this.state.user.username}</span> |
+                <a onClick={AuthStore.onLogout}> logoff</a>
             </div>
         )
     }

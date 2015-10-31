@@ -3,6 +3,8 @@
 namespace Bestcasting\Manage\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 use JMS\Serializer\Annotation\Groups;
 
 /**
@@ -38,6 +40,12 @@ class Branch
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ManyToOne(targetEntity="Bestcasting\Manage\UserBundle\Entity\User", inversedBy="branches")
+     * @JoinColumn(name="user_id", referencedColumnName="id")
+     **/
+    private $user;
 
     /**
      * @var \DateTime
@@ -185,6 +193,25 @@ class Branch
     public function setAddress(Address $address)
     {
         $this->address = $address;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     * @return $this
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
     /**

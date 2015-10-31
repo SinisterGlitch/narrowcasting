@@ -2,6 +2,7 @@
 
 namespace Bestcasting\Manage\CoreBundle\Entity;
 
+use Bestcasting\Manage\UserBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,16 +13,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class BranchRepository extends EntityRepository
 {
-    public function test($test)
+    /**
+     * @param $id
+     * @return Branch
+     */
+    public function getBranchById($id)
     {
-        return $this->find(1);
+        return $this->find($id);
     }
 
     /**
-     * @return array
+     * @param User $user
+     * @return Branch[]
      */
-    public function getCollection()
+    public function getCollection(User $user)
     {
-        return $this->findBy(['active' => 1]);
+        return $this->findBy(['active' => 1, 'user' => $user]);
     }
 }

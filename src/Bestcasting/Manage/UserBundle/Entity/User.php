@@ -2,7 +2,10 @@
 
 namespace Bestcasting\Manage\UserBundle\Entity;
 
+use Bestcasting\Manage\CoreBundle\Entity\Branch;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
 use FOS\UserBundle\Model\User as BaseUser;
 
 /**
@@ -26,10 +29,17 @@ class User extends BaseUser
     protected $token;
 
     /**
+     * @var Branch[]
+     * @OneToMany(targetEntity="Bestcasting\Manage\CoreBundle\Entity\Branch", mappedBy="user")
+     **/
+    private $branches;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
+        $this->branches = new ArrayCollection();
         parent::__construct();
     }
 
@@ -47,5 +57,32 @@ class User extends BaseUser
     public function setToken($token)
     {
         $this->token = $token;
+    }
+
+    /**
+     * @return Branch
+     */
+    public function getBranches()
+    {
+        return $this->branches;
+    }
+
+    /**
+     * @param Branch $branch
+     * @return $this
+     */
+    public function addBranch(Branch $branch)
+    {
+        $this->branches->add($branch);
+
+        return $this;
+    }
+
+    /**
+     * @param Branch $branch
+     */
+    public function removeBranch(Branch $branch)
+    {
+        $this->branches->remove($branch);
     }
 }

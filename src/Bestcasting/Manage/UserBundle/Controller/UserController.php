@@ -34,14 +34,12 @@ class UserController extends BaseController
      */
     public function postUserAction(Request $request)
     {
-        $formData = $request->get('data');
-
         try {
             $user = $this->getUserManager()->create(
-                    $formData['username'],
-                    $formData['password'],
-                    $formData['email']
-                );
+                $request->get('username'),
+                $request->get('password'),
+                $request->get('email')
+            );
 
         } catch (\Exception $e) {
             throw new BadRequestHttpException($e->getMessage());
