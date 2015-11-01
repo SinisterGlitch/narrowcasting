@@ -24,7 +24,7 @@ export default React.createClass({
     },
 
     onLogin() {
-        this.props.history.pushState('/dashboard');
+        this.props.history.pushState(null, '/dashboard');
     },
 
     render(){

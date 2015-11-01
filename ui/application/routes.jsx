@@ -19,14 +19,14 @@ import branchesListView from 'modules/views/branches/list';
 import branchesDetailView from 'modules/views/branches/detail';
 import branchesEditView from 'modules/views/branches/edit';
 import branchesNewView from 'modules/views/branches/new';
+import AuthStore from 'components/stores/auth';
 
 export default (
     <Router history={history}>
         <Route component={App} path="/">
-            <Route component={dashboardIndexView} path="dashboard" />
             <Route component={dashboardLoginView} path="dashboard/login" />
+            <Route component={dashboardIndexView} path="dashboard" />
             <Route component={dashboardRegisterView} path="dashboard/register" />
-
             <Route component={branchesListView} path="branches" />
             <Route component={branchesDetailView} path="branches/detail/:id" />
             <Route component={branchesEditView} path="branches/edit/:id" />
